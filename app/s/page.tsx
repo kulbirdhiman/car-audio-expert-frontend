@@ -1,112 +1,125 @@
-import Image from "next/image";
-const items = [
-  { id: 1, title: 'Car Stereo with SatNav for AUDI A4 2009 – 2015 | Version 6 | 9inch 2G Low', description: 'This is the first item.', price: '$99', image: '/1740980989367_15.webp' },
-  { id: 2, title: 'Item Two', description: 'This is the second item.', price: '$149', image: '/1740980989367_15.webp' },
-  { id: 3, title: 'Item Three', description: 'This is the third item.', price: '$199', image: '/1740980989367_15.webp' },
-  { id: 4, title: 'Item Four', description: 'This is the fourth item.', price: '$249', image: '/1740980989367_15.webp' },
-  { id: 5, title: 'Item Five', description: 'This is the fifth item.', price: '$299', image: '/1740980989367_15.webp' },
-  { id: 6, title: 'Item Six', description: 'This is the sixth item.', price: '$349', image: '/1740980989367_15.webp' },
-];
+"use client"
+import { useState } from 'react';
+import Image from 'next/image';
 
-export default function UniqueCardGrid() {
+const product = {
+  name: 'Car Stereo with SatNav For Mercedes Vito 2014-2020 | V6 | 9 Inch',
+  price: 1465.0,
+  images: [
+    '/images/product1.jpg',
+    '/images/product2.jpg',
+    '/images/product3.jpg',
+    '/images/product4.jpg',
+  ],
+  options: ['Activate Factory Amp', 'Activate Subwoofer'],
+  addons: [
+    { name: 'Kayhan 360° Camera Kit (V6)', price: 199 },
+    { name: 'Regular HD DashCam', price: 95 },
+    { name: 'HD Reversing Camera', price: 75 },
+  ],
+};
+
+export default function ProductDetail() {
+  const [activeImage, setActiveImage] = useState(product.images[0]);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [addons, setAddons] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+
+  const toggleAddon = (name) => {
+    setAddons((prev) =>
+      prev.includes(name) ? prev.filter((a) => a !== name) : [...prev, name]
+    );
+  };
+
   return (
-    <div className="w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-8 bg-gray-100 ">
-
-       <div>
-       <div 
-          className="relative rounded-xl my-2 overflow-hidden shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group h-80"
-        >
-          {/* Background Image */}
-          <Image src="/1740980989367_15.webp" alt="{item.title}" height={200} width={300} className="absolute inset-0 w-full h-full object-cover" />
-
-          {/* Black Overlay for better visibility */}
-          {/* <div className="absolute inset-0 bg-gray-200 bg-opacity-10"></div> */}
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-
-          {/* Content Layer */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 z-10">
-            <h3 className="text-2xl font-bold line-clamp-2 w-[70%] text-center">hello</h3>
-            <p className="text-lg font-semibold mt-1">price :555</p>
-            {/* <p className="text-sm mt-1 text-gray-200 text-center">{item.description}</p> */}
-            <button className="mt-4 group-hover:opacity-100 opacity-0 px-6 py-3 bg-blue-500 rounded-lg text-sm font-medium hover:bg-blue-600 transition-all shadow-lg">Buy Now</button>
+    <section className="bg-white min-h-screen py-10 px-4">
+      <div className="max-w-screen-xl mx-auto grid md:grid-cols-12 gap-10">
+        {/* Left Side: Images */}
+        <div className="md:col-span-6 flex flex-col gap-4">
+          <div className="relative aspect-square w-full border rounded-xl overflow-hidden">
+            <Image
+              src={activeImage}
+              alt="product"
+              fill
+              className="object-cover hover:scale-105 transition-transform"
+            />
+          </div>
+          <div className="flex gap-3 justify-center">
+            {product.images.map((img, i) => (
+              <div
+                key={i}
+                className={`w-20 h-20 border-2 rounded-lg overflow-hidden cursor-pointer ${activeImage === img ? 'border-blue-600' : 'border-gray-200'}`}
+                onClick={() => setActiveImage(img)}
+              >
+                <Image src={img} alt={`thumb-${i}`} width={80} height={80} className="object-cover w-full h-full" />
+              </div>
+            ))}
           </div>
         </div>
-        <div 
-          className="relative rounded-xl my-2 overflow-hidden shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group h-80"
-        >
-          {/* Background Image */}
-          <Image src="/1740980989367_15.webp" alt="{item.title}" height={200} width={300} className="absolute inset-0 w-full h-full object-cover" />
 
-          {/* Black Overlay for better visibility */}
-          {/* <div className="absolute inset-0 bg-gray-200 bg-opacity-10"></div> */}
-          <div className="absolute inset-0 bg-black opacity-50"></div>
+        {/* Right Side: Details */}
+        <div className="md:col-span-6 flex flex-col gap-6">
+          <h2 className="text-3xl font-bold text-gray-800 leading-snug">{product.name}</h2>
+          <p className="text-2xl font-semibold text-blue-600">${product.price.toFixed(2)}</p>
 
-          {/* Content Layer */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 z-10">
-            <h3 className="text-2xl font-bold line-clamp-2 w-[70%] text-center">hello</h3>
-            <p className="text-lg font-semibold mt-1">price :555</p>
-            {/* <p className="text-sm mt-1 text-gray-200 text-center">{item.description}</p> */}
-            <button className="mt-4 group-hover:opacity-100 opacity-0 px-6 py-3 bg-blue-500 rounded-lg text-sm font-medium hover:bg-blue-600 transition-all shadow-lg">Buy Now</button>
+          <div>
+            <label className="block font-medium text-gray-700 mb-1">Choose Option</label>
+            <select
+              className="w-full border px-4 py-2 rounded-md focus:ring focus:ring-blue-300"
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
+            >
+              <option value="">Select option to activate factory Amp or Sub</option>
+              {product.options.map((opt, i) => (
+                <option key={i} value={opt}>{opt}</option>
+              ))}
+            </select>
           </div>
-        </div>
-       </div>
-      <div>
-      <div 
-          className="relative rounded-xl my-2 overflow-hidden shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group h-full"
-        >
-          {/* Background Image */}
-          <Image src="/1740980989367_15.webp" alt="{item.title}" height={200} width={300} className="absolute inset-0 w-full h-full object-cover" />
 
-          {/* Black Overlay for better visibility */}
-          {/* <div className="absolute inset-0 bg-gray-200 bg-opacity-10"></div> */}
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-
-          {/* Content Layer */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 z-10">
-            <h3 className="text-2xl font-bold line-clamp-2 w-[70%] text-center">hello</h3>
-            <p className="text-lg font-semibold mt-1">price :555</p>
-            {/* <p className="text-sm mt-1 text-gray-200 text-center">{item.description}</p> */}
-            <button className="mt-4 group-hover:opacity-100 opacity-0 px-6 py-3 bg-blue-500 rounded-lg text-sm font-medium hover:bg-blue-600 transition-all shadow-lg">Buy Now</button>
+          <div>
+            <p className="font-semibold text-gray-800 mb-2">Add-Ons</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {product.addons.map((addon, i) => (
+                <label
+                  key={i}
+                  className="flex items-center gap-3 p-4 border rounded-lg hover:shadow-sm cursor-pointer"
+                >
+                  <input
+                    type="checkbox"
+                    checked={addons.includes(addon.name)}
+                    onChange={() => toggleAddon(addon.name)}
+                  />
+                  <div>
+                    <p className="text-sm font-medium text-gray-700">{addon.name}</p>
+                    <p className="text-green-600 text-sm font-semibold">+${addon.price}</p>
+                  </div>
+                </label>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
-      <div>
-      <div 
-          className="relative rounded-xl my-2 overflow-hidden shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group h-80"
-        >
-          {/* Background Image */}
-          <Image src="/1740980989367_15.webp" alt="{item.title}" height={200} width={300} className="absolute inset-0 w-full h-full object-cover" />
 
-          {/* Black Overlay for better visibility */}
-          {/* <div className="absolute inset-0 bg-gray-200 bg-opacity-10"></div> */}
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-
-          {/* Content Layer */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 z-10">
-            <h3 className="text-2xl font-bold line-clamp-2 w-[70%] text-center">hello</h3>
-            <p className="text-lg font-semibold mt-1">price :555</p>
-            {/* <p className="text-sm mt-1 text-gray-200 text-center">{item.description}</p> */}
-            <button className="mt-4 group-hover:opacity-100 opacity-0 px-6 py-3 bg-blue-500 rounded-lg text-sm font-medium hover:bg-blue-600 transition-all shadow-lg">Buy Now</button>
+          <div className="flex items-center gap-4">
+            <label className="font-medium text-gray-700">Quantity</label>
+            <div className="flex items-center border rounded-md overflow-hidden">
+              <button
+                className="px-4 py-2 text-xl font-bold text-gray-600 hover:bg-gray-100"
+                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              >-
+              </button>
+              <span className="px-5 text-lg">{quantity}</span>
+              <button
+                className="px-4 py-2 text-xl font-bold text-gray-600 hover:bg-gray-100"
+                onClick={() => setQuantity((q) => q + 1)}
+              >+
+              </button>
+            </div>
           </div>
-        </div> <div 
-          className="relative rounded-xl my-2 overflow-hidden shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group h-80"
-        >
-          {/* Background Image */}
-          <Image src="/1740980989367_15.webp" alt="{item.title}" height={200} width={300} className="absolute inset-0 w-full h-full object-cover" />
 
-          {/* Black Overlay for better visibility */}
-          {/* <div className="absolute inset-0 bg-gray-200 bg-opacity-10"></div> */}
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-
-          {/* Content Layer */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 z-10">
-            <h3 className="text-2xl font-bold line-clamp-2 w-[70%] text-center">hello</h3>
-            <p className="text-lg font-semibold mt-1">price :555</p>
-            {/* <p className="text-sm mt-1 text-gray-200 text-center">{item.description}</p> */}
-            <button className="mt-4 group-hover:opacity-100 opacity-0 px-6 py-3 bg-blue-500 rounded-lg text-sm font-medium hover:bg-blue-600 transition-all shadow-lg">Buy Now</button>
-          </div>
+          <button className="mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold text-lg hover:opacity-90 transition">
+            Add to Cart
+          </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
