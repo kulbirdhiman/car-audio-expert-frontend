@@ -1,12 +1,26 @@
-import React from "react";
+import React from 'react';
+import ImageSlider from './ImageSlider';
+import Image from 'next/image';
+import sideImage from '@/public/mian-sideimage.png';
 
 const HeroSection = () => {
   return (
-    <div
-      className="h-[300px] sm:h-[360px] md:h-[400px] lg:h-[500px] w-full mx-auto rounded-4xl mt-7  bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: "url('/pexels-albinberlin-919073.jpg')" }} // Replace with your image path
-    >
-      <h1 className="text-white text-lg sm:text-xl md:3xl lg:text-3xl xl:text-6xl font-stretch-95% font-bol">WELCOME TO car Audio Expert</h1>
+    <div className="w-10/12 mx-auto flex flex-col md:flex-row p-3 gap-4">
+      <div className="w-full md:w-[70%]">
+        <ImageSlider />
+      </div>
+      <div className="w-full md:w-[30%] flex flex-col gap-4">
+        <Image
+          src={sideImage}
+          alt="this is side image"
+          className="w-full h-[200px] object-cover "
+        />
+        <Image
+          src={sideImage}
+          alt="this is side image"
+          className="w-full h-[200px] object-cover "
+        />
+      </div>
     </div>
   );
 };

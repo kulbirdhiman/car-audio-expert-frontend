@@ -1,65 +1,38 @@
-import Image from "next/image";
-import React from "react";
-import { FaCcPaypal } from "react-icons/fa";
-import { SiApplepay, SiGooglepay, SiStripe } from "react-icons/si";
+// components/ProductCard.tsx
 
-interface Product {
-  id: number;
-  name: string;
+const ProductCard = ({
+  image,
+  smallTitle,
+  title,
+  price,
+  stock,
+}: {
   image: string;
+  smallTitle: string;
+  title: string;
   price: number;
-  inStock: boolean;
-  paymentMethods: string[];
-}
-
-interface CardProps {
-  product: Product; 
-}
-
-const Card: React.FC<CardProps> = ({ product }) => {
+  stock: string;
+}) => {
   return (
-    <div className="text-black mt-4 max-w-[400px]">
-      <Image
-        className="w-full h-[150px] sm:h-[280px] object-cover"
-        src={product.image} // Use product.image
-        alt={product.name}
-        width={400} // Adjust width
-        height={280} // Adjust height
+    <div className="border border-gray-300  p- shadow-sm hover:shadow-md transition">
+      <img
+        src={image}
+        alt={title}
+        className="w-full h-48 object-contai"
       />
-      <div className="p-2 bg-gray-200">
-        <p className="text-sm my-1 text-gray-600 line-clamp-1">{product.name}</p>
-        <h2 className="mb-2 font-stretch-90% text-xl line-clamp-1 font-semibold">
-          {product.name}
+      <div className="p-3">
+        <div className="text-xs text-gray-500">{smallTitle}</div>
+        <h2 className="font-semibold line-clamp-1 text-base text-gray-800 mb-1">
+          {title}
         </h2>
-        <div className="flex gap-2 text-base sm:text-lg">
-          {product.paymentMethods.includes("paypal") && (
-            <FaCcPaypal className="text-blue-400" />
-          )}
-          {product.paymentMethods.includes("stripe") && (
-            <SiStripe className="text-purple-500" />
-          )}
-          {product.paymentMethods.includes("googlepay") && (
-            <SiGooglepay className="text-gray-800" />
-          )}
-          {product.paymentMethods.includes("applepay") && (
-            <SiApplepay className="text-black" />
-          )}
-        </div>
-        <h3 className="font-bold">{product.inStock ? "In stock" : "Out of stock"}</h3>
-        <p className="text-lg">
-          <span className="font-bold">Price</span>: ${product.price}
-        </p>
-        <button
-          className={`text-white px-7 my-2 py-2 rounded-full ${
-            product.inStock ? "bg-orange-500" : "bg-gray-400 cursor-not-allowed"
-          }`}
-          disabled={!product.inStock}
-        >
-          {product.inStock ? "Buy Now" : "Sold Out"}
+        <div className="text-lg font-bold text-black mb-1">${price}</div>
+        <div className="text-sm text-pink-600 font-semibold mb-4">{stock}</div>
+        <button className="px-4 py-2 text-sm border rounded-full text-purple-600 border-purple-600 hover:bg-purple-50 transition">
+          Buy now
         </button>
       </div>
     </div>
   );
 };
 
-export default Card;
+export default ProductCard;

@@ -14,9 +14,10 @@ type TabComponentProps = {
   no_title?: boolean; 
   buttonClass?: string
   TabClass?:string
+  TabComponentClass?:string
 };
 
-const TabComponent: React.FC<TabComponentProps> = ({ tabs,no_title,title,buttonClass ,TabClass}) => {
+const TabComponent: React.FC<TabComponentProps> = ({ tabs,no_title,title,buttonClass ,TabClass,TabComponentClass}) => {
   const [activeTab, setActiveTab] = useState<number>(tabs[0]?.id || 1); 
 
   const handleTabClick = (id: number) => {
@@ -25,7 +26,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs,no_title,title,buttonC
 
   return (
     <div className="tabs-container dark:bg-white   dark:text-black">
-     {!no_title&&
+    <div className={TabComponentClass ?TabComponentClass : ""}>
+    {!no_title&&
       <h1
     
       className="my-4 text-center text-3xl  font-bo "
@@ -49,14 +51,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ tabs,no_title,title,buttonC
           </button>
         ))}
       </div>
+    </div>
 
-      {/* <div className="tab-content mt-4">
-        {tabs.map((tab) => (
-          <div key={tab.id} className={activeTab === tab.id ? "block" : "hidden"}>
-            {tab.content}
-          </div>
-        ))}
-      </div> */}
       <div className="relative w-full overflow-hidden">
         <div
           className="flex transition-transform duration-500 ease-in-out"

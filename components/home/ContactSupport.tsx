@@ -1,11 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import DynamicForm, { FormField } from "../globals/DynamicForm";
-// import { contactSupport } from "@/store/actions/home";
-// import { useDispatch } from "react-redux";
-// import { mapServerErrors } from "@/helpers/commonFunction";
-// import { AppDispatch } from "@/store/store";
-
 interface ContactSupportProps {
   containerClass?: string;
   innerDivClass?: string;
@@ -21,7 +16,6 @@ const ContactSupport:React.FC<ContactSupportProps> = ({containerClass,innerDivCl
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-//   const dispatch = useDispatch<AppDispatch>();
 
   const formFields: FormField[] = [
    

@@ -1,19 +1,25 @@
 import React from 'react'
-import HeroSection from '@/components/home/HeroSection'
-import Department from '@/components/home/Department'
+import HeroSection from '../components/home/HeroSection'
+import WhatWeOffer from '@/components/home/WhatWeOffer'
+import SteeringMatchFinder from '@/components/home/SterringWheel'
 import Accessories from '@/components/home/Accessories'
-import SteeringWheelSection from '@/components/home/SteeringWheelSection'
-import LightingSection from '@/components/home/LightingSection'
-import ContactSupport from '@/components/home/ContactSupport'
+import AudioSection from '@/components/home/AudioSection'
+import NewArrivals from '@/components/home/newArrivals'
 const page = () => {
   return (
-    <div className='w-11/12 mx-auto'>
-      <HeroSection />
-      <Department />
+    <div>
+      <div>
+        <HeroSection />
+      </div>
+      <div>
+        <WhatWeOffer />
+      </div>
+      <div>
+      <SteeringMatchFinder />
+      </div>
       <Accessories />
-      <SteeringWheelSection />
-      <LightingSection />
-      <ContactSupport />
+      <AudioSection />
+      <NewArrivals />
     </div>
   )
 }
