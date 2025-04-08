@@ -33,7 +33,7 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen,departments }) => {
           <a href="mailto:info@kayhanaudio.com.au" className="hover:text-gray-600"> info@kayhanaudio.com.au</a>
           <a href="tel:+611300696488" className="hover:text-gray-600">+61 1300 696 488</a>
         </div> */}
-        <h4>Welcome to Kayhan Audio</h4>
+        <h4>Welcome to car audio expert</h4>
         <div className="flex gap-4">
           <Link href="/about" className="hover:text-gray-600">About Us</Link>
           <Link href="/support" className="hover:text-gray-600">Support</Link>
@@ -46,7 +46,7 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen,departments }) => {
           {/* Logo */}
           <Link href="/" className="text-xl font-bold">
             <Image
-              src="/logo.webp"
+              src="/CAR-AUDIO-EXPERT.png"
               alt="Logo"
               width={120}
               height={75}

@@ -10,9 +10,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex">
-          <aside className="w-72">{sidebar}</aside> {/* Sidebar section */}
-          <main className="flex-1">{children}</main> {/* Main content section */}
+        <div className="">
+          {/* <aside className="w-72">{sidebar}</aside>  */}
+          <main className="flex-1">{children}</main> 
         </div>
       </body>
     </html>

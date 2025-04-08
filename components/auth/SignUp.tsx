@@ -83,7 +83,7 @@ const SignUp: React.FC = () => {
             <label className="block text-lg font-medium mb-1">Select Country</label>
             <CountrySelect
               inputClassName="w-full h-8 mt- bg-transparent text-gray-900 border-none focus:outline-none"
-              onChange={(e) => {
+              onChange={(e:any) => {
                 setValues((prevValues) => ({
                   ...prevValues,
                   country: {

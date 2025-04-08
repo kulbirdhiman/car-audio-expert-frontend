@@ -90,7 +90,7 @@ export default function AdminSidebar() {
               </button>
               <Link href="/" className="flex ml-2 md:mr-24">
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white">
-                  Kayhan Audio
+                    Car audio expert
                 </span>
               </Link>
             </div>

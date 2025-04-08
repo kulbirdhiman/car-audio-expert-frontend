@@ -1,6 +1,6 @@
 import { HeartIcon } from "lucide-react";
 import AddOnSkeleton from "./AddOnSkeleton";
-import TabComponent from "../skeleton/TabComponentSkelton";
+// import TabComponent from "../skeleton/TabComponentSkelton";
 export const ProductDetailSkeleton = () => {
   return (
     <div className=" animate-pulse">
@@ -25,7 +25,7 @@ export const ProductDetailSkeleton = () => {
        
       </div>
       <div className="mt-10">
-         <TabComponent />
+         {/* <TabComponent /> */}
          </div>
          <div className="h-[300vh] w-full bg-gray-300 rounded"></div>
 
