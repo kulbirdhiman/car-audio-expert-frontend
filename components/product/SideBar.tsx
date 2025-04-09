@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import { Search, XCircle, Filter, X } from "lucide-react";
 import { useDispatch } from "react-redux";
@@ -17,6 +18,7 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) => {
   const [departments, setDepartments] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
@@ -27,8 +29,10 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
   const searchParams = useSearchParams();
   const { company, model, year, category } = useParams();
 
+  const categoryParam = searchParams.get("category");
+
   useEffect(() => {
-    setSelectedDepartment(searchParams.get("category") || null);
+    setSelectedDepartment(categoryParam || null);
 
     const fetchDepartments = async () => {
       try {
@@ -38,11 +42,13 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
         }
       } catch (error) {
         console.error("Error fetching departments:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchDepartments();
-  }, [dispatch, searchParams]);
+  }, [dispatch, categoryParam]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const term = e.target.value;
@@ -181,7 +187,7 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
         <ul className="space-y-2 mt-3">
           <motion.li
             whileTap={{ scale: 0.9 }}
-            className="flex border items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg p-2"
+            className="flex  items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg p-2"
             onClick={handleClearFilters}
           >
             <input
@@ -193,12 +199,14 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
             <span className={`text-sm ${!selectedDepartment ? "font-medium text-blue-600" : "text-gray-800"}`}>All</span>
           </motion.li>
 
-          {filteredDepartments.length > 0 ? (
+          {loading ? (
+            <p className="text-sm text-gray-500">Loading departments...</p>
+          ) : filteredDepartments.length > 0 ? (
             filteredDepartments.map((department) => (
               <motion.li
                 whileTap={{ scale: 0.9 }}
                 key={department.id}
-                className="flex border items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg p-2"
+                className="flex  items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg p-2"
                 onClick={() => handleDepartmentClick(department.slug)}
               >
                 <input

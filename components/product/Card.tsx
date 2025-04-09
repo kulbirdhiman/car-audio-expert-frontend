@@ -18,93 +18,96 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         100
       )
       : 0;
-console.log(product)
+
+  const imageUrl =
+    product.images?.[0]?.image?.includes("http")
+      ? product.images[0].image
+      : `${process.env.NEXT_PUBLIC_S3_IMG_URL}${product.images?.[0]?.image || ""}`;
+
   return (
-    <div className="w-full rounded-none relative max-w-[450px] mx-auto border bg-white shado-lg min-h-[350px] flex flex-col rounded-l">
+    <div className="w-full relative max-w-[450px] mx-auto border bg-white shadow-lg min-h-[350px] flex flex-col rounded-lg">
       {/* Discount Tag */}
-      {/* {product.discount_price > 0 && (
+      {product.discount_price > 0 && (
         <div className="absolute top-0 right-0 z-20 bg-red-500 text-white text-xs font-semibold py-1 px-4 rounded-bl-lg">
           {discountPercentage}% OFF
         </div>
-      )} */}
+      )}
 
       {/* Image Container */}
       <Link href={`/product/${product.slug}`} passHref>
-        <div className="relative w-full h-[260px] bg-gray-100 rounded-t-lg cursor-pointer">
+        <div className="relative w-full h-[240px] bg-gray-100 rounded-t-lg cursor-pointer">
           <Image
-            src={
-              product.images[0].image.includes("http")
-                ? product.images[0].image
-                : `${process.env.NEXT_PUBLIC_S3_IMG_URL}${product.images[0].image}`
-            }
+            src={imageUrl}
             alt={product.name || "Product Image"}
             width={300}
             height={300}
-            className="rounded-t-lg"
+            className="rounded-t-lg object-contain"
             loading="lazy"
-            style={{ mixBlendMode: "darken", backgroundColor: "#f3f4f6" }}
+            style={{ backgroundColor: "#f3f4f6" }}
           />
-
-          {/* Fire Icon (Left Side) */}
-
-
-          {/* Wishlist Icon (Right Side) */}
-          {/* <button className="absolute top-3 right-3 text-white hover:text-red-500 text-2xl transition-transform transform hover:scale-110">
-            <FaHeart />
-          </button> */}
         </div>
       </Link>
 
-      {/* Product Information */}
+      {/* Product Info */}
       <div className="p-2">
-        <p className="font-extralight text-gray-400 text-xs line-clamp-1 ">
+        <p className="font-extralight text-gray-400 text-xs line-clamp-1">
           {product.name}
         </p>
-        <Link href={`/product/${product.slug}`} passHref className="font-bold text-black line-clamp-1 text-sm ">
-          {/* <a className="text-md font-semibold text-gray-800 line-clamp-2 h-[52px] mb-2"> */}
+
+        <Link
+          href={`/product/${product.slug}`}
+          passHref
+          className="font-bold text-black line-clamp-1 text-sm"
+        >
           {product.name}
         </Link>
-        <div className="flex text-black text-xl gap-2">
-          <SiAfterpay />
-          <SiGooglepay className="text-2xl" />
-          <FaCcApplePay />
-        </div>
 
+        {/* Payment Icons */}
+        {/* <div className="flex text-black text-xl gap-2 mt-1">
+          <SiAfterpay />
+          <SiGooglepay />
+          <FaCcApplePay />
+        </div> */}
+
+        {/* Stock Info */}
         {product.in_stock > 0 ? (
-          <p className="text-xs my-2 text-green-700 font-bold">
-            In Stock
-          </p>
+          <p className="text-xs my-2 text-green-700 font-bold">In Stock</p>
         ) : (
-          <H1Icon />
+          <H1Icon className="text-red-500 w-5 h-5 mt-2" />
         )}
 
-        {/* Price and Discount */}
+        {/* Price Info */}
         <div className="mb-2 flex gap-3 items-center">
-          {/* <p className="text-sm font text-gray-900">
+          <p className="text-sm text-gray-900">
             <span className="font-semibold text-green-900 text-base">
-              ${product.discount_price && product.discount_price > 0 ? product.discount_price : product.regular_price}
+              $
+              {product.discount_price && product.discount_price > 0
+                ? product.discount_price
+                : product.regular_price}
             </span>
           </p>
 
-          {/* Show regular price with line-through only if there's a discount */}
-          {/* {product.discount_price > 0 && (
+          {product.discount_price > 0 && (
             <p className="text-sm text-red-500 line-through">
               ${product.regular_price}
             </p>
-          )}  */}
-      <p className="text-black">
-      {product.wholesale_price !== 0 ? product.wholesale_price : "--" }
-      </p>
+          )}
 
+          {/* <p className="text-black text-sm">
+            Wholesale:{" "}
+            {product.wholesale_price !== 0 ? product.wholesale_price : "--"}
+          </p> */}
         </div>
 
-        {/* Button */}
-        <Link href={`/product/${product.slug}`} className="flex mx-1 justify-center gap-1 text-white bg-amazon_blue w-[150px] py-2 rounded-full">
-          <span className="md:text-base text-sm">
-            < FiShoppingBag />
-          </span>
+        {/* Buy Now Button */}
+        <Link
+          href={`/product/${product.slug}`}
+          className="flex items-center justify-center gap-2 mx-1 w-[140px] py-2 rounded-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold hover:from-purple-600 hover:to-purple-800 transition-all duration-300 shadow-md hover:shadow-lg"
+        >
+          <FiShoppingBag className="text-base" />
           <span className="text-sm">BUY NOW</span>
         </Link>
+
       </div>
     </div>
   );

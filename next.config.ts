@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "kayhanaudio.com.au",
       },
+      {
+        protocol: "https",
+        hostname: "d198m4c88a0fux.cloudfront.net",
+      },
     ],
   },
 };

@@ -189,7 +189,7 @@ const Detail = () => {
                   <GiShoppingCart /> Add to Cart
                 </button>
 
-                <button onClick={() => handleCart(true)} className="bg-green-600 text-white px-4 py-2 rounded hover:scale-105 transition flex items-center gap-2 hidden md:flex">
+                <button onClick={() => handleCart(true)} className="bg-green-600 text-white px-4 py-2 rounded hover:scale-105 transition  items-center gap-2 hidden md:flex">
                   Buy Now
                 </button>
               </>

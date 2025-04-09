@@ -52,6 +52,7 @@ const ListCards = (): any => {
     setSearchTerm("");
     setMinPrice("");
     setMaxPrice("");
+    router.push(pathname); // remove all query params
   };
 
   const router = useRouter();
@@ -88,8 +89,11 @@ const ListCards = (): any => {
         model,
         category,
         year,
+        search: search || searchTerm,
       };
-      if (search) data.search = search;
+
+      if (minPrice) data.minPrice = minPrice;
+      if (maxPrice) data.maxPrice = maxPrice;
 
       const res = await dispatch(getProductForShop(data)).unwrap();
 
@@ -157,36 +161,26 @@ const ListCardsContent: React.FC<ListCardsContentProps> = ({
   const model = typeof params.model === "string" ? params.model : "";
   const year = typeof params.year === "string" ? params.year : "";
 
-  const category = searchParams.get("category");
-
   useEffect(() => {
     list(1, searchParams);
-  }, [searchParams]);
+  }, [searchParams, minPrice, maxPrice]);
 
-  const removeFilter = (key: string) => {
-    const updatedParams = new URLSearchParams(searchParams.toString());
-    updatedParams.delete(key);
-    router.push(`?${updatedParams.toString()}`);
-  };
-
-  const removeParams = (key: string) => {
-    const pathSegments = pathname.split("/").filter(Boolean);
-    const keyIndex = pathSegments.indexOf(key);
-    if (keyIndex !== -1) {
-      const newPath = `/${pathSegments.slice(0, keyIndex).join("/")}`;
-      router.push(newPath);
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      list(1, searchParams, searchTerm);
     }
   };
 
   return (
-    <div className="grid lg:grid-cols-6 grid-cols-1 gap-4 bg-white relative">
+    <div className="grid lg:grid-cols-6 grid-cols-1 gap-4 py-4 bg-white relative">
       <SideBar
         list={list}
         showSideBar={showSideBar}
         setShowSideBar={() => setShowSideBar(!showSideBar)}
       />
-      <div className="col-span-5">
-        <div className="relative pb-7 mb-5 sm:mb-0 sm:pb-0">
+
+      <div className="col-span-5 px-2">
+        <div className="relative ">
           <button
             onClick={() => setShowSideBar(!showSideBar)}
             className="absolute right-2 z-10 bg-blue-950 rounded-md gap-2 font-seri text-white flex sm:relative sm:left-[90%] sm:bottom-2 lg:hidden border border-blue-950 px-3 py-1"
@@ -195,7 +189,37 @@ const ListCardsContent: React.FC<ListCardsContentProps> = ({
           </button>
         </div>
 
-        {/* Filter tags removed for now but can be uncommented if needed */}
+        {/* Filters UI */}
+        {/* <div className="flex flex-col sm:flex-row gap-3 mb-5 px-4">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyPress}
+            className="border p-2 rounded w-full sm:w-1/3"
+          />
+          <input
+            type="number"
+            placeholder="Min Price"
+            value={minPrice}
+            onChange={(e) => setMinPrice(e.target.value)}
+            className="border p-2 rounded w-full sm:w-1/4"
+          />
+          <input
+            type="number"
+            placeholder="Max Price"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(e.target.value)}
+            className="border p-2 rounded w-full sm:w-1/4"
+          />
+          <button
+            onClick={clearFilters}
+            className="bg-red-600 text-white rounded px-3 py-2"
+          >
+            <FaTimes className="inline mr-1" /> Clear
+          </button>
+        </div> */}
 
         {(!apiHit || tableData.length > 0) && (
           <>
