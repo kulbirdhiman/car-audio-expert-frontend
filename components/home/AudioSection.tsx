@@ -160,7 +160,7 @@ const AudioSection = () => {
       const tabDataa = [
         {
           id: 1,
-          label: "Android stereo's",
+          label: "Speaker's",
           content: (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {androidProducts.map((product, idx) => (
@@ -171,7 +171,7 @@ const AudioSection = () => {
         },
         {
           id: 2,
-          label: "Linux headunit's",
+          label: "SubWoofer's",
           content: (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {linuxProducts.map((product, idx) => (
@@ -182,7 +182,18 @@ const AudioSection = () => {
         },
         {
           id: 3,
-          label: "Carplay Module's",
+          label: "Amplifier's",
+          content: (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              {carplayModules.map((product, idx) => (
+                <AudioProductCard key={idx} {...product} />
+              ))}
+            </div>
+          ),
+        },
+        {
+          id: 4,
+          label: "Amplifier's",
           content: (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {carplayModules.map((product, idx) => (

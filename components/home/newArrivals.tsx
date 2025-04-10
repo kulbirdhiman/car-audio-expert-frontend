@@ -1,4 +1,11 @@
-import React from 'react';
+"use client"
+import React, { useEffect, useState, useMemo, useRef, Suspense } from "react";
+import dynamic from "next/dynamic";
+import { getHotdeals } from "@/store/actions/home";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import Link from "next/link";
+import Image from "next/image";
 import AudioProductCard from './AudioCard';
 const products = [
   {
@@ -59,6 +66,27 @@ const ProductCard = ({ image, title, subtitle, price }:{ image:string, title:str
 };
 
 const NewArrivals = () => {
+
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch<AppDispatch>();
+   const list = async () => {
+      try {
+        const res = await dispatch(getHotdeals({})).unwrap();
+        if (res.success) {
+          setData(res.data.result);
+          console.log(res.data.result,"data ")
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    useEffect(() => {
+      list();
+    }, []);
   return (
     <div className="px-4 md:px-10 py-8">
       <h2 className="text-2xl font-serif font-bold mb-6">NEW ARRIVALS</h2>
