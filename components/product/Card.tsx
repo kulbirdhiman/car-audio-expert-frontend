@@ -10,6 +10,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  // console.log("this is listcard ",product)
   const discountPercentage =
     product.discount_price > 0
       ? Math.round(
@@ -25,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       : `${process.env.NEXT_PUBLIC_S3_IMG_URL}${product.images?.[0]?.image || ""}`;
 
   return (
-    <div className="w-full relative max-w-[450px] mx-auto border bg-white shadow-lg min-h-[350px] flex flex-col rounded-lg">
+    <div className="w-full border-gray-200 relative max-w-[450px] mx-auto border bg-white shadow-lg min-h-[350px] flex flex-col ">
       {/* Discount Tag */}
       {product.discount_price > 0 && (
         <div className="absolute top-0 right-0 z-20 bg-red-500 text-white text-xs font-semibold py-1 px-4 rounded-bl-lg">
@@ -35,13 +36,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       {/* Image Container */}
       <Link href={`/product/${product.slug}`} passHref>
-        <div className="relative w-full h-[240px] bg-gray-100 rounded-t-lg cursor-pointer">
+        <div className="relative w-full h-[170px] md:h-[240px] bg-gray-100 rounded-t-lg cursor-pointer">
           <Image
             src={imageUrl}
             alt={product.name || "Product Image"}
             width={300}
             height={300}
-            className="rounded-t-lg object-contain"
+            className=" object-contain"
             loading="lazy"
             style={{ backgroundColor: "#f3f4f6" }}
           />
