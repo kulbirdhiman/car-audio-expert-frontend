@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { Search, XCircle, Filter, X } from "lucide-react";
 import { useDispatch } from "react-redux";
@@ -36,10 +35,13 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
 
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+  const params = useParams();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { company, model, year, category } = useParams();
-
+  const paramList = params?.slug as string[] || [];
+  const company = paramList[0] || "";
+  const model = paramList[1] || "";
+  const year = paramList[2] || "";
   const categoryParam = searchParams.get("category");
 
   useEffect(() => {
@@ -110,7 +112,7 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
 
       {/* Desktop Sidebar */}
       <aside
-        className={`${showSideBar ? "md:block" : "hidden"} absolute z-20 lg:relative lg:block bg-white shadow-lg border-gray-200 p-5 space-y-4 h-screen overflow-y-auto border`}
+        className={`${showSideBar ? "md:block" : "hidden"} absolute z-20 lg:relative lg:block bg-white   p-5 space-y-4 h-screen overflow-y-auto `}
       >
         {renderSidebarContent()}
       </aside>
@@ -156,31 +158,24 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
     return (
       <>
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl text-black">Filter</h1>
-          <button
+          {/* <h1 className="text-2xl text-black">Filter</h1> */}
+          {/* <button
             onClick={handleClearFilters}
             className="text-sm flex items-center gap-1 text-red-500 hover:text-red-700"
           >
             <XCircle size={16} />
             Clear Filters
-          </button>
+          </button> */}
         </div>
 
-        {(company || model || category || year) && (
-          <div className="flex gap-3 flex-wrap bg-white my-2 p-2">
-            {category && (
-              <button
-                onClick={() => removeFilter("category")}
-                className="flex items-center px-3 py-1 bg-blue-950 rounded-full text-white"
-              >
-                {category}
-                <FaTimes size={14} className="ml-2" />
-              </button>
-            )}
+        {(company || model  || year) && (
+        <div className="flex gap-3 overflow-x-scroll hide-scrollbar bg-white my-2 p-2">
+
+           
             {company && (
               <button
                 onClick={() => removeFilter("company")}
-                className="flex items-center px-3 py-1 bg-blue-950 rounded-full text-white"
+                className="flex items-center px-2 py-1 bg-gray-600 rounded-full text-white"
               >
                 {company}
                 <FaTimes size={14} className="ml-2" />
@@ -189,7 +184,7 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
             {model && (
               <button
                 onClick={() => removeFilter("model")}
-                className="flex items-center px-3 py-1 bg-blue-950 rounded-full text-white"
+                className="flex items-center px-3 py-1 bg-gray-600 rounded-full text-white"
               >
                 {model}
                 <FaTimes size={14} className="ml-2" />
@@ -198,7 +193,7 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
             {year && (
               <button
                 onClick={() => removeFilter("year")}
-                className="flex items-center px-3 py-1 bg-blue-950 rounded-full text-white"
+                className="flex items-center px-3 py-1 bg-gray-600 rounded-full text-white"
               >
                 {year}
                 <FaTimes size={14} className="ml-2" />
@@ -215,7 +210,7 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
             onClick={handleClearFilters}
           >
             <input
-              type="checkbox"
+              type="radio"
               checked={!selectedDepartment}
               onChange={handleClearFilters}
               className="w-4 h-4 accent-blue-500 cursor-pointer"
@@ -237,7 +232,7 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
                 onClick={() => handleDepartmentClick(department.slug)}
               >
                 <input
-                  type="checkbox"
+                  type="radio"
                   checked={selectedDepartment === department.slug}
                   onChange={() => handleDepartmentClick(department.slug)}
                   className="w-4 h-4 rounded-full accent-blue-500 cursor-pointer"

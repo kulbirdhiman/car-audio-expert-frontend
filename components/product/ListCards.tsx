@@ -29,7 +29,7 @@ const ListCards = () => {
   const company = paramList[0] || "";
   const model = paramList[1] || "";
   const year = paramList[2] || "";
-
+  console.log(company,"this comaney key")
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [minPrice, setMinPrice] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState<string>("");
@@ -56,6 +56,7 @@ const ListCards = () => {
         year,
         category,
         search: search || searchTerm,
+        limit: 20,
       };
 
       if (minPrice) data.minPrice = minPrice;
@@ -152,7 +153,7 @@ const ListCards = () => {
                   ? tableData.map((product) => (
                       <ProductCard key={product.id} product={product} />
                     ))
-                  : Array.from({ length: 10 }).map((_, index) => (
+                  : Array.from({ length: 20 }).map((_, index) => (
                       <CardSkeleton key={index} />
                     ))}
               </div>

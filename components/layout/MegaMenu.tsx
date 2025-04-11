@@ -243,7 +243,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
   className="absolute w-11/12 left-12 z-50 bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200"
   style={{ top: position.top, height: "420px" }}
 >
-  <div className="sticky top-0 bg-white z-10 px-6 py-4 border-b flex items-center justify-between">
+  <div className="sticky top-0 bg-white z-10 px-6 py-2  flex items-center justify-between">
     <div className="flex items-center gap-3">
       {(megaMenuData.category.show || megaMenuData.model.show) && (
         <button
@@ -275,8 +275,8 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
     )}
   </div>
 
-  <div className="px-6 py-6 overflow-y-auto h-[calc(100%-140px)]">
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-5">
+  <div className=" overflow-y-auto h-full">
+    <div className="grid p-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-5">
       {data.map((category, index) => (
         <motion.button
           key={`${category.slug}-${index}-${category.id}`}
@@ -298,12 +298,12 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
     </div>
   </div>
 
-  <div className="py-4 border-t text-center bg-gray-50">
+  {/* <div className="py-4 border-t text-center bg-gray-50">
     <p className="text-sm text-gray-500">Didn’t find what you were looking for?</p>
     <Link href="/contact" className="text-[#005164] font-semibold hover:underline">
       Contact us!
     </Link>
-  </div>
+  </div> */}
 </motion.div>
 
   );

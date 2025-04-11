@@ -26,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       : `${process.env.NEXT_PUBLIC_S3_IMG_URL}${product.images?.[0]?.image || ""}`;
 
   return (
-    <div className="w-full border-gray-200 relative max-w-[450px] mx-auto border bg-white shadow-lg min-h-[350px] flex flex-col ">
+    <div className="w-full border-gray-200 relative max-w-[450px] mx-auto border bg-white  min-h-[350px] flex flex-col ">
       {/* Discount Tag */}
       {product.discount_price > 0 && (
         <div className="absolute top-0 right-0 z-20 bg-red-500 text-white text-xs font-semibold py-1 px-4 rounded-bl-lg">
