@@ -24,7 +24,7 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
 
   return (
-    <div className="w-full  overflow-x-hidden">
+    <div className="w-full shadow-md">
       {/* Top Bar */}
       <div className="hidden md:flex justify-between items-center text-xs text-black py-2 px-4 bg-white">
         <h4>Welcome to car audio expert</h4>
@@ -40,9 +40,9 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
 
       {/* Main Navigation */}
       <div className="bg-white text-black">
-        <nav className="flex flex-wrap items-center justify-between px-4 py-3 lg:px-8">
+        <nav className="flex items-center justify-between px-4 py-3 lg:px-8">
           {/* Logo & Menu */}
-          <div className="flex gap-4 items-center justify-center flex-shrink-0">
+          <div className="flex gap-4 items-center justify-center">
             <Link href="/" className="text-xl font-bold flex items-center">
               <Image
                 src="/CAR-AUDIO-EXPERT.png"
@@ -54,15 +54,15 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
             </Link>
 
             {/* Menu */}
-            <ul className="hidden  xl:flex items-center gap-6 text-sm font-medium">
+            <ul className="hidden xl:flex items-center gap-6 text-sm font-medium">
               <ShopMenuHeader data={departments} />
             </ul>
           </div>
 
           {/* Search + Icons */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-4">
             {/* Desktop SearchBar */}
-            <div className="relative hidden md:block w-full max-w-[300px]">
+            <div className="relative hidden md:block w-[300px]">
               <SearchBar departments={departments} />
             </div>
 
@@ -75,6 +75,7 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
                 </span>
               )}
             </Link>
+
 
             {/* User */}
             <Link href="/user/orders">
