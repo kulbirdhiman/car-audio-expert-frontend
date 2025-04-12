@@ -41,20 +41,6 @@ const Page: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
-  const handleAddQty = async (item: CartItem) => {
-    if (item.quantity >= 50) return;
-    const updatedItem = { ...item, quantity: item.quantity + 1 };
-    await dispatch(localCartData(updatedItem));
-    getMyCarts();
-  };
-
-  const handleSubtractQty = async (item: CartItem) => {
-    if (item.quantity <= 1) return;
-    const updatedItem = { ...item, quantity: item.quantity - 1 };
-    await dispatch(localCartData(updatedItem));
-    getMyCarts();
-  };
-
   const getMyCarts = async () => {
     try {
       if (user && !loading) {
@@ -88,113 +74,113 @@ const Page: React.FC = () => {
     getMyCarts();
   }, [user, loading]);
 
+  const subtotal = calculateSubTotal(data.result);
+
   return (
-    <div className="w-11/12 mx-auto my-10">
-      <h1 className="font-bold text-3xl mb-8">Shopping Cart</h1>
+    <div className="w-11/12 font-serif mx-auto my-7">
+      <h1 className="text-3xl">Cart</h1>
+      <div className="my-3 flex flex-col lg:flex-row gap-8 relative">
+        {/* Left Section - Cart Items */}
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
+          {data.result.map((item: CartItem) => (
+            <div
+              key={item.id}
+              className="border rounded-md p-3 bg-white shadow relative text-sm"
+            >
+              {item.is_free === 1 && (
+                <span className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded rotate-[-15deg]">
+                  FREE
+                </span>
+              )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.result.map((item: CartItem) => (
-          <div
-            key={item.id}
-            className="border rounded-lg p-4 bg-white shadow-sm relative"
-          >
-            {item.is_free === 1 && (
-              <span className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded-md rotate-[-15deg]">
-                FREE
-              </span>
-            )}
-            <Link href={`/product/${item.slug}`}>
-              <Image
-                src={
-                  item.images[0].image.includes("http")
-                    ? item.images[0].image
-                    : process.env.NEXT_PUBLIC_S3_IMG_URL + item.images[0].image
-                }
-                alt={item.name}
-                width={300}
-                height={200}
-                className="rounded w-full object-contain max-h-[200px]"
-              />
-            </Link>
+              <Link href={`/product/${item.slug}`}>
+                <Image
+                  src={
+                    item.images[0].image.includes("http")
+                      ? item.images[0].image
+                      : process.env.NEXT_PUBLIC_S3_IMG_URL + item.images[0].image
+                  }
+                  alt={item.name}
+                  width={300}
+                  height={200}
+                  className="rounded w-full object-cover max-h-[160px]"
+                />
+              </Link>
 
-            <div className="mt-4">
-              <h2 className="text-lg font-semibold">{item.name}</h2>
-              <p className="text-sm text-gray-600">
-                {item.variations?.length > 0 &&
-                  item.variations.map((v, idx) => (
-                    <div key={idx}>
-                      <strong>{v.name}:</strong>{" "}
-                      {v.options.map((op) => op.name).join(", ")}
-                    </div>
-                  ))}
-              </p>
+              <div className="mt-2">
+                <h2 className="text-base font-bold">{item.name}</h2>
+                <div className="text-gray-500 text-xs">
+                  {item.variations?.length > 0 &&
+                    item.variations.map((v: any, idx: any) => (
+                      <div key={idx}>
+                        <strong>{v.name}:</strong>{" "}
+                        {v.options.map((op: any) => op.name).join(", ")}
+                      </div>
+                    ))}
+                </div>
 
-              <div className="flex justify-between items-center mt-3">
-                <p className="text-gray-800 font-medium">
-                  ₹
-                  {item.discount_price > 0
-                    ? item.discount_price
-                    : item.regular_price}
-                </p>
+                <div className="flex justify-between font-bold items-center mt-3">
+                  <p className="text-blue-950">
+                    ₹
+                    {item.discount_price > 0
+                      ? item.discount_price
+                      : item.regular_price}
+                  </p>
+                  <span className="text-sm font-medium">Qty: {item.quantity}</span>
+                </div>
 
-                <div className="flex items-center gap-2">
-                  {item.is_free !== 1 ? (
-                    <>
-                      <button
-                        onClick={() => handleSubtractQty(item)}
-                        className="px-3 py-1 border text-lg font-bold"
-                      >
-                        -
-                      </button>
-                      <span className="px-2">{item.quantity}</span>
-                      <button
-                        onClick={() => handleAddQty(item)}
-                        className="px-3 py-1 border text-lg font-bold"
-                      >
-                        +
-                      </button>
-                    </>
-                  ) : (
-                    <span>Qty: 1</span>
-                  )}
+                <div className="flex justify-between mt-2 items-center">
+                  <span className="font-semibold">
+                    Total: ₹{calculatePrice(item)}
+                  </span>
+                  <button
+                    onClick={() => {
+                      setDelCart(item);
+                      setOpen(true);
+                    }}
+                  >
+                    <RiDeleteBin6Line className="text-lg text-red-600" />
+                  </button>
                 </div>
               </div>
+            </div>
+          ))}
+        </div>
 
-              <div className="flex justify-between mt-2">
-                <span className="text-black font-semibold">
-                  Total: ₹{calculatePrice(item)}
-                </span>
-                <button
-                  onClick={() => {
-                    setDelCart(item);
-                    setOpen(true);
-                  }}
-                >
-                  <RiDeleteBin6Line className="text-xl text-red-600" />
-                </button>
-              </div>
+        {/* Right Section - Cart Summary for Desktop/iPad */}
+        {data.result.length > 0 && (
+          <div className="lg:w-[300px] w-full lg:sticky lg:top-20 bg-[#F9F9F9] text-black p-5 h-fit rounded-md shadow-md hidden sm:block">
+            <h2 className="font-extrabold text-xl mb-4">Cart Summary</h2>
+            <div className="flex justify-between text-base font-semibold mb-5">
+              <span>Total</span>
+              <span>₹{subtotal}</span>
+            </div>
+            <Link
+              href="/checkout"
+              className="bg-blue-800 transition-colors text-white py-2 px-4 rounded block text-center text-sm"
+            >
+              Proceed to Checkout
+            </Link>
+          </div>
+        )}
+
+        {/* Mobile Checkout Fixed Bottom Bar */}
+        {data.result.length > 0 && (
+          <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50 shadow-md">
+            <div className="flex justify-between items-center text-sm font-semibold">
+              <span>Total: ₹{subtotal}</span>
+              <Link
+                href="/checkout"
+                className="bg-blue-800 text-white px-4 py-2 rounded text-sm"
+              >
+                Checkout
+              </Link>
             </div>
           </div>
-        ))}
+        )}
+
+        <DeleteModal setOpen={setOpen} open={open} deleteRecord={delCartF} />
       </div>
-
-      {data.result.length > 0 && (
-        <div className="bg-[#F9F9F9] text-black p-5 mt-10 max-w-md ml-auto">
-          <h2 className="font-extrabold text-2xl mb-4">Cart Total</h2>
-          <div className="flex justify-between text-lg font-bold mb-5">
-            <span>Total</span>
-            <span>₹{calculateSubTotal(data.result)}</span>
-          </div>
-          <Link
-            href="/checkout"
-            className="bg-amazon_blue text-white py-2 px-4 rounded w-full text-center block"
-          >
-            Proceed to Checkout
-          </Link>
-        </div>
-      )}
-
-      <DeleteModal setOpen={setOpen} open={open} deleteRecord={delCartF} />
     </div>
   );
 };
