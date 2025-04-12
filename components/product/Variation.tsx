@@ -2,21 +2,21 @@ import { IN_STOCK, IS_MULTY, OPTION_TYPE } from "@/app/constants";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-const Variations = ({ variationData, setVariation, variation, errors }) => {
-  const [showCategory, setShowCategory] = useState({});
-  const [customType,setCustomType] = useState("")
+const Variations = ({ variationData, setVariation, variation, errors }:{ variationData:any, setVariation:any, variation:any, errors:any }) => {
+  const [showCategory, setShowCategory] = useState<any>({});
+  const [customType,setCustomType] = useState<any>("")
 
-  const toggleCategoryVisibility = (category) => {
-    setShowCategory((prevState) => ({
+  const toggleCategoryVisibility = (category:any) => {
+    setShowCategory((prevState:any) => ({
       ...prevState,
       [category]: !prevState[category],
     }));
   };
 
-  const handleOptionChange = (row, option) => {
+  const handleOptionChange = (row:any, option:any) => {
     if (option.in_stock !== IN_STOCK) return;
 
-    setVariation((prev) => {
+    setVariation((prev:any) => {
       let updatedVariations = [...prev];
 
       if (row.is_multy == IS_MULTY) {
@@ -24,12 +24,12 @@ const Variations = ({ variationData, setVariation, variation, errors }) => {
 
         if (existingVariation?.id) {
           const isOptionSelected = existingVariation.options.some(
-            (o) => o.id == option.id
+            (o:any) => o.id == option.id
           );
 
           if (isOptionSelected) {
             existingVariation.options = existingVariation.options.filter(
-              (o) => o.id !== option.id
+              (o:any) => o.id !== option.id
             );
           } else {
             existingVariation.options = [...existingVariation.options, option];
@@ -63,10 +63,10 @@ const Variations = ({ variationData, setVariation, variation, errors }) => {
     });
   };
 
-  const handleOptionChangeForCustom = (row, option) => {
+  const handleOptionChangeForCustom = (row:any, option:any) => {
 
 
-    setVariation((prev) => {
+    setVariation((prev:any) => {
       let updatedVariations = [...prev];
 
      
@@ -100,9 +100,9 @@ console.log(variation,"variation");
   },[variation])
   return (
     <div>
-      <p className="text-lg text-black font-bold">Select your Options</p>
+      <p className="text-lg text-black font-medium font-sa">Select your Options</p>
       <div className="mt-4   space-y-4">
-        {variationData?.map((row) =>
+        {variationData?.map((row:any) =>
           row.type_of_option != OPTION_TYPE.custom ? (
             <div key={row.id}>
               {errors[row.id] && (
@@ -123,7 +123,7 @@ console.log(variation,"variation");
               </button>
               {showCategory[row.name] && (
                 <div className="mt-2 space-y-2">
-                  {row.options.map((option) => (
+                  {row.options.map((option:any) => (
                     <div key={option.id} className="flex items-center gap-2">
                       <input
                         name={row.name}
@@ -133,8 +133,8 @@ console.log(variation,"variation");
                         disabled={option.in_stock !== IN_STOCK} // Disable out-of-stock options
                         checked={
                           variation
-                            .find((r) => r.id === row.id)
-                            ?.options?.some((op) => op.id === option.id) ||
+                            .find((r:any) => r.id === row.id)
+                            ?.options?.some((op:any) => op.id === option.id) ||
                           false
                         }
                         id={`option-${option.id}`}
@@ -175,14 +175,14 @@ console.log(variation,"variation");
                 </button>
                 {showCategory[row.name] && (
                   <div className="mt-2 space-y-2">
-                    {row.options.map((option) => (
+                    {row.options.map((option:any) => (
                       <div key={option.id} className="flex items-center gap-2">
                         <input
                           type={"text"}
                           placeholder={row.name}
                           id={`option-${option.id}`}
                           value={
-                            variation.find((r) => r.id === row.id)?.options[0]
+                            variation.find((r:any) => r.id === row.id)?.options[0]
                               ?.name
                           }
                           onChange={(e) => {

@@ -164,7 +164,7 @@ const AddOn: React.FC<AddOnProps> = ({ extras = [], setAddOns, addOns }) => {
   return (
     <>
       <div className="dark:text-black  p-2">
-        <h1 className="font-bold text-xl">Add On</h1>
+        <h1 className="font-medium font-sans text-xl">Add On</h1>
         <VariationsForAddOn
           setErrors={setErrors}
           currentData={currentData}
@@ -194,7 +194,7 @@ const AddOn: React.FC<AddOnProps> = ({ extras = [], setAddOns, addOns }) => {
                       height={200}
                       className="w-full h-[70px] object-contain mb-2"
                     />
-                    <p className="text-center line-clamp-1 h-10 font-avenir-light text-sm">
+                    <p className="text-center   line-clamp-1 text-sm">
                       {product.name}
                     </p>
                     <h1 className="text-base font-avenir-bold mb-1 text-green-600">

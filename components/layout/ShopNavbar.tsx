@@ -24,7 +24,7 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
 
   return (
-    <div className="w-full shadow-md">
+    <div className="w-full ">
       {/* Top Bar */}
       <div className="hidden md:flex justify-between items-center text-xs text-black py-2 px-4 bg-white">
         <h4>Welcome to car audio expert</h4>

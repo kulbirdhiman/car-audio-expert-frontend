@@ -18,11 +18,11 @@ const ImageGallery = ({
   // addToData
 }: {
   images: any[];
-  handleCart: any;
+  // handleCart: any;
   product: any;
-  increaseQuantity: any;
-  decreaseQuantity: any;
-  addToData: any;
+  // increaseQuantity: any;
+  // decreaseQuantity: any;
+  // addToData: any;
 }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -80,8 +80,8 @@ const ImageGallery = ({
     <div className="w-full flex flex-col items-center bg-white lg:sticky top-10 p-4 rounded-md">
       {/* Main Image */}
       <Image
-        height={1000}
-        width={1000}
+        height={2000}
+        width={2000}
         priority
         src={
           images[selectedImage]?.image.includes("http")

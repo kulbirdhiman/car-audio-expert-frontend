@@ -55,7 +55,7 @@ const Detail = () => {
   const [relatedProduct, setRelatedProduct] = useState([]);
   const [errors, setErrors] = useState({});
   const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
-  const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const [isLinkCopied, setIsLinkCopied] = useState<any>(false);
   const [addToData, setAddToData] = useState({ product_id: null, quantity: 1 });
   const [apiHit, setApiHit] = useState(false);
 
@@ -64,8 +64,9 @@ const Detail = () => {
       const res = await dispatch(ProductForShop({ slug })).unwrap();
       if (res.success) {
         const data = res.data.result;
+        console.log(`this is product data ${data}`)
         setProduct(data);
-        setAddToData((prev) => ({ ...prev, product_id: data.id }));
+        setAddToData((prev) => ({ ...prev, product_id: (data as any).id }));
         setExtras(res.data.extras || []);
         setVariationData(res.data.variation || []);
         setRelatedProduct(res.data.relatedProduct || []);
@@ -140,24 +141,22 @@ const Detail = () => {
   if (!apiHit) return <ProductDetailSkeleton />;
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="w-[70%] mx-auto px-4 py-3">
       {/* Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
         {/* Gallery */}
         <div className="lg:col-span-3">
-          <ImageGallery product={product} images={product?.images}
-           handleCart={handleCart}
-            />
+          <ImageGallery product={product} images={product?.images}/>
           <ImageGalleryMobile images={product?.images} />
         </div>
 
         {/* Product Info */}
         <div className="lg:col-span-4 space-y-6">
-          <h1 className="text-2xl lg:text-3xl font-semibold">{product?.name}</h1>
+          <h1 className="text-2xl  font-sans font-medium">{product?.name}</h1>
 
-          <p className="text-xl font-bold text-gray-900">
+          {/* <p className="text-xl font-bold text-gray-900">
             {product?.wholesale_price ? `$${product?.wholesale_price}` : "--"}
-          </p>
+          </p> */}
 
           <div className="flex items-center gap-4 text-sm">
             <button className="flex items-center gap-2" onClick={() => toast("Added to Wishlist!")}>
@@ -178,22 +177,29 @@ const Detail = () => {
           )}
 
           {/* Quantity & Cart */}
-          <div className="flex items-center gap-4 mt-4">
+          <div className="gap-4 mt-4">
             {(product?.in_stock === IN_STOCK) ? (
               <>
-                <div className="flex items-center border rounded-lg overflow-hidden">
-                  <button onClick={decreaseQuantity} className="w-10 h-10 text-lg font-bold">−</button>
-                  <div className="w-12 h-10 bg-gray-100 flex justify-center items-center text-lg font-semibold">{addToData.quantity}</div>
-                  <button onClick={increaseQuantity} className="w-10 h-10 text-lg font-bold">+</button>
+               <div className="flex justify-between">
+               <p className="text-xl font-medium text-gray-900">
+             ${product.discount_price <=0 ? product.regular_price : product.discount_price}
+          </p>
+               <div className="flex items-center border border-gray-200  overflow-hidden">
+                  <button onClick={decreaseQuantity} className="w-10 h-10 bg-gray-100 text-lg font-bold">−</button>
+                  <div className="w-12 h-10  flex justify-center items-center text-lg font-semibold">{addToData.quantity}</div>
+                  <button onClick={increaseQuantity} className="w-10 h-10 bg-gray-100 text-lg font-bold">+</button>
                 </div>
 
-                <button onClick={() => handleCart(false)} className="bg-amazon_blue text-white px-4 py-2 rounded hover:scale-105 transition flex items-center gap-2">
+               </div>
+               <div className="flex gap-2 p-3" >
+               <button onClick={() => handleCart(false)} className="bg-blue-800 text-white w-[50%] px-4 py-2 rounded hover:scale-105 transition flex items-center gap-2">
                   <GiShoppingCart /> Add to Cart
                 </button>
 
-                <button onClick={() => handleCart(true)} className="bg-green-600 text-white px-4 py-2 rounded hover:scale-105 transition  items-center gap-2 hidden md:flex">
+                <button onClick={() => handleCart(true)} className="bg-green-600 w-[50%] text-white px-4 py-2 rounded hover:scale-105 transition  items-center gap-2 hidden md:flex">
                   Buy Now
                 </button>
+               </div>
               </>
             ) : (
               <span className="text-red-500 font-bold">Out of Stock</span>
