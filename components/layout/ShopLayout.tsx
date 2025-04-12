@@ -61,7 +61,7 @@ const ShopLayout: React.FC<ShopLayoutProps> = ({ children }) => {
     <div className="relative dark:bg-white">
       {/* Top Navbar & Header */}
       <ShopNavBar departments={data} setOpen={openSidebar} />
-      <ShopMenuHeader data={data} setOpen={openSidebar} />
+      {/* <ShopMenuHeader data={data} setOpen={openSidebar} /> */}
 
     
         {/* Sidebar + Overlay */}

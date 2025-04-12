@@ -5,90 +5,97 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Bars3Icon,
-  ShoppingCartIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/solid";
+import { CiUser } from "react-icons/ci";
+import { BsCart2 } from "react-icons/bs";
 import SearchBar from "./ShopSearchBar";
+import ShopMenuHeader from "./ShopMenuHeader";
 
 interface NavBarProps {
   open?: boolean;
   setOpen?: (open: boolean) => void;
-  departments:any[]
+  departments: any[];
 }
 
-const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen,departments }) => {
+const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
   const router = useRouter();
   const { user } = useSelector((state: any) => state.auth);
   const { cartCount } = useSelector((state: any) => state.cart);
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
 
   return (
-    <div className="w-full shadw-md">
+    <div className="w-full  overflow-x-hidden">
       {/* Top Bar */}
-      <div className="bg-00 hidden dark:bg-white text-black text-xs py-1 px-4 md:flex justify-between items-center borde border-gay-300">
-        {/* <div className="flex gap-4">
-          <a href="mailto:info@kayhanaudio.com.au" className="hover:text-gray-600"> info@kayhanaudio.com.au</a>
-          <a href="tel:+611300696488" className="hover:text-gray-600">+61 1300 696 488</a>
-        </div> */}
+      <div className="hidden md:flex justify-between items-center text-xs text-black py-2 px-4 bg-white">
         <h4>Welcome to car audio expert</h4>
         <div className="flex gap-4">
-          <Link href="/about" className="hover:text-gray-600">About Us</Link>
-          <Link href="/support" className="hover:text-gray-600">Support</Link>
+          <Link href="/support" className="text-sm hover:underline">
+            Support
+          </Link>
+          <Link href="/business" className="text-sm font-semibold hover:underline">
+            For Business ↗
+          </Link>
         </div>
       </div>
 
       {/* Main Navigation */}
-      <div className="bg-white  e text-amazon_blue">
-        <nav className="flex items-center justify-between px-4 md:py-1 py-2 lg:px-8">
-          {/* Logo */}
-          <Link href="/" className="text-xl font-bold">
-            <Image
-              src="/CAR-AUDIO-EXPERT.png"
-              alt="Logo"
-              width={120}
-              height={75}
-              className="md:w-[100px] w-[80px]"
-            />
-          </Link>
+      <div className="bg-white text-black">
+        <nav className="flex flex-wrap items-center justify-between px-4 py-3 lg:px-8">
+          {/* Logo & Menu */}
+          <div className="flex gap-4 items-center justify-center flex-shrink-0">
+            <Link href="/" className="text-xl font-bold flex items-center">
+              <Image
+                src="/CAR-AUDIO-EXPERT.png"
+                alt="Logo"
+                width={120}
+                height={75}
+                className="w-auto h-[40px] object-cover"
+              />
+            </Link>
 
-          {/* Search Bar Centered */}
-          <div className="hidden md:flex flex-1 max-w-xl mx-4">
-            <SearchBar  departments={departments} />
+            {/* Menu */}
+            <ul className="hidden  xl:flex items-center gap-6 text-sm font-medium">
+              <ShopMenuHeader data={departments} />
+            </ul>
           </div>
 
-          {/* Icons */}
-          <div className="flex  items-center gap-3">
-            <button className="md:hidden" onClick={() => setFilterOpen(!filterOpen)}>
-              <MagnifyingGlassIcon className="h-6 w-6 text-amazon_blue" />
-            </button>
+          {/* Search + Icons */}
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Desktop SearchBar */}
+            <div className="relative hidden md:block w-full max-w-[300px]">
+              <SearchBar departments={departments} />
+            </div>
+
+            {/* Cart */}
             <Link href="/shopping-cart" className="relative">
-              <ShoppingCartIcon className="h-7 w-7 text-amazon_blue" />
-              <span className="absolute top-[-5px] right-[-5px] bg-red-500 text-xs text-white h-[18px] w-[18px] flex items-center justify-center rounded-full">
-                {cartCount}
-              </span>
+              <BsCart2 className="h-6 w-6" />
+              {cartCount > 0 && (
+                <span className="absolute top-[-6px] right-[-6px] bg-red-500 text-xs text-white h-[16px] w-[16px] flex items-center justify-center rounded-full">
+                  {cartCount}
+                </span>
+              )}
             </Link>
+
+            {/* User */}
             <Link href="/user/orders">
-              <UserIcon className="h-6 w-6" />
+              <CiUser className="h-6 w-6" />
             </Link>
-            <button className="block md:hidden" onClick={() => setOpen?.(!open)}>
+
+            {/* Hamburger */}
+            <button className="md:hidden" onClick={() => setOpen?.(!open)}>
               <Bars3Icon className="h-6 w-6" />
             </button>
           </div>
         </nav>
 
-        {/* Animated Search Bar */}
+        {/* Mobile Search Dropdown */}
         <motion.div
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: filterOpen ? "auto" : 0, opacity: filterOpen ? 1 : 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="overflow-"
+          className="overflow-hidden px-4 pb-2 md:hidden"
         >
-          <div className="px-4 pb-2">
-            <SearchBar departments={departments} />
-          </div>
+          <SearchBar departments={departments} />
         </motion.div>
       </div>
     </div>
