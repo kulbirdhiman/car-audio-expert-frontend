@@ -9,16 +9,16 @@ const HeroSection = () => {
       <div className="w-full md:w-[70%]">
         <ImageSlider />
       </div>
-      <div className="w-full md:w-[30%] flex flex-col gap-4">
+      <div className="w-full md:w-[30%] flex md:flex-col gap-4">
         <Image
           src={sideImage}
           alt="this is side image"
-          className="w-full h-[200px] object-cover "
+          className="w-full h-[100px] md:h-[200px] object-cover "
         />
         <Image
           src={sideImage}
           alt="this is side image"
-          className="w-full h-[200px] object-cover "
+          className="w-full h-[100px] md:h-[200px] object-cover "
         />
       </div>
     </div>

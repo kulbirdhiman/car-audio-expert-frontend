@@ -27,7 +27,7 @@ const ProductCard = ({
       <img
         src={imgSrc || "/placeholder.png"}
         alt={name}
-        className="w-full h-48 object-contain"
+        className="w-full h-48 object-cover"
       />
       <div className="p-3">
         <div className="text-xs text-gray-500">{smallTitle}</div>

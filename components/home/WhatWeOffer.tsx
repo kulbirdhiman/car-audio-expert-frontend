@@ -35,7 +35,7 @@ const WhatWeOffer = () => {
       id: 1,
       label: "Android stereo's",
       content: (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-6">
           {(data?.android?.data ?? []).map((product: any, idx: number) => (
             <ProductCard key={idx} {...product} />
           ))}
@@ -46,7 +46,7 @@ const WhatWeOffer = () => {
       id: 2,
       label: "Linux headunit's",
       content: (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-6">
           {(data?.linux?.data ?? []).map((product: any, idx: number) => (
             <ProductCard key={idx} {...product} />
           ))}
@@ -57,7 +57,7 @@ const WhatWeOffer = () => {
       id: 3,
       label: "Carplay Module's",
       content: (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-6">
           {(data?.car_play?.data ?? []).map((product: any, idx: number) => (
             <ProductCard key={idx} {...product} />
           ))}
@@ -73,7 +73,7 @@ const WhatWeOffer = () => {
           title="What We Offer"
           tabs={tabDataa}
           TabClass="float-left flex gap-4"
-          TabComponentClass="flex justify-between mb-2"
+          TabComponentClass="md:flex justify-between mb-2"
         />
       ) : (
         <p className="text-center text-gray-500">Loading...</p>

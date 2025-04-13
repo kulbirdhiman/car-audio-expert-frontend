@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import { MdDashboard, MdAddShoppingCart } from "react-icons/md";
-import { FaHeart } from "react-icons/fa";
-import { SlRefresh } from "react-icons/sl";
+import {
+  MdDashboard,
+  MdAddShoppingCart,
+} from "react-icons/md";
 import { CiLocationOn } from "react-icons/ci";
 import { IoPersonOutline } from "react-icons/io5";
 import { LuLogOut } from "react-icons/lu";
@@ -11,85 +12,63 @@ import { usePathname, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "@/store/actions/auth";
 import { AppDispatch } from "@/store/store";
-// import { logoutUser } from '@/store/api/dashboard';
-// import { toast } from "react-toastify";
-// import { logoutUser } from "@/store/action/auth";
 
 const UserMenu = () => {
-  const items = [
-    {
-      name: "Dashboard",
-      icon: MdDashboard,
-      url: "/user/dashboard",
-    },
-    {
-      name: "orders",
-      icon: MdAddShoppingCart,
-      url: "/user/orders",
-    },
-    // {
-    //   name: "wishlist",
-    //   icon: FaHeart,
-    //   url: "/user/wishlist",
-    // },
-    // {
-    //   name: "replace & return",
-    //   icon: SlRefresh,
-    //   url: "/user/return-and-replace",
-    // },
-    {
-      name: "address",
-      icon: CiLocationOn,
-      url: "/user/addresses",
-    },
-    {
-      name: "account details",
-      icon: IoPersonOutline,
-      url: "/user/profile",
-    },
-  ];
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useDispatch<AppDispatch>();
+
+  const items = [
+    { name: "Dashboard", icon: MdDashboard, url: "/user/dashboard" },
+    { name: "Orders", icon: MdAddShoppingCart, url: "/user/orders" },
+    { name: "Address", icon: CiLocationOn, url: "/user/addresses" },
+    { name: "Account", icon: IoPersonOutline, url: "/user/profile" },
+  ];
+
   const logoutHandler = async () => {
     const response = await dispatch(logoutUser());
     const res = response.payload;
     if ((res as any)?.status) {
       router.push("/");
-    //   toast.success(res.message);
-    } else {
-    //   toast.error(res.message);
     }
   };
+
   return (
     <div
-      className="min-h-[310px] rounded-t-lg md:rounded-r-none md:rounded-l-lg text-white flex flex-col w-full md:w-64 
-         bbg-[#EAEAD3]
-        bg-[#2A2E35]
-        p-3 gap-1 h-[310px] "
+      className="w-64 h-screen bg-[#1F242B] text-white p-4 flex flex-col justify-between"
     >
-      {items.map((item, index) => {
-        return (
-          <Link key={index} href={item.url}>
-            <div
-              className={`p-2 pl-3 rounded-3xl flex gap-2 items-center hover:bg-blue_flip hover:text-white ${
-                pathname.split(item.url).length > 1
-                  ? "bg-blue_flip text-white"
-                  : ""
-              }`}
-            >
-              <item.icon className="text-lg" />
-              <p className="uppercase text-sm">{item.name}</p>
-            </div>
-          </Link>
-        );
-      })}
-      <div
-        className={`p-2 pl-3 rounded-3xl flex gap-2 items-center hover:bg-blue_flip hover:text-white cursor-pointer`}
-        onClick={logoutHandler}
-      >
-        <LuLogOut className="text-lg" />
-        <p className="uppercase text-sm">Logout</p>
+      {/* Top Menu Items */}
+      <div className="flex flex-col gap-3">
+        {items.map((item, index) => {
+          const isActive = pathname.startsWith(item.url);
+          return (
+            <Link href={item.url} key={index}>
+              <div
+                className={`flex items-center gap-4 px-3 py-2 rounded-lg transition-all duration-200 cursor-pointer
+                  ${isActive ? "bg-blue-600 text-white" : "hover:bg-blue-500/10 text-gray-300 hover:text-white"}`}
+              >
+                <item.icon className="text-xl flex-shrink-0" />
+                <span className="text-sm font-medium tracking-wide">
+                  {item.name}
+                </span>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Bottom Tall Button */}
+      <div className="flex flex-col gap-3 items-center">
+        <div
+          onClick={logoutHandler}
+          className="w-full flex items-center gap-4 px-3 py-3 rounded-xl bg-red-500 hover:bg-red-600 
+          cursor-pointer transition-all duration-300"
+        >
+          <LuLogOut className="text-xl flex-shrink-0" />
+          <span className="whitespace-nowrap text-sm font-medium tracking-wide text-white">
+            Logout
+          </span>
+        </div>
       </div>
     </div>
   );

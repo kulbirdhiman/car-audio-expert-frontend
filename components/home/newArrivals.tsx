@@ -93,11 +93,12 @@ const NewArrivals = () => {
 
       <div className="flex flex-wrap gap-6">
         {/* Product Grid */}
-        <div className="flex-[1_1_70%] grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {products.map((product, index) => (
-            <ProductCard key={index} {...product} />
-          ))}
-        </div>
+      <div className="flex-[1_1_70%] grid grid-cols-1 sm:grid-cols-2 gap-6">
+  {products.map((product) => (
+    <ProductCard key={product.id} {...product} />
+  ))}
+</div>
+
 
         {/* Audio Product Card */}
         <div className="flex-[1_1_25%] mt-2 sm:mt-6">
