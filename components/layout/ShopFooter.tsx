@@ -1,7 +1,12 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaLinkedin } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+  FaYoutube,
+} from "react-icons/fa";
 import { SiAfterpay } from "react-icons/si";
 import { FaPaypal } from "react-icons/fa";
 import Image from "next/image";
@@ -14,139 +19,102 @@ interface LinkItem {
 const ShopFooter: React.FC = () => {
   const companyLinks: LinkItem[] = [
     { name: "About Us", link: "/about" },
-    // { name: "Shop", link: "#" },
     { name: "Contact Us", link: "/contact" },
-    { name: " Customer Services", link: "/customer-services" },
-    // { name: "Affiliate Sign Up", link: "#" },
-    // { name: "Affiliate Login", link: "#" },
-    { name: "Become Our Authorised Wholesaler", link: "https://wholesale-kayhanaudio.com.au/" },
+    { name: "Customer Services", link: "/customer-services" },
   ];
 
   const policyLinks: LinkItem[] = [
     { name: "Terms & Conditions", link: "/term-condtion" },
     { name: "Privacy Policy", link: "/privacy-policy" },
-    { name: "Return Policy", link: "/return-policy" },
-    { name: "Shipping & Delivery", link: "/shipping-policy" },
-    { name: "Cancellation & Refunds", link: "cancellation-refunds" },
-    { name: "Report an Issue", link: "/report-issue" },
-    { name: "Request a Product", link: "/request-a-product" },
+    // { name: "Return Policy", link: "/return-policy" },
+    { name: "secure-shopping", link: "/secure-shopping" },
+    { name: "Cancellation & Refunds", link: "/cancellation-refunds" },
+    { name: "shipping-and-return", link: "/shipping-and-return" },
+    // { name: "Request a Product", link: "/request-a-product" },
   ];
 
   return (
-    <footer className="bg-gray-900 overflow-hidden text-white py-10">
-      {/* Newsletter Section */}
-      <div className="w-11/12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
-        <div className="md:col-span-2">
-          <h4 className="text-2xl font-semibold">Join Our Newsletter</h4>
-          <p className="text-gray-400 text-sm mt-2">
-            Get exclusive offers & updates directly in your inbox.
+    <footer className="bg-[#111] text-gray-300 pt-10 pb-5 px-4">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-4 sm:grid-cols-2 gap-10">
+
+        {/* Brand + About */}
+        <div>
+          <Link href="/">
+            <Image
+              src="/CAR-AUDIO-EXPERT.png"
+              alt="Kayhan Audio"
+              width={150}
+              height={60}
+              className="mb-4"
+            />
+          </Link>
+          <p className="text-sm">
+            Car audio expert is one of the fastest-growing manufacturers of car entertainment products. Founded in Germany in 1997.
           </p>
-        </div>
-        <div className="flex flex-col md:flex-row items-center gap-3 w-full">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="w-full md:w-auto px-4 py-2 rounded-md text-gray-700 outline-none"
-          />
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md">
-            Subscribe
-          </button>
-        </div>
-      </div>
-
-      {/* Footer Main Content */}
-      <div className="w-11/12 max-w-6xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Logo & Payments */}
-        <div className="text-center md:text-left">
-         <Link className="w-[150px] block mx-auto sm:mx-0" href="/">
-         <Image
-            src="https://kayhanaudio.com.au/wp-content/uploads/2023/02/logo.png"
-            height={80}
-            width={120}
-            alt="Company Logo"
-            className="mx-auto md:mx-0"
-          /></Link>
-          <p className="text-sm text-gray-400 mt-3">Follow us for latest offers</p>
-          <div className="flex justify-center md:justify-start gap-3 mt-3 text-xl">
-          <div className="flex justify-center md:justify-start gap-4 text-xl mt-1">
-            <Link
-              href="https://www.facebook.com/KayhanAudio/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaFacebook className="text-blue-500 hover:scale-110 transition-transform cursor-pointer" />
+          <div className="flex gap-3 mt-4 text-lg">
+            <Link href="https://www.facebook.com/KayhanAudio/" target="_blank">
+              <FaFacebook className="hover:text-white text-blue-500" />
             </Link>
-
-            <Link href="https://x.com/AudioKayhan" target="blank">
-              <FaTwitter className="text-blue-400 hover:scale-110 transition-transform" />
+            <Link href="https://x.com/AudioKayhan" target="_blank">
+              <FaTwitter className="hover:text-white text-blue-400" />
             </Link>
             <Link href="https://www.instagram.com/kayhanaudio/" target="_blank">
-              <FaInstagram className="text-pink-500 hover:scale-110 transition-transform" />
+              <FaInstagram className="hover:text-white text-pink-500" />
             </Link>
             <Link href="https://www.youtube.com/@KAYHANAUDIO" target="_blank">
-              <FaYoutube className="text-red-500 hover:scale-110 transition-transform" />
+              <FaYoutube className="hover:text-white text-red-600" />
             </Link>
-            {/* <Link href="#">
-            <FaLinkedin className="text-blue-700 hover:scale-110 transition-transform" />
-          </Link> */}
-          </div>
           </div>
         </div>
 
         {/* Company Links */}
-        <div className="grid grid-cols-2 gap-5">
-          <div>
-            <h5 className="font-semibold">Company</h5>
-            {companyLinks.map((item, index) => (
-              <Link key={index} href={item.link} className="block text-sm text-gray-400 hover:text-white">
-                {item.name}
-              </Link>
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Company</h3>
+          <ul className="space-y-2 text-sm">
+            {companyLinks.map((link, i) => (
+              <li key={i}>
+                <Link href={link.link} className="hover:text-white">
+                  {link.name}
+                </Link>
+              </li>
             ))}
-          </div>
-          <div>
-            <h5 className="font-semibold">Policies</h5>
-            {policyLinks.map((item, index) => (
-              <Link key={index} href={item.link} className="block text-sm text-gray-400 hover:text-white">
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
+          </ul>
         </div>
 
-        {/* Social Media */}
-        <div className="text-center md:text-left">
-          <h5 className="font-semibold">ABOUT US</h5>
-          <p className="text-sm text-gray-400">Kayhan Audio is one of the fastest growing leading manufacturer and developer of car entertainment products. Founded in Germany in 1997.</p>
-          {/* <p className="text-sm text-gray-400">100% Safe and secure payments</p> */}
-          <div className="flex justify-center md:justify-start gap-4 text-xl mt-3">
-            {/* <Link
-              href="https://www.facebook.com/KayhanAudio/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaFacebook className="text-blue-500 hover:scale-110 transition-transform cursor-pointer" />
-            </Link>
+        {/* Policy Links */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Policies</h3>
+          <ul className="space-y-2 text-sm">
+            {policyLinks.map((link, i) => (
+              <li key={i}>
+                <Link href={link.link} className="hover:text-white">
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-            <Link href="https://x.com/AudioKayhan" target="blank">
-              <FaTwitter className="text-blue-400 hover:scale-110 transition-transform" />
-            </Link>
-            <Link href="https://www.instagram.com/kayhanaudio/" target="_blank">
-              <FaInstagram className="text-pink-500 hover:scale-110 transition-transform" />
-            </Link>
-            <Link href="https://www.youtube.com/@KAYHANAUDIO" target="_blank">
-              <FaYoutube className="text-red-500 hover:scale-110 transition-transform" />
-            </Link> */}
-            {/* <Link href="#">
-            <FaLinkedin className="text-blue-700 hover:scale-110 transition-transform" />
-          </Link> */}
+        {/* Newsletter */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Join Our Newsletter</h3>
+          <p className="text-sm mb-4">Get exclusive offers & updates straight to your inbox.</p>
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <input
+              type="email"
+              placeholder="Your email"
+              className="w-full sm:w-auto flex-1 px-3 py-2 rounded-md text-white border border-white"
+            />
+            <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white text-sm">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="text-center pb-6 md:pb-0 text-gray-500 text-sm mt-10 border-t border-gray-700 pt-4">
-      <p>  &copy; {new Date().getFullYear()} Kayhan Audio. All rights reserved.</p>
+      {/* Footer Bottom */}
+      <div className="text-center border-t border-gray-700 mt-10 pt-4 text-sm text-gray-400">
+        &copy; {new Date().getFullYear()} Car Audio expert. All rights reserved.
       </div>
     </footer>
   );
