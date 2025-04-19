@@ -113,39 +113,7 @@ const ListCards = () => {
           </div>
 
           {/* Filters UI */}
-          {/* Uncomment if needed
-          <div className="flex flex-col sm:flex-row gap-3 mb-5 px-4">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={handleKeyPress}
-              className="border p-2 rounded w-full sm:w-1/3"
-            />
-            <input
-              type="number"
-              placeholder="Min Price"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-              className="border p-2 rounded w-full sm:w-1/4"
-            />
-            <input
-              type="number"
-              placeholder="Max Price"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              className="border p-2 rounded w-full sm:w-1/4"
-            />
-            <button
-              onClick={clearFilters}
-              className="bg-red-600 text-white rounded px-3 py-2"
-            >
-              <FaTimes className="inline mr-1" /> Clear
-            </button>
-          </div>
-          */}
-
+       
           {(!apiHit || tableData.length > 0) && (
             <>
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 md:gap-3">

@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             alt={product.name || "Product Image"}
             width={300}
             height={300}
-            className=" object-contain"
+            className=" object-cover h-full"
             loading="lazy"
             style={{ backgroundColor: "#f3f4f6" }}
           />
