@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Search, XCircle, Filter, X } from "lucide-react";
+import { Filter, X } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { getDepartment } from "@/store/actions/admin/department";
@@ -28,17 +28,17 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) => {
   const [departments, setDepartments] = useState<Department[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
-  const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
-  const params = useParams();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const paramList = params?.slug as string[] || [];
+  const paramList = (useParams()?.slug as string[]) || [];
+
   const company = paramList[0] || "";
   const model = paramList[1] || "";
   const year = paramList[2] || "";
@@ -46,20 +46,16 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
 
   useEffect(() => {
     setSelectedDepartment(categoryParam || null);
-
     const fetchDepartments = async () => {
       try {
         const res = await dispatch(getDepartment({ is_view: DEPARTMENT_VIEW.YES })).unwrap();
-        if (res.success) {
-          setDepartments((res?.data as any)?.result ?? []);
-        }
+        if (res.success) setDepartments((res?.data as any)?.result ?? []);
       } catch (error) {
-        console.error("Error fetching departments:", error);
+        console.error("Department fetch error:", error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchDepartments();
   }, [dispatch, categoryParam]);
 
@@ -70,50 +66,114 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
     return () => clearTimeout(timeout);
   }, [searchTerm]);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleDepartmentClick = (departmentSlug: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (selectedDepartment === departmentSlug) {
-      params.delete("category");
-      setSelectedDepartment(null);
-    } else {
-      params.set("category", departmentSlug);
-      setSelectedDepartment(departmentSlug);
-    }
-
-    router.push(`${pathname}?${params.toString()}`);
-  };
-
   const removeFilter = (key: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete(key);
-    router.push(`${pathname}?${params.toString()}`);
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.delete(key);
+    router.push(`${pathname}?${newParams.toString()}`);
   };
 
   const handleClearFilters = () => {
     setSelectedDepartment(null);
-    router.push("/products"); // Navigate to only products page
+    router.push("/products");
   };
+
+  const handleDepartmentClick = (slug: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (selectedDepartment === slug) {
+      params.delete("category");
+      setSelectedDepartment(null);
+    } else {
+      params.set("category", slug);
+      setSelectedDepartment(slug);
+    }
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const renderChips = () => {
+    const chips = [
+      { key: "company", value: company },
+      { key: "model", value: model },
+      { key: "year", value: year },
+    ].filter(chip => chip.value);
+
+    if (!chips.length) return null;
+
+    return (
+      <div className="flex gap-3 overflow-x-auto bg-white my-2 p-2">
+        {chips.map(({ key, value }) => (
+          <button
+            key={key}
+            onClick={() => removeFilter(key)}
+            className="flex items-center whitespace-nowrap px-3 py-1 bg-gray-600 rounded-full text-white"
+          >
+            {value}
+            <FaTimes size={14} className="ml-2" />
+          </button>
+        ))}
+      </div>
+    );
+  };
+
+  const renderSidebarContent = () => (
+    <>
+      {renderChips()}
+      <ul className="space-y-2 mt-3">
+        <motion.li
+          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg p-2"
+          onClick={handleClearFilters}
+        >
+          <input
+            type="radio"
+            checked={!selectedDepartment}
+            onChange={handleClearFilters}
+            className="w-4 h-4 accent-blue-500"
+          />
+          <span className={`text-sm ${!selectedDepartment ? "font-medium text-blue-600" : "text-gray-800"}`}>
+            All
+          </span>
+        </motion.li>
+
+        {loading ? (
+          <p className="text-sm text-gray-500">Loading departments...</p>
+        ) : departments.length > 0 ? (
+          departments.map(dep => (
+            <motion.li
+              whileTap={{ scale: 0.95 }}
+              key={dep.id}
+              className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg p-2"
+              onClick={() => handleDepartmentClick(dep.slug)}
+            >
+              <input
+                type="radio"
+                checked={selectedDepartment === dep.slug}
+                onChange={() => handleDepartmentClick(dep.slug)}
+                className="w-4 h-4 accent-blue-500"
+              />
+              <span className={`text-sm ${selectedDepartment === dep.slug ? "font-medium text-blue-600" : "text-gray-800"}`}>
+                {dep.name}
+              </span>
+            </motion.li>
+          ))
+        ) : (
+          <p className="text-sm text-gray-500">No departments found.</p>
+        )}
+      </ul>
+    </>
+  );
 
   return (
     <>
-      {/* Mobile Floating Filter Button */}
+      {/* Mobile filter button */}
       <button
         className="lg:hidden fixed bottom-5 right-5 bg-blue-600 text-white p-3 rounded-full shadow-lg z-50"
-        aria-label="Open Filters"
         onClick={() => setIsMobileOpen(true)}
       >
         <Filter />
       </button>
 
       {/* Desktop Sidebar */}
-      <aside
-        className={`${showSideBar ? "md:block" : "hidden"} absolute z-20 lg:relative lg:block bg-white   p-5 space-y-4 h-screen overflow-y-auto `}
-      >
+      <aside className={`${showSideBar ? "md:block" : "hidden"} absolute z-20 lg:relative lg:block bg-white p-5 space-y-4 h-screen overflow-y-auto`}>
         {renderSidebarContent()}
       </aside>
 
@@ -153,106 +213,6 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
       )}
     </>
   );
-
-  function renderSidebarContent() {
-    return (
-      <>
-        <div className="flex justify-between items-center">
-          {/* <h1 className="text-2xl text-black">Filter</h1> */}
-          {/* <button
-            onClick={handleClearFilters}
-            className="text-sm flex items-center gap-1 text-red-500 hover:text-red-700"
-          >
-            <XCircle size={16} />
-            Clear Filters
-          </button> */}
-        </div>
-
-        {(company || model  || year) && (
-        <div className="flex gap-3 overflow-x-scroll hide-scrollbar bg-white my-2 p-2">
-
-           
-            {company && (
-              <button
-                onClick={() => removeFilter("company")}
-                className="flex items-center px-2 py-1 bg-gray-600 rounded-full text-white"
-              >
-                {company}
-                <FaTimes size={14} className="ml-2" />
-              </button>
-            )}
-            {model && (
-              <button
-                onClick={() => removeFilter("model")}
-                className="flex items-center px-3 py-1 bg-gray-600 rounded-full text-white"
-              >
-                {model}
-                <FaTimes size={14} className="ml-2" />
-              </button>
-            )}
-            {year && (
-              <button
-                onClick={() => removeFilter("year")}
-                className="flex items-center px-3 py-1 bg-gray-600 rounded-full text-white"
-              >
-                {year}
-                <FaTimes size={14} className="ml-2" />
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* All Button */}
-        <ul className="space-y-2 mt-3">
-          <motion.li
-            whileTap={{ scale: 0.9 }}
-            className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg p-2"
-            onClick={handleClearFilters}
-          >
-            <input
-              type="radio"
-              checked={!selectedDepartment}
-              onChange={handleClearFilters}
-              className="w-4 h-4 accent-blue-500 cursor-pointer"
-            />
-            <span className={`text-sm ${!selectedDepartment ? "font-medium text-blue-600" : "text-gray-800"}`}>
-              All
-            </span>
-          </motion.li>
-
-          {/* Department List */}
-          {loading ? (
-            <p className="text-sm text-gray-500">Loading departments...</p>
-          ) : departments.length > 0 ? (
-            departments.map((department) => (
-              <motion.li
-                whileTap={{ scale: 0.9 }}
-                key={department.id}
-                className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 rounded-lg p-2"
-                onClick={() => handleDepartmentClick(department.slug)}
-              >
-                <input
-                  type="radio"
-                  checked={selectedDepartment === department.slug}
-                  onChange={() => handleDepartmentClick(department.slug)}
-                  className="w-4 h-4 rounded-full accent-blue-500 cursor-pointer"
-                />
-                <span
-                  className={`text-sm ${
-                    selectedDepartment === department.slug ? "font-medium text-blue-600" : "text-gray-800"
-                  }`}
-                >
-                  {department.name}
-                </span>
-              </motion.li>
-            ))
-          ) : (
-            <p className="text-sm text-gray-500">No departments found.</p>
-          )}
-        </ul>
-      </>
-    );
-  }
 };
 
 export default SideBar;
