@@ -141,7 +141,7 @@ const Detail = () => {
   if (!apiHit) return <ProductDetailSkeleton />;
 
   return (
-    <div className="w-[70%] mx-auto px-4 py-3">
+    <div className="w-11/12 mx-auto px-4 pb-3 ">
       {/* Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
         {/* Gallery */}

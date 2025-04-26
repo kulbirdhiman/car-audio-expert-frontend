@@ -66,11 +66,13 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
     return () => clearTimeout(timeout);
   }, [searchTerm]);
 
-  const removeFilter = (key: string) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.delete(key);
-    router.push(`${pathname}?${newParams.toString()}`);
-  };
+  // const removeFilter = (key: string) => {
+  //   const newParams = new URLSearchParams(searchParams.toString());
+  //   console.log(newParams,"this is keys")
+  //   newParams.delete(key);
+  //   console.log(`${newParams.delete(key)} check this is working`)
+  //   router.push(`${pathname}?${newParams.toString()}`);
+  // };
 
   const handleClearFilters = () => {
     setSelectedDepartment(null);
@@ -89,34 +91,34 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) 
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const renderChips = () => {
-    const chips = [
-      { key: "company", value: company },
-      { key: "model", value: model },
-      { key: "year", value: year },
-    ].filter(chip => chip.value);
+  // const renderChips = () => {
+  //   const chips = [
+  //     { key: "company", value: company },
+  //     { key: "model", value: model },
+  //     { key: "year", value: year },
+  //   ].filter(chip => chip.value);
 
-    if (!chips.length) return null;
+  //   if (!chips.length) return null;
 
-    return (
-      <div className="flex gap-3 overflow-x-auto bg-white my-2 p-2">
-        {chips.map(({ key, value }) => (
-          <button
-            key={key}
-            onClick={() => removeFilter(key)}
-            className="flex items-center whitespace-nowrap px-3 py-1 bg-gray-600 rounded-full text-white"
-          >
-            {value}
-            <FaTimes size={14} className="ml-2" />
-          </button>
-        ))}
-      </div>
-    );
-  };
+  //   return (
+  //     <div className="flex gap-3 overflow-x-auto bg-white my-2 p-2">
+  //       {chips.map(({ key, value }) => (
+  //         <button
+  //           key={key}
+  //           onClick={() => removeFilter(key)}
+  //           className="flex items-center whitespace-nowrap px-3 py-1 bg-gray-600 rounded-full text-white"
+  //         >
+  //           {value}
+  //           <FaTimes size={14} className="ml-2" />
+  //         </button>
+  //       ))}
+  //     </div>
+  //   );
+  // };
 
   const renderSidebarContent = () => (
     <>
-      {renderChips()}
+      {/* {renderChips()} */}
       <ul className="space-y-2 mt-3">
         <motion.li
           whileTap={{ scale: 0.95 }}

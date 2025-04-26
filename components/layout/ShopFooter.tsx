@@ -99,13 +99,13 @@ const ShopFooter: React.FC = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">Join Our Newsletter</h3>
           <p className="text-sm mb-4">Get exclusive offers & updates straight to your inbox.</p>
-          <div className="flex flex-col sm:flex-row items-center gap-3">
+          <div className="flex flex-col  flex-wrap items-center gap-3">
             <input
               type="email"
               placeholder="Your email"
-              className="w-full sm:w-auto flex-1 px-3 py-2 rounded-md text-white border border-white"
+              className="w-full   px-3 py-2 rounded-md text-white border border-white"
             />
-            <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white text-sm">
+            <button className="bg-blue-600 w-full hover:bg-blue-700 px-4 py-2 rounded text-white text-sm">
               Subscribe
             </button>
           </div>
