@@ -6,10 +6,10 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { signUpAction, SignUpData } from "@/store/actions/auth";
 import { mapServerErrors } from "@/helpers/commonFunction";
-import { log } from "console";
+// import { log } from "console";
 import "react-country-state-city/dist/react-country-state-city.css";
 
-import { USER_ROLE } from "@/app/constants";
+// import { USER_ROLE } from "@/app/constants";
 import { useRouter } from "next/navigation";
 
 import { CountrySelect } from "react-country-state-city";
@@ -150,7 +150,6 @@ const SignUp: React.FC = () => {
     <div className=" fl">
       <div className="text-lg">
         <DynamicForm
-          // formClassName="w-full  flex-wrap"
           formClassName="grid grid-cols-2 gap-2"
           submitTitle="Sign Up"
           values={values}
@@ -159,6 +158,8 @@ const SignUp: React.FC = () => {
           formFields={formFields}
           handleSubmit={handleSubmit}
           mode="add"
+          submitClass="col-span-2 flex justify-center mt-6"
+          submitBtnClass='w-1/2 mx-auto bg-black text-white rounded-md px-4 py-2 '
         />
         <div className="flex mt-3 justify-between">
           <p className="text-sm ">

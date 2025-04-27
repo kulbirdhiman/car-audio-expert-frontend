@@ -35,7 +35,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           className={`${
             field.fieldClass
               ? field.fieldClass
-              : "peer relative block w-full border focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 dark:bg-neutral-900 rounded-lg text-md sm:text-lg font-medium h-11 px-4 py-3 mt-1"
+              : "peer relative block w-full border focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white text-black rounded-lg text-md sm:text-lg font-medium h-11 px-4 py-3 mt-1"
           } `}
           // className="peer relative block w-full border focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 dark:bg-neutral-900 rounded-lg text-md sm:text-lg font-medium h-11 px-4 py-3 mt-1"
           value={value}
@@ -48,9 +48,9 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           className="absolute right-2 cursor-pointer transition-all duration-200 ease-in-out focus:outline-none"
         >
           {passwordVisibility ? (
+             <FaEye className="w-6 h-6 text-black dark:text-black" />
+            ) : (
             <FaEyeSlash className="w-6 h-6   text-black dark:text-black" />
-          ) : (
-            <FaEye className="w-6 h-6 text-black dark:text-black" />
           )}
         </button>
       </div>
