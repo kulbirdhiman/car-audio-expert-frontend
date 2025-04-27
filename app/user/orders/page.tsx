@@ -20,6 +20,7 @@ const Page = () => {
       if (res.success) {
         setData(res.data.result);
         setApiHit(true);
+        console.log(`this is order data ${data}`)
       }
     } catch (error) {
       console.error("Error fetching orders:", error);

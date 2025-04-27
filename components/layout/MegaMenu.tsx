@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
+"use client"
+import React, {  useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowBigLeft, Car } from "lucide-react";
 import { detailCategory } from "@/store/actions/admin/category";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { detailCarModel } from "@/store/actions/admin/carModel";
 import { IoChevronBack } from "react-icons/io5";
-import Image from "next/image";
-import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/solid";
+// import Image from "next/image";
 
 type MegaMenuProps = {
   title: string;
@@ -21,17 +19,8 @@ type MegaMenuProps = {
   megaMenuData: any;
 };
 
-type CategoryItem = {
-  name: string;
-  slug: string;
-};
-
-
-
 const MegaMenu: React.FC<MegaMenuProps> = ({
-  title,
   position,
-  link,
   setMegaMenu,
   data,
   getData,
@@ -40,29 +29,29 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
   const router = useRouter();
 
   const dispatch = useDispatch<AppDispatch>();
-  const [open, setOpen] = useState<boolean>(false);
+  // const [open, setOpen] = useState<boolean>(false);
   const [values, setValues] = useState({});
 
-  const searchFunction = async (e: any) => {
-    setValues({ ...values, search: e.target.value });
+  // const searchFunction = async (e: any) => {
+  //   setValues({ ...values, search: e.target.value });
 
-    if (megaMenuData.department.show) {
-      await getData({ id: megaMenuData.main.id, search: e.target.value });
-    } else if (megaMenuData.category.show && !megaMenuData?.parent_model) {
-      await viewCategory({
-        id: megaMenuData.main.id,
-        slug: megaMenuData.main.slug,
-        search: e.target.value,
-      });
-    } else if (megaMenuData.category.show && megaMenuData?.parent_model) {
-      await viewModel({
-        id: megaMenuData.main.id,
-        slug: megaMenuData.main.slug,
-        search: e.target.value,
-        parent_model: megaMenuData.parent_model,
-      });
-    }
-  };
+  //   if (megaMenuData.department.show) {
+  //     await getData({ id: megaMenuData.main.id, search: e.target.value });
+  //   } else if (megaMenuData.category.show && !megaMenuData?.parent_model) {
+  //     await viewCategory({
+  //       id: megaMenuData.main.id,
+  //       slug: megaMenuData.main.slug,
+  //       search: e.target.value,
+  //     });
+  //   } else if (megaMenuData.category.show && megaMenuData?.parent_model) {
+  //     await viewModel({
+  //       id: megaMenuData.main.id,
+  //       slug: megaMenuData.main.slug,
+  //       search: e.target.value,
+  //       parent_model: megaMenuData.parent_model,
+  //     });
+  //   }
+  // };
 
   const viewCategory = async (data: Record<string, any>) => {
     try {

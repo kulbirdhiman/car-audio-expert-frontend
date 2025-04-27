@@ -18,7 +18,7 @@ const Page = () => {
 
   const [open, setOpen] = useState(false);
   const fields = [{ id: Date.now(), price_up_to: 0, discount: 0 }];
-  const [values, setValues] = useState({ options: fields });
+  const [values, setValues] = useState<any>({ options: fields });
   const [errors, setErrors] = useState({});
   const [apiHit, setApiHit] = useState(false);
   const [tableData, setTableData] = useState<Record<string, any>[]>([]);
@@ -29,11 +29,11 @@ const Page = () => {
     const [showPagination, setShowPagination] = useState([]);
 
 
-  const handleCustomSelect = (value, name) => {
+  const handleCustomSelect = (value:any, name:any) => {
     setValues({ ...values, [name]: value });
   };
 
-  const list = async (page) => {
+  const list = async (page:any) => {
     try {
       setCurrentPage(page);
       const res = await dispatch(getCoupons({page})).unwrap();

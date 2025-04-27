@@ -12,8 +12,6 @@ import {
 } from "next/navigation";
 import { DEPARTMENT_VIEW } from "@/app/constants";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaTimes } from "react-icons/fa";
-
 interface Department {
   id: string;
   slug: string;
@@ -26,7 +24,7 @@ interface SideBarProps {
   list: (page: number, searchParams: URLSearchParams, searchTerm: string) => void;
 }
 
-const SideBar: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar, list }) => {
+const SideBar: React.FC<SideBarProps> = ({ showSideBar,  list }) => {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");

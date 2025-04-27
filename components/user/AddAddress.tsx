@@ -1,23 +1,28 @@
 "use client";
-import React, { useEffect, useState } from "react";
-// import DynamicForm from "@/components/globals/DynamicForm";
+import React, { useState } from "react";
 import DynamicForm, { FormField } from "../globals/DynamicForm";
 import {
-  CitySelect,
   CountrySelect,
   StateSelect,
-  LanguageSelect,
-  RegionSelect,
-  PhonecodeSelect,
 } from "react-country-state-city";
 import "react-country-state-city/dist/react-country-state-city.css";
 import { mapServerErrors } from "@/helpers/commonFunction";
 import { addAddress, editAddress } from "@/store/actions/user/address";
-import { editDepartment } from "@/store/actions/admin/department";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 
-const AddAddressForm = ({
+// Define types for the props
+interface AddAddressFormProps {
+  getMyAddress: () => void;
+  billingAddress: Record<string, any>;
+  setBillingAddress: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  billingErrors: Record<string, string>;
+  setBillingErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AddAddressForm: React.FC<AddAddressFormProps> = ({
   getMyAddress,
   billingAddress,
   setBillingAddress,
@@ -50,8 +55,8 @@ const AddAddressForm = ({
       console.log("Submitted values:", res);
 
       if (res.success) {
-        getMyAddress()
-        setIsOpen(!isOpen)
+        getMyAddress();
+        setIsOpen(!isOpen);
         // toggleDrawer({});
       }
     } catch (error) {
@@ -67,8 +72,8 @@ const AddAddressForm = ({
 
   return (
     isOpen && (
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-        <div className="bg-white rounded-2xl shadow-lg p-2  relative">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div className="bg-white rounded-2xl shadow-lg p-2 relative">
           <button
             className="absolute top-2 right-2 text-xl text-gray-600 hover:text-black"
             onClick={() => {
@@ -77,10 +82,10 @@ const AddAddressForm = ({
           >
             ×
           </button>
-          <div className="  p-5 ">
+          <div className="p-5">
             <h1 className="text-xl my-4 font-semibold"> Billing Address</h1>
             <DynamicForm
-              formClassName="grid grid-cols-2 gap-4 item-center "
+              formClassName="grid grid-cols-2 gap-4 item-center"
               submitTitle="submit"
               values={billingAddress}
               setValues={setBillingAddress}
@@ -103,11 +108,12 @@ const AddAddressForm = ({
 
 export default AddAddressForm;
 
+// Define types for form fields
 const formFields = (
-  countries,
-  billingAddress,
-  setBillingAddress,
-  billingErrors
+  countries: { name: string; isoCode: string }[],
+  billingAddress: Record<string, any>,
+  setBillingAddress: React.Dispatch<React.SetStateAction<Record<string, any>>>,
+  billingErrors: Record<string, string>
 ): FormField[] => {
   return [
     {
@@ -116,7 +122,7 @@ const formFields = (
       type: "text",
       fieldClass:
         "peer w-full rounded border border-gray-400 p-2 focus:outline-none focus:border-black",
-      labelClass: "text-gray-700 ",
+      labelClass: "text-gray-700",
       placeholder: "Enter First name",
     },
     {
@@ -125,7 +131,7 @@ const formFields = (
       type: "text",
       fieldClass:
         "peer w-full rounded border border-gray-400 p-2 focus:outline-none focus:border-black",
-      labelClass: "text-gray-700 ",
+      labelClass: "text-gray-700",
       placeholder: "Enter First name",
     },
     {
@@ -134,7 +140,7 @@ const formFields = (
       type: "email",
       fieldClass:
         "peer w-full rounded border border-gray-400 p-2 focus:outline-none focus:border-black",
-      labelClass: "text-gray-700 ",
+      labelClass: "text-gray-700",
       placeholder: "Enter Email name",
     },
     {
@@ -143,24 +149,24 @@ const formFields = (
       type: "number",
       fieldClass:
         "peer w-full rounded border border-gray-400 p-2 focus:outline-none focus:border-black",
-      labelClass: "text-gray-700 ",
+      labelClass: "text-gray-700",
       placeholder: "Enter phone number",
     },
     {
       name: "country",
       label: "Country",
       type: "custom",
-      options: countries,
+      // options: countries,
       customRender: () => {
         return (
           <div className="border-none">
-            <label className="block  text-lg font-medium">
+            <label className="block text-lg font-medium">
               Select Countries
             </label>
             <CountrySelect
-              inputClassName="w-full bg-transparent text-gray-900  border-none focus:outline-none"
-              defaultValue ={billingAddress.country}
-              onChange={(e) => {
+              inputClassName="w-full bg-transparent text-gray-900 border-none focus:outline-none"
+              defaultValue={billingAddress.country}
+              onChange={(e: any) => {
                 console.log(e);
                 setBillingAddress({
                   ...billingAddress,
@@ -184,20 +190,18 @@ const formFields = (
     },
     {
       name: "state",
-      label: "State ",
+      label: "State",
       type: "custom",
       customRender: () => {
         return (
           <div className="c">
-            <label className="block  text-lg font-medium">States</label>
+            <label className="block text-lg font-medium">States</label>
             <StateSelect
               countryid={(billingAddress.country as any)?.id}
-              defaultValue ={billingAddress.state}
-              className="peer w-full border-b border-gray-900 focus:outline-none focus:border-black "
-              onChange={(e) => {
+              defaultValue={billingAddress.state}
+              className="peer w-full border-b border-gray-900 focus:outline-none focus:border-black"
+              onChange={(e: any) => {
                 console.log(e);
-                // setCountrtyId(e.id)
-                // setCountryid(e.id);
                 setBillingAddress({
                   ...billingAddress,
                   state: { id: e.id, name: e.name, state_code: e.state_code },
@@ -219,7 +223,7 @@ const formFields = (
       type: "text",
       fieldClass:
         "peer w-full rounded border border-gray-400 p-2 focus:outline-none focus:border-black",
-      labelClass: "text-gray-700 ",
+      labelClass: "text-gray-700",
       placeholder: "Enter city",
     },
     {
@@ -228,17 +232,16 @@ const formFields = (
       type: "text",
       fieldClass:
         "peer w-full rounded border border-gray-400 p-2 focus:outline-none focus:border-black",
-      labelClass: "text-gray-700 ",
+      labelClass: "text-gray-700",
       placeholder: "Enter street_address",
     },
-
     {
       name: "postcode",
       label: "Postcode / ZIP",
       type: "text",
       fieldClass:
         "peer w-full rounded border border-gray-400 p-2 focus:outline-none focus:border-black",
-      labelClass: "text-gray-700 ",
+      labelClass: "text-gray-700",
       placeholder: "Enter Post code",
     },
   ];

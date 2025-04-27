@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface SpecificationsComponentProps {
-  Specification: any; 
+  Specification: string; 
 }
 
 const SpecificationsComponent: React.FC<SpecificationsComponentProps> = ({ Specification }) => {

@@ -13,7 +13,7 @@ const Address = () => {
   const [billingErrors, setBillingErrors] = useState({});
   const [data, setData] = useState<any>([]);
   const [apiHit, setApiHit] = useState(false);
-  const [isDeleteOpen,setIsDeleteOpen]  = useState(false)
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -24,14 +24,14 @@ const Address = () => {
         setData(res.data.result);
         setApiHit(true);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
     getMyAddress();
   }, []);
 
-  const deletAddressF = async ()=>{
+  const deletAddressF = async () => {
     await dispatch(deleteAddress(billingAddress as any));
     setIsDeleteOpen(false);
     setBillingAddress({})
@@ -41,11 +41,11 @@ const Address = () => {
 
   return (
     <div className="p-6">
-        <DeleteModal
-              open={isDeleteOpen}
-              setOpen={setIsDeleteOpen}
-              deleteRecord={deletAddressF}
-            />
+      <DeleteModal
+        open={isDeleteOpen}
+        setOpen={setIsDeleteOpen}
+        deleteRecord={deletAddressF}
+      />
       <h2 className="text-2xl text-black font-semibold mb-4">Your Addresses</h2>
 
       {/* Add Address Button (Styled like Amazon) */}
@@ -98,7 +98,7 @@ const Address = () => {
                   >
                     Edit
                   </button>
-                  <button onClick={()=>{  setIsDeleteOpen(true);   setBillingAddress(item);}} className="hover:underline">Remove</button>
+                  <button onClick={() => { setIsDeleteOpen(true); setBillingAddress(item); }} className="hover:underline">Remove</button>
                 </div>
               </div>
             ))}

@@ -104,7 +104,7 @@ const Page = () => {
     setOpenDel(!open);
   };
 
-  const updateRowOrderAPI = async (data)=>{
+  const updateRowOrderAPI = async (data:any)=>{
 console.log(data,"data =======");
 setTableData(data)
 const api = updateOrderOfDept({departments:data});
