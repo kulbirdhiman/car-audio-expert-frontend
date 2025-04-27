@@ -56,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </p>
 
         <Link
-          href={`/product/${product.slug}`}
+          href={`/products/${product.slug}`}
           passHref
           className="font-bold text-black line-clamp-1 text-sm"
         >
@@ -74,7 +74,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {product.in_stock > 0 ? (
           <p className="text-xs my-2 text-green-700 font-bold">In Stock</p>
         ) : (
-          <H1Icon className="text-red-500 w-5 h-5 mt-2" />
+          <p className="text-xs my-2 text-red-700 font-bold">Out Stock</p>
+
         )}
 
         {/* Price Info */}

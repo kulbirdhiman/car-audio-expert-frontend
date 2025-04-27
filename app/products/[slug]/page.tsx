@@ -6,8 +6,6 @@ const page = () => {
     <div className="container mx-auto lg:p-6 p-2 ">
       <div className="mx-auto w-full  bg-white   rounded-lg lg:p-8 p-2">
         <Detail />
-
-        {/* <RecommendedProducts title="Related Products" /> */}
       </div>
     </div>
   );

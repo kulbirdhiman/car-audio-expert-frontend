@@ -110,7 +110,7 @@ const CheckOut: React.FC = () => {
     getMyCarts();
   }, [user, loading]);
 
-  const calculateShipping = (data) => {
+  const calculateShipping = (data:any) => {
     if ((billingAddress as any).postcode || (shippingAddress as any).postcode) {
       setShippingPrice(99);
     } else {
@@ -179,7 +179,7 @@ const CheckOut: React.FC = () => {
           const op = { ...data, result: [...data.result, p] };
           console.log("op", op);
 
-          setData((prev) => ({
+          setData((prev:any) => ({
             ...prev,
             result: [...prev.result, p],
           }));
@@ -232,7 +232,7 @@ const CheckOut: React.FC = () => {
               return;
             }
           }}
-          className="bg-amazon_blue relative p-5 w-full text-white rounded-md my-2 flex"
+          className="bg-black relative p-5 w-full text-white rounded-md my-2 flex"
         >
           {" "}
           <CiDiscount1 className="text-lg mx-2" />
@@ -298,7 +298,7 @@ const CheckOut: React.FC = () => {
               </div>
             </div>
             <div className="flex flex-col w-full justify-between gap-8 items-start">
-              {data.result.map((row, i) => {
+              {data.result.map((row:any, i:any) => {
                 const discountPercentage =
                   row.discount_price > 0
                     ? Math.round(
@@ -318,14 +318,14 @@ const CheckOut: React.FC = () => {
 
                       {(row as any).variations.length > 0 && (
                         <div className="mt-2 space-y-1 bg-gray-50 p-2 rounded-md">
-                          {(row as any).variations.map((variation, index) => (
+                          {(row as any).variations.map((variation:any, index:any) => (
                             <div key={index} className="flex gap-2">
                               <strong className="text-gray-800">
                                 {variation.name}:
                               </strong>
                               <span className="text-gray-600">
                                 {variation.options
-                                  .map((op) => op.name)
+                                  .map((op:any) => op.name)
                                   .join(", ")}
                               </span>
                             </div>

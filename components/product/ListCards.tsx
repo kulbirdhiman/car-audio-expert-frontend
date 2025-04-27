@@ -117,8 +117,8 @@ const ListCards = () => {
             </button>
           </div>
 
-          <div className={company || model || category || year ?"border-x-0 border border-gray-200  bg-white my-2 p-2":"hidden"}>
-            {(company || model || category || year) && (
+          <div className={company || model ||  year ?"border-x-0 border border-gray-200  bg-white my-2 p-2":"hidden"}>
+            {(company || model ||  year) && (
               <div className="flex gap-3 flex-wrap">
                 {company && (
                   <button className="flex items-center px-3 py-1 bg-blue-950 rounded-full font-seri text-white">
@@ -169,7 +169,7 @@ const ListCards = () => {
                 totalPages={totalPage}
                 currentPage={currentPage}
                 setCurrentPage={(page: number) => list(page, searchParams)}
-                limit={4}
+                limit={20}
                 showPagination={showPagination}
                 tableDataLength={tableData.length}
               />

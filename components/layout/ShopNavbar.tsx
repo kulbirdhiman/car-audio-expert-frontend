@@ -24,7 +24,7 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
 
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-full ">
       {/* Top Bar */}
       <div className="hidden md:flex justify-between items-center text-xs text-black py-2 px-4 bg-white">
         <h4>Welcome to car audio expert</h4>
@@ -40,7 +40,7 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
 
       {/* Main Navigation */}
       <div className="bg-white text-black">
-        <nav className="flex items-center justify-between px-4 py-3 lg:px-4">
+        <nav className="flex items-center justify-between px-4 py-3 lg:px-8">
           {/* Logo & Menu */}
           <div className="flex gap-4 items-center justify-center">
             <Link href="/" className="text-xl font-bold flex items-center">

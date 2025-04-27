@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
@@ -35,42 +35,6 @@ interface AddOnProps {
   addOns: any[];
 }
 
-interface ArrowProps {
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-}
-
-function SampleNextArrow({ className, style, onClick }: ArrowProps) {
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        background: "black",
-        borderRadius: "50%",
-      }}
-      onClick={onClick}
-    />
-  );
-}
-
-function SamplePrevArrow({ className, style, onClick }: ArrowProps) {
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        background: "black",
-        borderRadius: "50%",
-      }}
-      onClick={onClick}
-    />
-  );
-}
-
 const AddOn: React.FC<AddOnProps> = ({ extras = [], setAddOns, addOns }) => {
   const [errors, setErrors] = useState<Record<string, any>>({});
   const [variationData, setVariationData] = useState<VariationType[]>([]);
@@ -81,7 +45,6 @@ const AddOn: React.FC<AddOnProps> = ({ extras = [], setAddOns, addOns }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleCheckboxChange = async (data: ExtraProduct) => {
-    console.log(data);
     setCurrentData(data);
 
     if (!addOns.some((r) => r.id === data.id)) {
@@ -126,45 +89,12 @@ const AddOn: React.FC<AddOnProps> = ({ extras = [], setAddOns, addOns }) => {
     }
   };
 
-  const addOnVariations = useMemo(() => variation, [variation]);
-
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: false,
-    appendDots: (dots: React.ReactNode) => (
-      <div>
-        <ul>{dots}</ul>
-      </div>
-    ),
-    customPaging: () => (
-      <div className="w-2 h-2 rounded-lg bg-white m-0 p-0"></div>
-    ),
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1210,
-        settings: { slidesToShow: 3, slidesToScroll: 1 },
-      },
-      {
-        breakpoint: 900,
-        settings: { slidesToShow: 2, slidesToScroll: 1 },
-      },
-      {
-        breakpoint: 618,
-        settings: { slidesToShow: 2, slidesToScroll: 1 },
-      },
-    ],
-  };
-
   return (
     <>
-      <div className="dark:text-black  p-2">
-        <h1 className="font-medium font-sans text-xl">Add On</h1>
+      <div className="dark:text-black p-2">
+        <h1 className="font-medium font-sans text-xl mb-4">Add Ons</h1>
+
+        {/* Variation Popup */}
         <VariationsForAddOn
           setErrors={setErrors}
           currentData={currentData}
@@ -176,48 +106,31 @@ const AddOn: React.FC<AddOnProps> = ({ extras = [], setAddOns, addOns }) => {
           variation={variation}
           variationData={variationData}
         />
-        <div className="relative w-full">
-          <div className="slider-container px-5 md:w-full mx-auto">
-            <Slider {...settings}>
-              {extras.map((product, index) => (
-                <div key={index}>
-                  <div className="w-[130px] p-3 flex flex-col justify-between rounded-xl relative">
-                    <Image
-                      src={
-                        product.images[0].image.includes("http")
-                          ? product.images[0].image
-                          : process.env.NEXT_PUBLIC_S3_IMG_URL +
-                            product.images[0].image
-                      }
-                      alt={product.name}
-                      width={500}
-                      height={200}
-                      className="w-full h-[70px] object-contain mb-2"
-                    />
-                    <p className="text-center   line-clamp-1 text-sm">
-                      {product.name}
-                    </p>
-                    <h1 className="text-base font-avenir-bold mb-1 text-green-600">
-                      ${product.wholesale_price ?? "--"}
-                    </h1>
-                    {product.in_stock !== IN_STOCK ? (
-                      <p className="text-red-500 absolute right-0 top-[5px] font-bold text-sm text-center">
-                        Out of Stock
-                      </p>
-                    ) : (
-                      <input
-                        disabled={product.in_stock !== IN_STOCK}
-                        type="checkbox"
-                        className="absolute h-4 w-4 right-0 top-[5px]"
-                        checked={addOns.some((r) => r.id === product.id)}
-                        onChange={() => handleCheckboxChange(product)}
-                      />
-                    )}
-                  </div>
-                </div>
-              ))}
-            </Slider>
-          </div>
+
+        {/* Dropdown */}
+        <div className="w-full  mx-auto">
+          <select
+            className="w-full border border-gray-300 rounded-lg p-2 text-black"
+            onChange={(e) => {
+              const selectedId = parseInt(e.target.value);
+              const selectedProduct = extras.find((p) => p.id === selectedId);
+              if (selectedProduct) {
+                handleCheckboxChange(selectedProduct);
+              }
+            }}
+            value={addOns.length > 0 ? addOns[0].id : ""}
+          >
+            <option value="">Select an Add On</option>
+            {extras.map((product) => (
+              <option
+                key={product.id}
+                value={product.id}
+                disabled={product.in_stock !== IN_STOCK}
+              >
+                {product.name} {product.in_stock !== IN_STOCK ? "(Out of Stock)" : ""} - ${product.wholesale_price ?? "--"}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     </>
