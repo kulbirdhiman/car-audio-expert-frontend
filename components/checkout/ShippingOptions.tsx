@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import * as yup from "yup";
 
-const ShippingOptions = ({
+
+const ShippingOptions: React.FC<any> = ({
   selectedAddress,
   selectedShipping,
   setSelectedShipping,
@@ -76,7 +77,7 @@ const ShippingOptions = ({
     postcode: yup.string().required("Zip code is required"),
   });
 
-  const handleShippingOption = async (option) => {
+  const handleShippingOption = async (option:any) => {
     let billingErrorss = [];
     let shippingErrorss = [];
     if (!user) {
@@ -84,7 +85,7 @@ const ShippingOptions = ({
         await billingSchema.validate(billingAddress, { abortEarly: false });
       } catch (error) {
         billingErrorss = (error as any).inner.reduce(
-          (acc, err) => ({ ...acc, [err.path]: err.message }),
+          (acc:any, err:any) => ({ ...acc, [err.path]: err.message }),
           {}
         );
 
@@ -97,7 +98,7 @@ const ShippingOptions = ({
         await shippingSchema.validate(shippingAddress, { abortEarly: false });
       } catch (error) {
         shippingErrorss = (error as any).inner.reduce(
-          (acc, err) => ({ ...acc, [err.path]: err.message }),
+          (acc:any, err:any) => ({ ...acc, [err.path]: err.message }),
           {}
         );
       }
@@ -157,7 +158,7 @@ const ShippingOptions = ({
   return (
     <div className="py-6 border-b">
       <h2 className="text-xl font-semibold mb-3">Select Ship Option</h2>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4">
         {options.map((option) => (
           <div
             key={option.option_id}

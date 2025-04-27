@@ -219,7 +219,7 @@ const CheckOut: React.FC = () => {
       />
 
       <div className="w-[90%]  mx-auto">
-        <h1 className="text-3xl p-6 font-extrabold text-black">CheckOut</h1>
+        <h1 className="text-3xl p-6 font-bold fon text-black">CheckOut</h1>
         <button
           onClick={() => {
             if (
@@ -283,7 +283,7 @@ const CheckOut: React.FC = () => {
         </div>
 
         <div className="w-full md:col-span-1 col-span-3   my-4 p-6 border border-gray-300 rounded-lg shadow-md bg-white">
-          <h1 className="text-center text-2xl font-semibold border-b pb-3">
+          <h1 className=" text-2xl font-semibold border-b pb-3">
             Order Summary
           </h1>
 
@@ -311,13 +311,13 @@ const CheckOut: React.FC = () => {
                 return (
                   <div
                     key={i}
-                    className="flex justify-between w-full items-center p-4 gap-6 bg-white shadow-md rounded-lg"
+                    className="flex justify-between w-full items-center p-4 gap-6 bg-white border-b border-gray-200"
                   >
                     <div className="flex flex-col">
                       <p className="text-gray-700 font-semibold">{row.name}</p>
 
                       {(row as any).variations.length > 0 && (
-                        <div className="mt-2 space-y-1 bg-gray-50 p-2 rounded-md">
+                        <div className="mt-2 space-y-1 bg-gray-50 px-2 ">
                           {(row as any).variations.map((variation:any, index:any) => (
                             <div key={index} className="flex gap-2">
                               <strong className="text-gray-800">
