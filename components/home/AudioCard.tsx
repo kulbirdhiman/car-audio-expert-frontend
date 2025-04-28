@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Image from 'next/image';
 const AudioProductCard = ({ image, title, subtitle, price }: {
   image: string;
   title: string;
@@ -8,7 +8,9 @@ const AudioProductCard = ({ image, title, subtitle, price }: {
 }) => {
   return (
     <div className="max-w-xs border  shadow-sm ">
-      <img
+      <Image
+      height={500}
+      width={500}
         src={image}
         alt={title}
         className="w-full h-40  "

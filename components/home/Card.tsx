@@ -1,5 +1,5 @@
 // components/ProductCard.tsx
-
+import Image from "next/image";
 const ProductCard = ({
   images,
   smallTitle,
@@ -24,7 +24,9 @@ const ProductCard = ({
 
   return (
     <div className="border border-gray-300 p- shadow-sm hover:shadow-md transition">
-      <img
+      <Image
+      height={500}
+      width={500}
         src={imgSrc || "/placeholder.png"}
         alt={name}
         className="w-full h-48 object-cover"
