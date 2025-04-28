@@ -23,7 +23,7 @@ import { getDepartment } from "@/store/actions/admin/department";
 import { getCategories } from "@/store/actions/admin/category";
 import { addCoupon, editCoupon } from "@/store/actions/admin/coupon";
 
-const CouponForm = ({
+const CouponForm : React.FC<any>= ({
   setOpen,
   open,
   toggleDrawer,
@@ -65,11 +65,11 @@ const CouponForm = ({
     }
   };
 
-  const handleCustomSelect = (value, name) => {
+  const handleCustomSelect = (value:any, name:any) => {
     setValues({ ...values, [name]: value });
   };
 
-  const listProducts = async (e) => {
+  const listProducts = async (e:any) => {
     try {
       const data = {};
       const product_ids: any[] = [];
@@ -126,7 +126,7 @@ const CouponForm = ({
     }
   };
 
-  const listMultiCategories = async (e) => {
+  const listMultiCategories = async (e:any) => {
     try {
       const data = {};
       const muti_categories: any[] = [];

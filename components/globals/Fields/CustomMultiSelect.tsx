@@ -9,7 +9,7 @@ type CustomMultiSelectProps = {
   name: string;
   label?: string;
   options: Option[]; // Ensure proper type for options
-  onSelectionChange?: (selectedIds: number[], name?: string) => void;
+  onSelectionChange?: any;
   onSearchChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   selected: any;
   errors: any;
@@ -51,7 +51,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
       singleSelectChange("", name);
       return;
     }
-    const newSelection = selected.filter((selectedId) => selectedId !== id);
+    const newSelection = selected.filter((selectedId:any) => selectedId !== id);
 
     onSelectionChange?.(newSelection, name);
   };
@@ -90,7 +90,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
           <h3 className="font-bold">Selected Items:</h3>
           <div className="flex flex-wrap gap-2 mt-2">
             {!not_multy &&
-              selected.map((id) => {
+              selected.map((id:any) => {
                 const selectedItem = options.find((option) => option.id === id);
                 return (
                   selectedItem && (

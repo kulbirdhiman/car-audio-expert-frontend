@@ -1,4 +1,4 @@
-const OrderSummaryCard = ({ subtotal, discount, total }) => {
+const OrderSummaryCard :React.FC<any> = ({ subtotal, discount, total }) => {
     return (
       <div className="bg-white shadow-lg rounded-lg p-4 w-full max-w-sm">
         <h3 className="text-lg font-semibold mb-3">Order Summary</h3>

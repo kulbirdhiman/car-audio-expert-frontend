@@ -72,7 +72,7 @@ const CheckOut: React.FC = () => {
   ]);
   const [selectedMethod, setSelectedMethod] = useState("");
   const [billingAddress, setBillingAddress] = useState({});
-  const [shippingAddress, setShippingAddress] = useState({});
+  const [shippingAddress, setShippingAddress] = useState<any>({});
   const [sameAsBilling, setSameAsBilling] = useState(true);
   const [billingErrors, setBillingErrors] = useState({});
   const [shippingErrors, setShippingErrors] = useState({});

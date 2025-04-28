@@ -121,9 +121,8 @@ const NewArrivals = () => {
           "
         >
           {products.map((product: any) => (
-            <div className="min-w-[250px] sm:min-w-0">
-              {product.id}
-              <ProductCard key={product.id} {...product} />
+            <div key={product.id} className="min-w-[250px] sm:min-w-0">
+              <ProductCard  {...product} />
             </div>
           ))}
         </div>

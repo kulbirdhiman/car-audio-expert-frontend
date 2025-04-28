@@ -24,7 +24,7 @@ import CustomMultiSelect from "../globals/Fields/CustomMultiSelect";
 import { getCarModels } from "@/store/actions/admin/carModel";
 import { IN_STOCK, USER_MANUALS } from "@/app/constants";
 
-const AddProduct = ({ values, setValues }) => {
+const AddProduct: React.FC<any> = ({ values, setValues }) => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
@@ -59,7 +59,7 @@ const AddProduct = ({ values, setValues }) => {
     }
   };
 
-  const listCategoryies = async (data) => {
+  const listCategoryies = async (data:any) => {
     try {
       const res = await dispatch(getCategories(data)).unwrap();
 
@@ -122,7 +122,7 @@ const AddProduct = ({ values, setValues }) => {
     setValues({ ...values, from: null, to: null });
   };
 
-  const handleDepartmentChange = (selected) => {
+  const handleDepartmentChange = (selected:any) => {
     setCategories([]);
     setModels([]);
 
@@ -136,7 +136,7 @@ const AddProduct = ({ values, setValues }) => {
     });
   };
 
-  const handleCategoryChange = (selected) => {
+  const handleCategoryChange = (selected:any) => {
     setModels([]);
     viewCategory({ slug: selected.slug, is_all: 1 });
     setValues({ ...values, model_id: null, from: null, to: null });
@@ -144,11 +144,11 @@ const AddProduct = ({ values, setValues }) => {
 
   const listMultiModel = () => {};
 
-  const handleCustomSelect = (value, name) => {
+  const handleCustomSelect = (value:any, name:any) => {
     setValues({ ...values, [name]: value });
   };
 
-  const listMultiModels = async (e) => {
+  const listMultiModels = async (e:any) => {
     try {
       const data = {};
       const model_ids: any[] = [];
@@ -178,7 +178,7 @@ const AddProduct = ({ values, setValues }) => {
     }
   };
 
-  const listMultiCategories = async (e) => {
+  const listMultiCategories = async (e:any) => {
     try {
       const data = {};
       const muti_categories: any[] = [];
@@ -342,7 +342,7 @@ const AddProduct = ({ values, setValues }) => {
       customRender: () => {
         return (
           <div className="col-span-2">
-            {values.images.map((image, i) => (
+            {values.images.map((image:any, i:number) => (
               <UploadImage
                 setDeleteFiles={setDeleteFiles}
                 deleteFiles={deleteFiles}

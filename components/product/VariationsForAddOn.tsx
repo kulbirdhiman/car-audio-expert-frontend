@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Variations from "./Variation";
 import toast from "react-hot-toast";
 
-const VariationsForAddOn = ({
+const VariationsForAddOn: React.FC<any> = ({
   isOpen,
   setIsOpen,
   setErrors,
@@ -14,13 +14,13 @@ const VariationsForAddOn = ({
   currentData,
 }) => {
   function findMissingRequiredVariations() {
-    const variationIds = new Set(variation.map((v) => (v as any).id));
+    const variationIds = new Set(variation.map((v:any) => (v as any).id));
 
     return variationData
       .filter(
-        (v) => (v as any).is_required === 1 && !variationIds.has((v as any).id)
+        (v:any) => (v as any).is_required === 1 && !variationIds.has((v as any).id)
       )
-      .reduce((acc, v) => {
+      .reduce((acc:any, v:any) => {
         acc[(v as any).id] = (v as any).name + " is required";
         return acc;
       }, {} as Record<string, string>);

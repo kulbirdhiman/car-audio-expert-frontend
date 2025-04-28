@@ -13,7 +13,7 @@ const paymentMethods = [
   // { id: "paypal", name: "PayPal", icon: <FaCcPaypal /> },
 ];
 
-const PaymentSelector = ({
+const PaymentSelector: React.FC<any> = ({
   discount,
   shippingPrice,
   productData,
@@ -34,7 +34,7 @@ const PaymentSelector = ({
 }) => {
   const { loading, user } = useSelector((state: RootState) => state.auth);
   const [spiner, setSpiner] = useState(false);
-  const handlePayment = async (method) => {
+  const handlePayment = async (method:any) => {
     if (!termAndCondition) {
       toast.error("Please accept our term and conditions");
       return;

@@ -1,9 +1,7 @@
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
-const SkeletonBox = ({ className }) => (
+
+const SkeletonBox :React.FC<any> = ({ className }) => (
   <div className={`animate-pulse bg-gray-300 ${className}`} />
 );
 
@@ -27,9 +25,9 @@ const AddOnSkeleton = () => {
       <h1 className="font-bold text-xl">Add On</h1>
       <div className="relative w-full">
         <div className="slider-container px-5 md:w-full mx-auto">
-          <Slider {...settings}>
+          {/* <Slider {...settings}> */}
             {[...Array(4)].map((_, index) => (
-              <div key={index} className="">
+              <div key={index} className="flex">
                 <div className="w-[170px] mx-4 flex flex-col justify-evenly rounded-xl relative">
                   <SkeletonBox className="w-full h-[150px] mb-4" />
                   <SkeletonBox className="h-4 w-3/4 mx-auto mb-2" />
@@ -37,7 +35,7 @@ const AddOnSkeleton = () => {
                 </div>
               </div>
             ))}
-          </Slider>
+          {/* </Slider> */}
         </div>
       </div>
     </div>

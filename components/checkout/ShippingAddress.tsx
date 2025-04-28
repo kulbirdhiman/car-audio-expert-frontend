@@ -4,7 +4,7 @@ import { useState } from "react";
 import DynamicForm, { FormField } from "../globals/DynamicForm";
 import { CountrySelect, StateSelect } from "react-country-state-city";
 
-const ShippingAddress = ({
+const ShippingAddress : React.FC<any>= ({
   setSelectedShipping,
   setSelectedMethod,
   shippingAddress,
@@ -69,11 +69,11 @@ const ShippingAddress = ({
 
 export default ShippingAddress;
 const getformFields = (
-  shippingAddress,
-  setShippingAddress,
-  shippingErrors,
-  country,
-  setCountrty
+  shippingAddress:any,
+  setShippingAddress:any,
+  shippingErrors:any,
+  country:any,
+  setCountrty:any
 ): FormField[] => {
   return [
     {
@@ -130,7 +130,7 @@ const getformFields = (
             <CountrySelect
               inputClassName="w-full bg-transparent text-gray-900  border-none focus:outline-none"
               // className="w-full border-none  focus:border-green-500 transition-all duration-200"
-              onChange={(e) => {
+              onChange={(e:any) => {
                 console.log(e);
                 setShippingAddress({ ...shippingAddress, country:{id:e.id,name:e.name,iso3:e.iso3,iso2:e.iso2}});
                 setCountrty(e);
@@ -155,9 +155,7 @@ const getformFields = (
             <StateSelect
               countryid={(country as any)?.id}
               className="peer w-full border-b border-gray-900 focus:outline-none focus:border-green-500 "
-              onChange={(e) => {
-                console.log(e);
-
+              onChange={(e:any) => {
                 setShippingAddress({ ...shippingAddress, state:{id:e.id,name:e.name,state_code:e.state_code} });
               }}
               placeHolder="Select Country"

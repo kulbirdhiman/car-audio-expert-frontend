@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomOption = ({setValues,values}) => {
+const CustomOption :React.FC <any> = ({setValues,values}) => {
   return (
     <div>
       <label>Price for custom type</label>

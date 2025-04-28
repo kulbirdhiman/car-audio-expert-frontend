@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const WeekHighlights = ({ products }) => {
+export const WeekHighlights :React.FC<any> = ({ products }) => {
   const [hoverState, setHoverState] = useState({
     first: false,
   });
@@ -44,7 +44,7 @@ export const WeekHighlights = ({ products }) => {
       <div className="grid grid-cols-2 gap-6">
         {/* First Sub-product Column */}
         <div className="flex flex-col gap-6">
-          {products?.sub_products_one?.map((row, index) => (
+          {products?.sub_products_one?.map((row:any, index:any) => (
             <Link
               key={index}
               href={"#"}
@@ -75,7 +75,7 @@ export const WeekHighlights = ({ products }) => {
 
         {/* Second Sub-product Column */}
         <div className="flex flex-col gap-6">
-          {products?.sub_products_twe?.map((row, index) => (
+          {products?.sub_products_twe?.map((row:any, index:any) => (
             <Link
               key={index}
               href={"#"}

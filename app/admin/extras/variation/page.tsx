@@ -68,7 +68,7 @@ const Page = () => {
     }
   };
 
-  const handleCustomSelect = (value, name) => {
+  const handleCustomSelect = (value:any, name:any) => {
     setValues({ ...values, [name]: value });
   };
 
@@ -107,7 +107,7 @@ const Page = () => {
     }
   };
 
-  const listProducts = async (e) => {
+  const listProducts = async (e:any) => {
     try {
       let limit = 20;
       const data = {};
@@ -275,13 +275,13 @@ const getAddOnFields = (
   departments: any[] = [],
   categories: any[] = [],
   products: any[] = [],
-  productsOnAdd,
-  listProducts,
-  handleCustomSelect,
-  values,
-  errors,
-  setValues
-) => {
+  productsOnAdd :any,
+  listProducts :any,
+  handleCustomSelect:any,
+  values :any,
+  errors:any,
+  setValues:any
+)  => {
   return [
     {
       name: "name",

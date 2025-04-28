@@ -4,74 +4,88 @@ import React, { useEffect, useState } from "react";
 import RightDrawerForm from "@/components/globals/RightDrawerForm";
 import Table from "@/components/globals/Table";
 
-import { add_on_colomn, department_colomn } from "@/helpers/tableColumn";
+import { add_on_colomn } from "@/helpers/tableColumn";
 import {
-  addDepartment,
-  deleteDepartment,
-  editDepartment,
-  getDepartment,
-} from "@/store/actions/admin/department";
+  addAddOn,
+  deleteAddOn,
+  editAddOn,
+  getAddOns,
+} from "@/store/actions/admin/addOn";
+import { getDepartment } from "@/store/actions/admin/department";
+import { getCategories } from "@/store/actions/admin/category";
+import { getProduct } from "@/store/actions/admin/product";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
-import { addSlugField, mapServerErrors } from "@/helpers/commonFunction";
+import { mapServerErrors } from "@/helpers/commonFunction";
 import DeleteModal from "@/components/globals/DeleteModel";
-import { getCategories } from "@/store/actions/admin/category";
 import CustomMultiSelect from "@/components/globals/Fields/CustomMultiSelect";
-import { getProduct } from "@/store/actions/admin/product";
-import { Target } from "lucide-react";
-import { addAddOn, deleteAddOn, editAddOn, getAddOns } from "@/store/actions/admin/addOn";
+
+// === INTERFACES ===
+
+
+
+
+
+
+
+
+interface GetAddOnFieldsProps {
+  departments?: any;
+  categories?: any;
+  products?: any;
+  productsOnAdd: any;
+  listProducts: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCustomSelect: (value: any, name: string) => void;
+  values: any;
+  errors: any;
+}
+
+// === MAIN PAGE ===
 
 const Page = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState<Record<string, any>>({ name: "" });
-  const [errors, setErrors] = useState({});
-  const [apiHit, setApiHit] = useState(false);
-  const [tableData, setTableData] = useState<Record<string, any>[]>([]);
   const [openDel, setOpenDel] = useState(false);
+  const [apiHit, setApiHit] = useState(false);
+  const [totalRecords, setTotalRecords] = useState(0);
+
+  const [values, setValues] = useState<any>({ name: "" });
+  const [errors, setErrors] = useState<any>({});
+  const [tableData, setTableData] = useState<any>([]);
+
   const [departments, setDepartments] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [productsOnAdd, setProductsOnAdd] = useState<any[]>([]);
-  const [totalRecords, setTotalRecords] = useState(0);
+
   const handleSubmit = async (
     e: React.FormEvent,
-    values: Record<string, any>,
+    values: any,
     mode: string
   ) => {
     e.preventDefault();
-    console.log("Form Submitted", values, mode);
-
     try {
-      const api = values.id
-        ? editAddOn(values as any)
-        : addAddOn(values as any);
+      const api = values.id ? editAddOn(values) : addAddOn(values);
       const res = await dispatch(api).unwrap();
-
-      console.log("Submitted values:", res);
-
       if (res.success) {
         toggleDrawer({});
       }
     } catch (error) {
-      console.log(error);
-
       const formErrors = mapServerErrors((error as any).errors, setErrors);
-      console.error("Login failed:", formErrors);
+      console.error("Submit failed:", formErrors);
     }
   };
 
-  const handleCustomSelect = (value, name) => {
+  const handleCustomSelect = (value: any, name: string) => {
     setValues({ ...values, [name]: value });
   };
 
   const listDepartments = async () => {
     try {
       const res = await dispatch(getDepartment({})).unwrap();
-
       if (res.success) {
-        const option = res.data.result.map((row) => ({
+        const option = res.data.result.map((row:any ) => ({
           value: row.id,
           label: row.name,
           ...row,
@@ -86,10 +100,8 @@ const Page = () => {
   const listCategoryies = async () => {
     try {
       const res = await dispatch(getCategories({})).unwrap();
-
       if (res.success) {
-        console.log(res.data.result);
-        const option = res.data.result.map((row) => ({
+        const option = res.data.result.map((row: any) => ({
           value: row.id,
           label: row.name,
           ...row,
@@ -101,41 +113,35 @@ const Page = () => {
     }
   };
 
-  const listProducts = async (e) => {
+  const listProducts = async (e: { target: { value: any; name: string } }) => {
     try {
       let limit = 20;
-      const data = {};
+      const data: Record<string, any> = {};
       const product_ids: any[] = [];
+
       if (e?.target?.value) {
         const search = e.target.value;
-        if (search && search.length > 0 && totalRecords > limit) {
+        if (search.length > 0 && totalRecords > limit) {
           limit = totalRecords;
         }
-        (data as any).search = search;
+        data.search = search;
         product_ids.push(values[e.target.name]);
       }
 
-      console.log(product_ids);
-
       const res = await dispatch(
-        getProduct({ ...data, limit: limit, product_ids: [...product_ids] })
+        getProduct({ ...data, limit, product_ids })
       ).unwrap();
 
       if (res.success) {
-        console.log(res.data);
         setApiHit(true);
-        const option = res.data.result.map((row) => ({
+        const option = res.data.result.map((row: any) => ({
           value: row.id,
           label: row.name,
           ...row,
         }));
-        if (e.target.name == "extras") {
-          setProducts(option);
-        }
 
-        if (e.target.name == "product_ids") {
-          setProductsOnAdd(option);
-        }
+        if (e.target.name === "extras") setProducts(option);
+        if (e.target.name === "product_ids") setProductsOnAdd(option);
 
         if (res.data.totalRecords > totalRecords) {
           setTotalRecords(res.data.totalRecords);
@@ -149,7 +155,6 @@ const Page = () => {
   const listAddOn = async () => {
     try {
       const res = await dispatch(getAddOns({})).unwrap();
-
       if (res.success) {
         setApiHit(true);
         setTableData(res.data.result);
@@ -159,21 +164,7 @@ const Page = () => {
     }
   };
 
-  useEffect(() => {
-    
-    
-    listProducts({ target: { value: (values as any).extras, name: "extras" } });
-    listProducts({ target: { value:(values as any).product_ids, name: "product_ids" } });
-    listDepartments();
-    listCategoryies();
- 
-  }, [values,open]);
-
-  useEffect(()=>{
-    listAddOn();
-  },[])
-
-  const toggleDrawer = (data: Record<string, any> = {}) => {
+  const toggleDrawer = (data: any = {}) => {
     setValues(data);
     setOpen(!open);
     listAddOn();
@@ -182,14 +173,11 @@ const Page = () => {
     listProducts({ target: { value: "", name: "extras" } });
     listProducts({ target: { value: "", name: "product_ids" } });
   };
-  const deleteRecord = async (data: Record<string, any> = {}) => {
+
+  const deleteRecord = async () => {
     try {
-      const api = deleteAddOn(values as any);
-
+      const api = deleteAddOn(values);
       const res = await dispatch(api).unwrap();
-
-      console.log("Submitted values:", res);
-
       if (res.success) {
         setValues({});
         setOpenDel(!openDel);
@@ -200,12 +188,21 @@ const Page = () => {
     }
   };
 
-  const openDelModel = (data: Record<string, any> = {}) => {
+  const openDelModel = (data: any = {}) => {
     setValues(data);
     setOpenDel(!open);
   };
 
-  
+  useEffect(() => {
+    listProducts({ target: { value: values.extras, name: "extras" } });
+    listProducts({ target: { value: values.product_ids, name: "product_ids" } });
+    listDepartments();
+    listCategoryies();
+  }, [values, open]);
+
+  useEffect(() => {
+    listAddOn();
+  }, []);
 
   return (
     <div>
@@ -216,15 +213,12 @@ const Page = () => {
             onClick={() => toggleDrawer({})}
             className="bg-black hover:bg-black text-white py-1 px-2 rounded w-full md:w-max"
           >
-            <h3 className="text-base font-medium  "> Add New</h3>
+            <h3 className="text-base font-medium">Add New</h3>
           </button>
         </div>
       </div>
-      <DeleteModal
-        open={openDel}
-        setOpen={setOpenDel}
-        deleteRecord={deleteRecord}
-      />
+
+      <DeleteModal open={openDel} setOpen={setOpenDel} deleteRecord={deleteRecord} />
 
       <RightDrawerForm
         title={values.id ? "Edit" : "Add"}
@@ -233,7 +227,7 @@ const Page = () => {
         values={values}
         setValues={setValues}
         errors={errors}
-        formFields={getAddOnFields(
+        formFields={getAddOnFields({
           departments,
           categories,
           products,
@@ -241,15 +235,15 @@ const Page = () => {
           listProducts,
           handleCustomSelect,
           values,
-          errors
-        )}
+          errors,
+        })}
         handleSubmit={handleSubmit}
         submitTitle="Submit"
       />
 
       <Table
         apiHit={apiHit}
-        columns={add_on_colomn(toggleDrawer, openDelModel)} //
+        columns={add_on_colomn(toggleDrawer, openDelModel)}
         tableData={tableData}
       />
     </div>
@@ -258,16 +252,17 @@ const Page = () => {
 
 export default Page;
 
-const getAddOnFields = (
-  departments: any[] = [],
-  categories: any[] = [],
-  products: any[] = [],
+
+const getAddOnFields = ({
+  departments = [],
+  categories = [],
+  products = [],
   productsOnAdd,
   listProducts,
   handleCustomSelect,
   values,
-  errors
-) => {
+  errors,
+}: GetAddOnFieldsProps) => {
   return [
     {
       name: "name",
@@ -279,21 +274,18 @@ const getAddOnFields = (
       name: "extras",
       label: "Year",
       type: "custom",
-      customRender: () => {
-        return (
-          <CustomMultiSelect
-            name="extras"
-            label="Select Extras "
-            options={products}
-            onSearchChange={listProducts}
-            onSelectionChange={handleCustomSelect}
-            selected={values.extras}
-            errors={errors}
-          />
-        );
-      },
+      customRender: () => (
+        <CustomMultiSelect
+          name="extras"
+          label="Select Extras"
+          options={products}
+          onSearchChange={listProducts}
+          onSelectionChange={handleCustomSelect}
+          selected={values.extras}
+          errors={errors}
+        />
+      ),
     },
-
     {
       name: "department_ids",
       type: "select",
@@ -305,28 +297,26 @@ const getAddOnFields = (
     {
       name: "category_ids",
       type: "select",
-      label: "Select Categorious",
+      label: "Select Categories",
       placeholder: "Enter title...",
       options: categories,
       isMultiple: true,
     },
     {
       name: "product_ids",
-      label: "Year",
+      label: "Product",
       type: "custom",
-      customRender: () => {
-        return (
-          <CustomMultiSelect
-            name="product_ids"
-            label="Select product  "
-            options={productsOnAdd}
-            onSearchChange={listProducts}
-            onSelectionChange={handleCustomSelect}
-            selected={values.product_ids}
-            errors={errors}
-          />
-        );
-      },
+      customRender: () => (
+        <CustomMultiSelect
+          name="product_ids"
+          label="Select Product"
+          options={productsOnAdd}
+          onSearchChange={listProducts}
+          onSelectionChange={handleCustomSelect}
+          selected={values.product_ids}
+          errors={errors}
+        />
+      ),
     },
   ];
 };

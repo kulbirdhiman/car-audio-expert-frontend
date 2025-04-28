@@ -29,7 +29,7 @@ const Page = () => {
   const [showPagination, setShowPagination] = useState([]);
   const [search, setSearch] = useState("");
 
-  const list = async (page) => {
+  const list = async (page:any) => {
     try {
       setCurrentPage(page);
       const res = await dispatch(getProduct({ page,search })).unwrap();

@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect} from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
@@ -97,7 +96,7 @@ const ListCards = () => {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    // <Suspense fallback={<div>Loading...</div>}>
       <div className="grid lg:grid-cols-6 grid-cols-1 gap-4 py-4 bg-white relative">
         <SideBar
           list={list}
@@ -184,7 +183,7 @@ const ListCards = () => {
           )}
         </div>
       </div>
-    </Suspense>
+    // </Suspense>
   );
 };
 

@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import Image from "next/image";
 
-const UploadImage = ({
+const UploadImage: React.FC <any> = ({
   values,
   setValues,
   customClass,
@@ -17,26 +17,26 @@ const UploadImage = ({
   setDeleteFiles
   
 }) => {
-  const updateValues = (key, value) => {
+  const updateValues = (key:any, value:any) => {
     console.log(value);
 
-    setValues((prev) => {
+    setValues((prev:any) => {
       const newImages = [...(prev.images || [])];
       newImages[key] = value;
       return { ...prev, images: newImages };
     });
   };
 
-  const handleMinus = (i) => {
-    setValues((prev) => {
+  const handleMinus = (i:any) => {
+    setValues((prev:any) => {
       const newData = { ...prev };
       // Filter out the image at index i
-      newData.images = newData.images.filter((_, ind) => ind !== i);
+      newData.images = newData.images.filter((_:any, ind:any) => ind !== i);
       return newData;
     });
   };
 
-  const handleFileChange = async (event) => {
+  const handleFileChange = async (event:any) => {
     const file = event.target.files[0];
     if (!file) return;
     const existingImage = values.images?.[index]?.image;
@@ -137,10 +137,10 @@ export default UploadImage;
 
 
 
-export const setImageErrors = (values, setErrors) => {
-  const newErrors = {};
+export const setImageErrors = (values:any, setErrors:any) => {
+  const newErrors:any = {};
   let is_error = false;
-  values.images.forEach((field, index) => {
+  values.images.forEach((field:any, index:any) => {
  
     console.log(field.image);
     
@@ -153,7 +153,7 @@ export const setImageErrors = (values, setErrors) => {
   });
   console.log(newErrors);
 
-  setErrors((prevValues) => ({
+  setErrors((prevValues:any) => ({
     ...prevValues,
    images: newErrors 
   }));

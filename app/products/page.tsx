@@ -1,11 +1,18 @@
-import React from 'react'
-import ListCards from '@/components/product/ListCards'
-const page = () => {
-  return (
-    <div>
-      <ListCards />
-    </div>
-  )
-}
+"use client"
+import React, { Suspense } from "react";
+import dynamic from "next/dynamic";
 
-export default page
+// ✅ Dynamically import the client component and disable SSR
+const ListCards = dynamic(() => import("@/components/product/ListCards"), {
+  ssr: false,
+});
+
+const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading products...</div>}>
+      <ListCards />
+    </Suspense>
+  );
+};
+
+export default Page;

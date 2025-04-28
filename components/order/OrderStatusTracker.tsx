@@ -4,7 +4,8 @@ import {
     XCircleIcon,
     TruckIcon,
   } from "@heroicons/react/24/solid";
-const OrderStatusTracker = ({ status }) => {
+import React from "react";
+const OrderStatusTracker: React.FC<any>= ({ status }) => {
     const steps = [
       { id: 1, name: "Order Placed", key: "placed", icon: CheckCircleIcon },
       { id: 3, name: "Shipped", key: "shipped", icon: TruckIcon },

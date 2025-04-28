@@ -61,8 +61,8 @@ const AudioSection = () => {
       content: (
         <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible flex sm:flex-none space-x-4 sm:space-x-0 px-1">
           {products.map((product, idx) => (
-            <div className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
-              <AudioProductCard key={idx} {...product} />
+            <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+              <AudioProductCard  {...product} />
             </div>
           ))}
         </div>
@@ -74,8 +74,8 @@ const AudioSection = () => {
       content: (
         <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible flex sm:flex-none space-x-4 sm:space-x-0 px-1">
           {products.map((product, idx) => (
-            <div className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
-              <AudioProductCard key={idx} {...product} />
+            <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+              <AudioProductCard  {...product} />
             </div>
           ))}
         </div>
@@ -87,8 +87,8 @@ const AudioSection = () => {
       content: (
         <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible flex sm:flex-none space-x-4 sm:space-x-0 px-1">
           {products.map((product, idx) => (
-            <div className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
-              <AudioProductCard key={idx} {...product} />
+            <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+              <AudioProductCard  {...product} />
             </div>
           ))}
         </div>
@@ -100,8 +100,8 @@ const AudioSection = () => {
       content: (
         <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible flex sm:flex-none space-x-4 sm:space-x-0 px-1">
           {products.map((product, idx) => (
-            <div className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
-              <AudioProductCard key={idx} {...product} />
+            <div key={idx}  className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+              <AudioProductCard {...product} />
             </div>
           ))}
         </div>

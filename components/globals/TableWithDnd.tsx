@@ -89,7 +89,7 @@ const TableWithDnd: React.FC<TableProps> = ({
   const moveRow = useCallback(
     (dragIndex: number, hoverIndex: number) => {
       if (dragIndex === hoverIndex) return;
-      setTableData((prevTableData) => {
+      setTableData((prevTableData:any) => {
         const updatedData = [...prevTableData];
         const [removed] = updatedData.splice(dragIndex, 1);
         updatedData.splice(hoverIndex, 0, removed);
@@ -125,7 +125,7 @@ const TableWithDnd: React.FC<TableProps> = ({
         </thead>
         <tbody>
           {apiHit && tableData.length > 0 ? (
-            tableData.map((row, index) => (
+            tableData.map((row:any, index:any) => (
               <DraggableRow
                 key={index}
                 row={row}

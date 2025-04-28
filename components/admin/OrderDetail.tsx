@@ -21,7 +21,7 @@ import { printlabel } from "@/store/actions/admin/order";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 
-const OrderDetail = ({ order, viewDetail }) => {
+const OrderDetail: React.FC<any> = ({ order, viewDetail }) => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
@@ -195,7 +195,7 @@ const OrderDetail = ({ order, viewDetail }) => {
       {/* <OrderStatusTracker order={order} status={order.shipped_at || order.delivered_at || "placed"}  /> */}
 
       <div className="w-full flex flex-wrap gap-2 my-3">
-        {order?.products?.map((row, i) => (
+        {order?.products?.map((row:any, i:any) => (
           <div
             key={i}
             className="w-full sm:w-[48%] h-[230px] border rounded-lg p-4 shadow-lg"
@@ -206,13 +206,13 @@ const OrderDetail = ({ order, viewDetail }) => {
 
             {/* Display Variations */}
             <div className="text-gray-600 flex flex-wrap gap-3 text-sm font-serif">
-              {row?.variations?.map((variation, vIndex) => (
+              {row?.variations?.map((variation:any, vIndex:any) => (
                 <span key={vIndex}>{variation.name}</span>
               ))}
 
               {/* If 'options' is inside each variation */}
-              {row?.variations?.map((variation) =>
-                variation?.options?.map((option, oIndex) => (
+              {row?.variations?.map((variation:any) =>
+                variation?.options?.map((option:any, oIndex:any) => (
                   <span key={oIndex}>{option.name}</span>
                 ))
               )}
@@ -247,7 +247,7 @@ const OrderDetail = ({ order, viewDetail }) => {
 export default OrderDetail;
 // import React from "react";
 
-const OrderStatusTracker = ({ status, order }) => {
+const OrderStatusTracker: React.FC<any> = ({ status, order }) => {
   const steps = [
     {
       id: ORDER_STATUS.processing,
@@ -327,7 +327,7 @@ const OrderStatusTracker = ({ status, order }) => {
     </div>
   );
 };
-const OrderSummaryCard = ({
+const OrderSummaryCard : React.FC<any>= ({
   shippingcharge,
   trackingNumber,
   giftCardDiscount,

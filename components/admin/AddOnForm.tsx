@@ -16,7 +16,7 @@ import { addProduct, editProduct } from "@/store/actions/admin/product";
 import { mapServerErrors } from "@/helpers/commonFunction";
 import { useRouter } from "next/navigation";
 
-const AddOnForm = ({ values, setValues }) => {
+const AddOnForm: React.FC<any> = ({ values, setValues }) => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
@@ -50,7 +50,7 @@ const AddOnForm = ({ values, setValues }) => {
     }
   };
 
-  const listCategoryies = async (data) => {
+  const listCategoryies = async (data:any) => {
     try {
       const res = await dispatch(getCategories(data)).unwrap();
 
@@ -113,7 +113,7 @@ const AddOnForm = ({ values, setValues }) => {
     setValues({ ...values, from: null, to: null });
   };
 
-  const handleDepartmentChange = (selected) => {
+  const handleDepartmentChange = (selected:any) => {
     setCategories([]);
     setModels([]);
 
@@ -127,7 +127,7 @@ const AddOnForm = ({ values, setValues }) => {
     });
   };
 
-  const handleCategoryChange = (selected) => {
+  const handleCategoryChange = (selected:any) => {
     setModels([]);
     viewCategory({ slug: selected.slug, is_all: 1 });
     setValues({ ...values, model_id: null, from: null, to: null });

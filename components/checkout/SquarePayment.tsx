@@ -10,7 +10,7 @@ import { loadCart } from "@/store/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 
-const SquarePayment = ({
+const SquarePayment: React.FC<any> = ({
   discount,
   spiner,
   setSpiner,

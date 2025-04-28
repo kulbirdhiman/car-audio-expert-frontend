@@ -1,10 +1,10 @@
 "use client";
 
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-const ColorPriceFields = ({ values, setValues, errors,name }) => {
-  const handleChange = (index, field, value) => {
+const ColorPriceFields: React.FC<any> = ({ values, setValues, errors,name }) => {
+  const handleChange = (index:any, field:any, value:any) => {
     const newFields = [...values[name]];
     newFields[index][field] = value;
     setValues({ ...values, [name]: newFields });
@@ -17,8 +17,8 @@ const ColorPriceFields = ({ values, setValues, errors,name }) => {
     });
   };
 
-  const removeField = (index) => {
-    setValues({ ...values, [name]: values.color.filter((_, i) => i !== index) });
+  const removeField = (index:any) => {
+    setValues({ ...values, [name]: values.color.filter((_:any, i:any) => i !== index) });
   };
 
   useEffect(()=>{
@@ -29,7 +29,7 @@ const ColorPriceFields = ({ values, setValues, errors,name }) => {
   return (
     <div className="p-4">
       <label className="block text-lg font-medium mb-2">Colors & Prices</label>
-      {(values[name] || []).map((field, index) => (
+      {(values[name] || []).map((field :any, index:any) => (
         <div
           key={index}
           className="flex gap-4 mb-2 items-center border p-2 rounded-lg shadow"
@@ -87,10 +87,10 @@ const ColorPriceFields = ({ values, setValues, errors,name }) => {
 
 export default ColorPriceFields;
 
-export const setColorPriceError = (values, setValues) => {
-  const newErrors = {};
+export const setColorPriceError = (values:any, setValues:any) => {
+  const newErrors :any = {};
   let is_error = false;
-  values.color_price.forEach((field, index) => {
+  values.color_price.forEach((field:any, index:any) => {
     if (values.is_color_price == "1") {
       if (!field.color) {
         is_error = true;
@@ -101,7 +101,7 @@ export const setColorPriceError = (values, setValues) => {
   });
   console.log(newErrors);
 
-  setValues((prevValues) => ({
+  setValues((prevValues:any) => ({
     ...prevValues,
     errors: { ...prevValues.errors, color_price: newErrors },
   }));

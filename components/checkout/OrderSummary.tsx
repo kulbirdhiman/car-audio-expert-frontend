@@ -3,7 +3,7 @@ import {   FaShippingFast, FaTruck } from "react-icons/fa";
  
 import PaymentSelector from "./PaymentMethod";
 
-const OrderSummary = ({ data, apiHit }) => {
+const OrderSummary: React.FC<any> = ({ data, apiHit }) => {
   return (
     <div>
       {" "}
@@ -23,7 +23,7 @@ const OrderSummary = ({ data, apiHit }) => {
             </div>
           </div>
           <div className="flex flex-col justify-between gap-8 items-start">
-            {data.result.map((row, i) => (
+            {data.result.map((row:any, i:any) => (
               <div key={i} className="flex justify-between gap-8">
                 <p className="text-gray-700">
                   Car Stereo with SatNav BMW 5 Series (2004 - 2010) | V6 | 8.8

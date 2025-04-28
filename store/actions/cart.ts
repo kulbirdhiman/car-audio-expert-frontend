@@ -7,6 +7,7 @@ import { Images } from "lucide-react";
 import Cookies from "js-cookie";
 import { IS_MULTY_PRICE } from "@/app/constants";
 import { Result } from "postcss";
+import { AnyARecord } from "dns";
 // ✅ Add Product
 export const addToCart = createAsyncThunk<any, FormData>(
   "cart/add",
@@ -104,7 +105,7 @@ export const handleLogOutCart = (addToData: Record<string, any>) => {
     return { success: false, message: "Maximum quantity reached" };
   }
   if (addToData?.addOns?.length > 0) {
-    const addOns = addToData?.addOns.map((r, i) => ({
+    const addOns = addToData?.addOns.map((r:any, i:any) => ({
       cart_id: Date.now(),
       images: r.images,
       quantity: r.quantity,
@@ -170,7 +171,7 @@ const localCart = () => {
   let totalQuantity = 0;
   if (localData && localData?.length) {
     totalQuantity = (localData as any).reduce(
-      (total, product) => total + product.quantity,
+      (total:any, product:any) => total + product.quantity,
       0
     );
   }
@@ -183,7 +184,7 @@ export const localCartData = () => {
   localData = localData ? JSON.parse(localData) : [];
 
   const total = (localData as any)?.reduce(
-    (total, product) =>
+    (total:any, product:any) =>
       total +
       (product.discount_price > 0
         ? product.discount_price
@@ -223,7 +224,7 @@ export const deleteCart = createAsyncThunk<any, any>(
   }
 );
 
-const logOutDelete = (data) => {
+const logOutDelete = (data:any) => {
   let localData = localStorage.getItem("addToCart");
 
   localData = localData ? JSON.parse(localData) : [];
@@ -240,39 +241,39 @@ const logOutDelete = (data) => {
   return { success: true, message: "Product deleted from  successfully" };
 };
 
-export const calculatePrice = (row) => {
+export const calculatePrice = (row:any) => {
   let price = row.discount_price ? row.discount_price : row.regular_price;
   if(row.is_free == 1){
     price = 0
   }
 
-  const variationPrice = row.variations.reduce((sum, variation) => {
+  const variationPrice = row.variations.reduce((sum:any, variation:any) => {
     return (
       sum +
       (variation.is_quantity_based == IS_MULTY_PRICE ? row.quantity : 1) *
-        variation.options.reduce((optSum, option) => optSum + option.price, 0)
+        variation.options.reduce((optSum :any, option:any) => optSum + option.price, 0)
     );
   }, 0);
 
   return variationPrice + price * row.quantity;
 };
 
-export const calculateRegularPrice = (row) => {
+export const calculateRegularPrice = (row:any) => {
   const price = row.regular_price;
 
-  const variationPrice = row.variations.reduce((sum, variation) => {
+  const variationPrice = row.variations.reduce((sum:any, variation:any) => {
     return (
       sum +
       (variation.is_quantity_based == IS_MULTY_PRICE ? row.quantity : 1) *
-        variation.options.reduce((optSum, option) => optSum + option.price, 0)
+        variation.options.reduce((optSum:any, option:any) => optSum + option.price, 0)
     );
   }, 0);
 
   return variationPrice + price * row.quantity;
 };
 
-export const calculateSubTotal = (data) => {
-  const subTotal = data.reduce((sum, row) => sum + calculatePrice(row), 0);
+export const calculateSubTotal = (data:any) => {
+  const subTotal = data.reduce((sum:any, row:any) => sum + calculatePrice(row), 0);
   return subTotal;
 };
 
@@ -282,7 +283,7 @@ export const myCart = createAsyncThunk<any, FormData>(
     try {
       const res = await api.get<listResponse>(`/v1/cart/list`);
       console.log(res.data.data);
-      const result = (res.data.data as any).result.map((item) => ({
+      const result = (res.data.data as any).result.map((item:any) => ({
         ...item,
         ...item.product,
         id:item.id,

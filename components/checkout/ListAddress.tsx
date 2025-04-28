@@ -7,7 +7,7 @@ import AddAddressForm from "../user/AddAddress";
 import Loader from "../globals/Loader";
 import { FaRegSadTear } from "react-icons/fa";
 
-const ListAddress = ({
+const ListAddress: React.FC<any> = ({
   setSelectedShipping,
   setShippingPrice,
   selectedAddress,

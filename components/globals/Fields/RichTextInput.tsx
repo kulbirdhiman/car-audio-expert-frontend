@@ -24,7 +24,7 @@ const RichTextInput: React.FC<RichTextInputProps> = ({
       <label className="block text-lg font-medium mb-1">{field.label}</label>
       <RichTextEditor
         value={values[field.name] || ""}
-        onChange={(content) => setFieldValue(field.name, content)}
+        onChange={(content:any) => setFieldValue(field.name, content)}
       />
       {errors[field.name] && (
         <p className="text-red-500 text-sm mt-1">{errors[field.name]}</p>

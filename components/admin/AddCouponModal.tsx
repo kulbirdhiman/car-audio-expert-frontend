@@ -181,7 +181,7 @@ const AddCouponModal: React.FC<AddCouponModalProps> = ({
             label: model.label,
           }))}
           selected={coupon.specificModels}
-          onSelectionChange={(selectedIds) =>
+          onSelectionChange={(selectedIds:any) =>
             setCoupon({ ...coupon, specificModels: selectedIds })
           }
           onSearchChange={() => {}}

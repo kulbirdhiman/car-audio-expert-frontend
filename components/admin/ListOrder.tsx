@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Pagination from "../globals/Pagination";
 
-const ListOrder = ({ status }) => {
+const ListOrder: React.FC<any> = ({ status }) => {
   const [apiHit, setApiHit] = useState(false);
   const [tableData, setTableData] = useState<Record<string, any>[]>([]);
   const [totalRecords, setTotalRecords] = useState(0);
@@ -15,7 +15,7 @@ const ListOrder = ({ status }) => {
   const [showPagination, setShowPagination] = useState([]);
 
   const dispatch = useDispatch<AppDispatch>();
-  const lostOrders = async (page) => {
+  const lostOrders = async (page:any) => {
     try {
       setCurrentPage(page);
       const res = await dispatch(

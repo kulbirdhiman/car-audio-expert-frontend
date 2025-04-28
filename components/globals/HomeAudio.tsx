@@ -3,7 +3,7 @@ import React from "react";
 import carplay from "/public/carplyyy.png";
 import Image from "next/image";
 
-const HomeAudio = ({ products }) => {
+const HomeAudio:React.FC<any> = ({ products }) => {
   return (
     <div className="flex flex-col items-center justify-center ">
       <h1 className="font-avenir-bold text-xl">Up to 60% off </h1>

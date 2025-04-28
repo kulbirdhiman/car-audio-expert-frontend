@@ -16,7 +16,7 @@ import ImageGallery from "./ImageGallary";
 import { Share2 } from "lucide-react";
 
 const Detail = () => {
-  const product = {
+  const product:any = {
     id: 1,
     name: "Headunit with CarPlay for Universal 2DIN | 7″ inch pro",
     price: 49.99,
@@ -248,7 +248,7 @@ const Detail = () => {
                   </button>
                   {showCategory[category] && (
                     <div className="mt-2 space-y-2">
-                      {product.addOns[category].map((addon) => (
+                      {product.addOns[category].map((addon:any) => (
                         <div key={addon.id} className="flex items-center gap-2">
                           <input
                             type="checkbox"

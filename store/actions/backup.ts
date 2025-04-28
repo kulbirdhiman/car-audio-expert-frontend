@@ -1,4 +1,4 @@
-export const bhandleLogOutCart = (addToData) => {
+export const bhandleLogOutCart = (addToData:any) => {
     let localData: any[] = []; // Explicitly declare it as an array
   
     const storedData = localStorage.getItem("addToCart");

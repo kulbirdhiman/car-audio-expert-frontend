@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { mapServerErrors } from "@/helpers/commonFunction";
 
-const OrderUpdate = ({ setOpen, viewDetail, open, order, toggleDrawer }) => {
+const OrderUpdate: React.FC<any> = ({ setOpen, viewDetail, open, order, toggleDrawer }) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
 
