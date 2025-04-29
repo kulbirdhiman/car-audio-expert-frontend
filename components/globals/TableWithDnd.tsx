@@ -57,18 +57,14 @@ const DraggableRow: React.FC<{
   return (
     <tr
       ref={ref}
-      className={`bg-lightthemecolor text-darkthemecolor border-b hover:bg-gray-50 ${
-        isDragging ? "opacity-50" : ""
+      className={`transition-all duration-200 ease-in-out bg-white border-b hover:bg-blue-50 ${
+        isDragging ? "opacity-50 shadow-md" : ""
       }`}
-      style={{
-        transition: "transform 0.2s ease-in-out",
-        willChange: "transform",
-      }}
     >
       {columns.map((col, i) => (
         <td
-          className="px-6 py-4 whitespace-nowrap text-black font-semibold"
           key={i}
+          className="px-4 py-3 text-left whitespace-nowrap text-sm text-gray-700 font-medium border border-gray-200"
         >
           {col.transform
             ? col.transform(row[col.key], row, index)
@@ -89,7 +85,7 @@ const TableWithDnd: React.FC<TableProps> = ({
   const moveRow = useCallback(
     (dragIndex: number, hoverIndex: number) => {
       if (dragIndex === hoverIndex) return;
-      setTableData((prevTableData:any) => {
+      setTableData((prevTableData: any) => {
         const updatedData = [...prevTableData];
         const [removed] = updatedData.splice(dragIndex, 1);
         updatedData.splice(hoverIndex, 0, removed);
@@ -101,23 +97,23 @@ const TableWithDnd: React.FC<TableProps> = ({
 
   const dropRow = useCallback(
     (dragIndex: number, hoverIndex: number) => {
-      console.log(dragIndex,"drag=====");
-      
-      // if (dragIndex !== hoverIndex) {
-        console.log(dragIndex,"drag=====hit");
+      if (dragIndex !== hoverIndex) {
         updateRowOrderAPI(tableData);
-      // }
+      }
     },
     [tableData, updateRowOrderAPI]
   );
 
   return (
-    <div className="relative overflow-x-auto scrollbar-minimized overflow-y-auto sm:rounded-lg border border-gray-200 rounded-lg">
-      <table className="w-full min-h-[150px] text-sm text-center text-gray-500">
-        <thead className="text-xs text-white uppercase bg-black text-lightthemecolor h-[55px]">
+    <div className="relative overflow-x-auto rounded-md  border border-gray-300">
+      <table className="w-full text-sm text-gray-600 bg-white">
+        <thead className="sticky top-0 bg-gray-100 text-gray-800 border-b border-gray-300 z-10">
           <tr>
             {columns.map((col, index) => (
-              <th scope="col" className="px-6 py-3" key={index}>
+              <th
+                key={index}
+                className="px-4 py-3 text-left font-semibold text-sm border-r last:border-r-0"
+              >
                 {col.title}
               </th>
             ))}
@@ -125,7 +121,7 @@ const TableWithDnd: React.FC<TableProps> = ({
         </thead>
         <tbody>
           {apiHit && tableData.length > 0 ? (
-            tableData.map((row:any, index:any) => (
+            tableData.map((row: any, index: number) => (
               <DraggableRow
                 key={index}
                 row={row}
@@ -137,13 +133,19 @@ const TableWithDnd: React.FC<TableProps> = ({
             ))
           ) : apiHit && tableData.length === 0 ? (
             <tr>
-              <td colSpan={columns.length} className="text-center py-4">
-                No Record Found!
+              <td
+                colSpan={columns.length}
+                className="text-center px-4 py-6 text-gray-500"
+              >
+                No records found.
               </td>
             </tr>
           ) : (
             <tr>
-              <td colSpan={columns.length} className="text-center py-4">
+              <td
+                colSpan={columns.length}
+                className="text-center px-4 py-6"
+              >
                 <Loader />
               </td>
             </tr>

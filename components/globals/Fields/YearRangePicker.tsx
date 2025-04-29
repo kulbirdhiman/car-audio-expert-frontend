@@ -23,7 +23,7 @@ const YearRangePicker: React.FC<YearRangePickerProps> = ({
       <div className="flex items-center mt-1">
         <input
           type="number"
-          className="block w-full border-2 border-gray-400 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white dark:border-neutral-700 dark:focus:ring-primary-600 dark:focus:ring-opacity-25 dark:bg-neutral-900 rounded-l-lg text-base font-medium h-10 px-4 py-3"
+          className="block w-full border-2 border-gray-400 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white text-black text-base font-medium h-10 px-4 py-3"
           placeholder="From"
           name="from"
           value={values.from || ""}
@@ -36,7 +36,7 @@ const YearRangePicker: React.FC<YearRangePickerProps> = ({
         <span className="mx-2">-</span>
         <input
           type="number"
-          className="block w-full border-2 border-gray-400 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white dark:border-neutral-700 dark:focus:ring-primary-600 dark:focus:ring-opacity-25 dark:bg-neutral-900 rounded-r-lg text-base font-medium h-10 px-4 py-3"
+          className="block w-full border-2 border-gray-400 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white  text-black rounded-r-lg text-base font-medium h-10 px-4 py-3"
           placeholder="To"
           name="to"
           value={values.to || ""}

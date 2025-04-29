@@ -39,6 +39,9 @@ export default function Register() {
         if (res.data?.user.role === USER_ROLE.frontend_user) {
           router.push(`/user/orders`);
         }
+        if (res.data?.user.role === USER_ROLE.admin) {
+          router.push(`/admin/departments`);
+        }
       }
     } catch (error) {
       console.log(error);

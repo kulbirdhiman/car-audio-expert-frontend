@@ -56,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </p>
 
         <Link
-          href={`/products/${product.slug}`}
+          href={`/product/${product.slug}`}
           passHref
           className="font-bold text-black line-clamp-1 text-sm"
         >

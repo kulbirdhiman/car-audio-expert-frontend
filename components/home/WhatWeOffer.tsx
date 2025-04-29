@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import TabComponent from './TabComponet';
 import ProductCard from './Card';
-
+import ProductCardSkeleton from "../Skeleton/ProductCardSkeleton";
 const WhatWeOffer = () => {
   const [data, setData] = useState<any>({});
   const [apiHit, setApiHit] = useState(false);
@@ -65,7 +65,7 @@ const WhatWeOffer = () => {
       ),
     },
   ];
-  
+
 
   return (
     <div className="w-[96%] mx-auto p-6">
@@ -77,7 +77,11 @@ const WhatWeOffer = () => {
           TabComponentClass="md:flex justify-between mb-2"
         />
       ) : (
-        <p className="text-center text-gray-500">Loading...</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))}
+        </div>
       )}
     </div>
   );
