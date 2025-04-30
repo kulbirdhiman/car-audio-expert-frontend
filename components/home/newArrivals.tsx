@@ -48,7 +48,7 @@ const ProductCard = ({
   price: number;
 }) => {
   return (
-    <div className="flex flex-col sm:flex-row border rounded-lg overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none">
+    <div className="flex h-[200px] flex-col sm:flex-row border border-gray-400 rounded overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none">
       {/* Image */}
       <div className="w-full sm:w-1/2 h-48 sm:h-auto">
         <Image

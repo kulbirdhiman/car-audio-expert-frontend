@@ -7,7 +7,7 @@ const AudioProductCard = ({ image, title, subtitle, price }: {
   price: number;
 }) => {
   return (
-    <div className="max-w-xs border  shadow-sm ">
+    <div className="max-w-xs border h-[340px]  shadow-sm ">
       <Image
       height={500}
       width={500}

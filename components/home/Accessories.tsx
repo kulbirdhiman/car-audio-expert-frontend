@@ -4,6 +4,33 @@ import CardImage from "@/public/abc.png";
 
 const Accessories = () => {
   const data = ["Speaker", "Camera", "Wiring", "Headrest DVD", "Hello", "Audio"];
+  const datas = [
+    {
+    name: "Headunit",
+    image: "/headunits.webp"
+  },
+  {
+    name: "speaker",
+    image: "/speakers.webp"
+  },
+  {
+    name: "sterring wheel",
+    image: "/sterring-wheel.webp"
+  },
+  {
+    name: "Battery",
+    image: "/battery.webp"
+  },
+  {
+    name: "Camara",
+    image: "/camra.webp"
+  },
+  {
+    name: "Harness",
+    image: "/abc.png"
+  },
+
+]
 
   return (
     <div className="my-8 w-11/12 mx-auto border rounded-lg border-gray-300 p-6">
@@ -14,14 +41,14 @@ const Accessories = () => {
 
       {/* Grid: Always 3 columns */}
       <div className="grid grid-cols-3 gap-4">
-        {data.map((name, index) => (
+        {datas.map((name, index) => (
           <div
             key={index}
             className="bg-gray-100 h-[150px] rounded-lg shadow-sm flex items-center gap-4 p-4"
           >
             <div className="w-[100px] h-[100px] flex justify-center items-center">
               <Image
-                src={CardImage}
+                src={name.image}
                 alt={`${name} image`}
                 width={80}
                 height={80}
@@ -30,8 +57,8 @@ const Accessories = () => {
             </div>
 
             <div className="flex flex-col justify-center">
-              <h2 className="text-base sm:text-xl font-semibold">{name}</h2>
-              <p className="text-xs sm:text-sm text-gray-600">(2) items Available</p>
+              <h2 className="text-base sm:text-xl font-semibold">{name.name}</h2>
+              <p className="text-xs sm:text-sm text-gray-600">(100) items Available</p>
             </div>
           </div>
         ))}

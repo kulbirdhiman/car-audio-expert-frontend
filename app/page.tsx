@@ -20,6 +20,7 @@ const page = () => {
       <Accessories />
       <AudioSection />
       <NewArrivals />
+      
     </div>
   )
 }
