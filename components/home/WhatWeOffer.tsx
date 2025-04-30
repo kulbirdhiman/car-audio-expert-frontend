@@ -35,7 +35,7 @@ const WhatWeOffer = () => {
       id: 1,
       label: "Android stereo's",
       content: (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
           {(data?.android?.data ?? []).map((product: any, idx: number) => (
             <ProductCard key={idx} {...product} />
           ))}
@@ -46,7 +46,7 @@ const WhatWeOffer = () => {
       id: 2,
       label: "Linux headunit's",
       content: (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
           {(data?.linux?.data ?? []).map((product: any, idx: number) => (
             <ProductCard key={idx} {...product} />
           ))}
@@ -57,7 +57,7 @@ const WhatWeOffer = () => {
       id: 3,
       label: "Carplay Module's",
       content: (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2  md:grid-cols-5 gap-6">
           {(data?.car_play?.data ?? []).map((product: any, idx: number) => (
             <ProductCard key={idx} {...product} />
           ))}

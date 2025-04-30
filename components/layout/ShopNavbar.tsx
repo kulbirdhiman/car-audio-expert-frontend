@@ -54,7 +54,7 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
             </Link>
 
             {/* Menu */}
-            <ul className="hidden md:flex items-center gap-6 text-sm font-medium">
+            <ul className="hidden lg:flex items-center gap-6 text-sm font-medium">
               <ShopMenuHeader data={departments} />
             </ul>
           </div>

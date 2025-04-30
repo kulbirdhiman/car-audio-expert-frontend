@@ -1,13 +1,16 @@
 // components/ProductCard.tsx
 import Image from "next/image";
+import Link from "next/link";
 const ProductCard = ({
   images,
   smallTitle,
   name,
+  slug ,
   regular_price,
   discount_price,
   in_stock,
 }: {
+  slug : string;
   images: { image: string }[];
   smallTitle: string;
   name: string;
@@ -23,7 +26,7 @@ const ProductCard = ({
   const isInStock = Number(in_stock) > 0;
 
   return (
-    <div className="border border-gray-300 p- shadow-sm hover:shadow-md transition">
+    <Link href={`product/${slug}`} className="border border-gray-300 p- shadow-sm hover:shadow-md transition">
       <Image
       height={500}
       width={500}
@@ -53,7 +56,7 @@ const ProductCard = ({
           Buy now
         </button>
       </div>
-    </div>
+    </Link>
   );
 };
 

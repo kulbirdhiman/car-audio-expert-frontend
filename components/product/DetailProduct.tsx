@@ -147,7 +147,7 @@ const Detail = () => {
         {/* Gallery */}
         <div className="lg:col-span-3">
           <ImageGallery product={product} images={product?.images}/>
-          <ImageGalleryMobile images={product?.images} />
+          {/* <ImageGalleryMobile images={product?.images} /> */}
         </div>
 
         {/* Product Info */}

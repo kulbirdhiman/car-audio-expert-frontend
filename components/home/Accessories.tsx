@@ -1,33 +1,41 @@
+"use client"
 import React from "react";
 import Image from "next/image";
-import CardImage from "@/public/abc.png";
+import Link from "next/link";
 
 const Accessories = () => {
-  const data = ["Speaker", "Camera", "Wiring", "Headrest DVD", "Hello", "Audio"];
   const datas = [
     {
     name: "Headunit",
-    image: "/headunits.webp"
+    image: "/headunits.webp",
+    slug:"products?category=satnav-stereo"
   },
   {
-    name: "speaker",
-    image: "/speakers.webp"
+    name: "audio-equipments",
+    image: "/speakers.webp",
+    slug:"products?category=audio-equipments"
   },
   {
     name: "sterring wheel",
-    image: "/sterring-wheel.webp"
+    image: "/sterring-wheel.webp",
+    slug:"products?category=steering-wheel"
   },
   {
-    name: "Battery",
-    image: "/battery.webp"
+    name: "Car Batteries",
+    image: "/battery.webp",
+    slug:"products?category=car-batteries"
+
   },
   {
-    name: "Camara",
-    image: "/camra.webp"
+    name: "Frames fascias",
+    image: "/fa.webp",
+    slug:"products?category=frames-fascias"
+
   },
   {
-    name: "Harness",
-    image: "/abc.png"
+    name: "accessories",
+    image: "/abc.png",
+    slug:"products?category=accessories"
   },
 
 ]
@@ -41,26 +49,28 @@ const Accessories = () => {
 
       {/* Grid: Always 3 columns */}
       <div className="grid grid-cols-3 gap-4">
-        {datas.map((name, index) => (
-          <div
+        {datas.map(({ name, image, slug }, index)  => (
+          <Link  href={`${slug}`}
             key={index}
             className="bg-gray-100 h-[150px] rounded-lg shadow-sm flex items-center gap-4 p-4"
           >
+            {/* <Link href={`${slug}`} > */}
             <div className="w-[100px] h-[100px] flex justify-center items-center">
               <Image
-                src={name.image}
+                src={image}
                 alt={`${name} image`}
                 width={80}
                 height={80}
-                className="object-contain mix-blend-darken"
+                className="object-contain  mix-blend-darken"
               />
             </div>
 
             <div className="flex flex-col justify-center">
-              <h2 className="text-base sm:text-xl font-semibold">{name.name}</h2>
-              <p className="text-xs sm:text-sm text-gray-600">(100) items Available</p>
+              <h2 className="text-base hidden md:block sm:text-xl font-semibold">{name}</h2>
+              <p className="text-xs hidden md:block sm:text-sm text-gray-600">(100) items Available</p>
             </div>
-          </div>
+            {/* </Link> */}
+          </Link>
         ))}
       </div>
     </div>

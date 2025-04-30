@@ -1,83 +1,72 @@
-import React from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import TabComponent from './TabComponet';
 import AudioProductCard from './AudioCard';
-
+import { getAudioProduct } from "@/store/actions/home";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import AudioProductCardSkeleton from "@/components/Skeleton/AudioProductCardSkeleton"
 const AudioSection = () => {
-  const products = [
-    {
-      image: '/main.png',
-      smallTitle: 'CarPlay Module',
-      title: 'CarPlay Module Pro - Wireless',
-      subtitle: 'Connect wirelessly with ease',
-      price: 599,
-      stock: 'Out of Stock',
-    },
-    {
-      image: '/main.png',
-      smallTitle: 'CarPlay Module',
-      title: 'CarPlay Module Mini - Plug & Play',
-      subtitle: 'Easy setup for all cars',
-      price: 499,
-      stock: 'In Stock',
-    },
-    {
-      image: '/main.png',
-      smallTitle: 'CarPlay Module',
-      title: 'CarPlay Module Standard - Wired',
-      subtitle: 'Stable wired connection',
-      price: 399,
-      stock: 'In Stock',
-    },
-    {
-      image: '/main.png',
-      smallTitle: 'CarPlay Module',
-      title: 'CarPlay Module Elite - For BMW Series',
-      subtitle: 'Specially made for BMW models',
-      price: 699,
-      stock: 'In Stock',
-    },
-    {
-      image: '/main.png',
-      smallTitle: 'CarPlay Module',
-      title: 'CarPlay Module Lite - Compact Fit',
-      subtitle: 'Fits in tight spaces easily',
-      price: 449,
-      stock: 'Limited Stock',
-    },
-    {
-      image: '/main.png',
-      smallTitle: 'CarPlay Module',
-      title: 'CarPlay Module Premium - Fast Boot',
-      subtitle: 'Boots up in seconds',
-      price: 749,
-      stock: 'In Stock',
-    },
-  ];
+  const [data, setData] = useState<any>({});
+  const [apiHit, setApiHit] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const list = async () => {
+    try {
+      const res = await dispatch(getAudioProduct({})).unwrap();
+
+      if (res.success) {
+        console.log("res.data.result", res?.data?.result);
+        setApiHit(true);
+        setData(res.data.result);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    list();
+  }, []);
+  console.log(data, "this is audio data")
+
 
   const tabDataa = [
-    {
-      id: 1,
-      label: "Speaker's",
-      content: (
-        <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible flex sm:flex-none space-x-4 sm:space-x-0 px-1">
-          {products.map((product, idx) => (
-            <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
-              <AudioProductCard  {...product} />
-            </div>
-          ))}
-        </div>
-      ),
-    },
+ 
     {
       id: 2,
       label: "SubWoofer's",
       content: (
         <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible flex sm:flex-none space-x-4 sm:space-x-0 px-1">
-          {products.map((product, idx) => (
-            <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
-              <AudioProductCard  {...product} />
-            </div>
-          ))}
+          {data?.subBooferBox?.data?.length > 0
+            ? data.subBooferBox.data.map((product: any, idx: number) => (
+              <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+                <AudioProductCard {...product} />
+              </div>
+            ))
+            : Array.from({ length: 5 }).map((_, idx) => (
+              <div key={`skeleton-sub-${idx}`} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+                <AudioProductCardSkeleton />
+              </div>
+            ))}
+        </div>
+      ),
+    },
+    {
+      id: 1,
+      label: "Speaker's",
+      content: (
+        <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible flex sm:flex-none space-x-4 sm:space-x-0 px-1">
+          {data?.speakers?.data?.length > 0
+            ? data.speakers.data.map((product: any, idx: number) => (
+              <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+                <AudioProductCard {...product} />
+              </div>
+            ))
+            : Array.from({ length: 5 }).map((_, idx) => (
+              <div key={`skeleton-speaker-${idx}`} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+                <AudioProductCardSkeleton />
+              </div>
+            ))}
         </div>
       ),
     },
@@ -86,29 +75,42 @@ const AudioSection = () => {
       label: "Amplifier's",
       content: (
         <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible flex sm:flex-none space-x-4 sm:space-x-0 px-1">
-          {products.map((product, idx) => (
-            <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
-              <AudioProductCard  {...product} />
-            </div>
-          ))}
+          {data?.amplifier?.data?.length > 0
+            ? data.amplifier.data.map((product: any, idx: number) => (
+              <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+                <AudioProductCard {...product} />
+              </div>
+            ))
+            : Array.from({ length: 5 }).map((_, idx) => (
+              <div key={`skeleton-amp-${idx}`} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+                <AudioProductCardSkeleton />
+              </div>
+            ))}
         </div>
       ),
     },
     {
       id: 4,
-      label: "Equalizer's",
+      label: "subBooferBox",
       content: (
         <div className="sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible flex sm:flex-none space-x-4 sm:space-x-0 px-1">
-          {products.map((product, idx) => (
-            <div key={idx}  className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
-              <AudioProductCard {...product} />
-            </div>
-          ))}
+          {data?.subBooferBox?.data?.length > 0
+            ? data.subBooferBox.data.map((product: any, idx: number) => (
+              <div key={idx} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+                <AudioProductCard {...product} />
+              </div>
+            ))
+            : Array.from({ length: 5 }).map((_, idx) => (
+              <div key={`skeleton-box-${idx}`} className="min-w-[80%] sm:min-w-0 flex-shrink-0 sm:flex-shrink">
+                <AudioProductCardSkeleton />
+              </div>
+            ))}
         </div>
       ),
     },
   ];
-  
+
+
 
   return (
     <div className="w-[96%] mx-auto p-6">

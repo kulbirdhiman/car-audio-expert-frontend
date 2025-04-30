@@ -7,6 +7,8 @@ import { AppDispatch } from "@/store/store";
 // import Link from "next/link";
 import Image from "next/image";
 // import AudioProductCard from './AudioCard';
+import NewArrivalCardSkeleton from "../Skeleton/NewArrivalCardSkeleton";
+import Link from "next/link";
 const products = [
   {
     image: '/car-banner.png',
@@ -32,30 +34,36 @@ const products = [
     subtitle: '',
     price: 877,
   },
- 
+
 ];
 
 
 const ProductCard = ({
-  image,
-  title,
+  images,
+  name,
   subtitle,
-  price,
+  regular_price,
+  slug
 }: {
-  image: string;
-  title: string;
+  images: { image: string }[];
+  name: string;
   subtitle: string;
-  price: number;
+  slug: string;
+  regular_price: number;
 }) => {
+  const imgSrc =
+    images?.[0]?.image?.includes("http")
+      ? images[0].image
+      : `${process.env.NEXT_PUBLIC_S3_IMG_URL}${images?.[0]?.image}`;
   return (
-    <div className="flex h-[200px] flex-col sm:flex-row border border-gray-400 rounded overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none">
+    <Link href={`product/${slug}`} className="flex h-[200px] flex-col sm:flex-row border border-gray-400 rounded overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none">
       {/* Image */}
       <div className="w-full sm:w-1/2 h-48 sm:h-auto">
         <Image
           height={300}
           width={300}
-          src={image}
-          alt={title}
+          src={imgSrc}
+          alt={name}
           className="h-full w-full object-cover"
         />
       </div>
@@ -63,9 +71,9 @@ const ProductCard = ({
       {/* Content */}
       <div className="w-full sm:w-1/2 p-4 flex flex-col justify-between">
         <div>
-          <h2 className="text-base font-semibold text-gray-800">{title}</h2>
+          <h2 className="text-base font-semibold text-gray-800">{name}</h2>
           {subtitle && <p className="text-sm text-gray-500 mt-1">{subtitle}</p>}
-          <p className="text-lg font-bold text-black mt-3">Price: ${price}</p>
+          <p className="text-lg font-bold text-black mt-3">Price: ${regular_price}</p>
         </div>
 
         <div className="flex gap-2 mt-4 flex-wrap">
@@ -77,7 +85,7 @@ const ProductCard = ({
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -93,7 +101,7 @@ const NewArrivals = () => {
       const res = await dispatch(getHotdeals({})).unwrap();
       if (res.success) {
         setData(res.data.result);
-        console.log(res.data.result, "data ")
+        console.log(res.data.result, "data ttttt ")
       }
     } catch (error) {
       console.log(error);
@@ -107,28 +115,35 @@ const NewArrivals = () => {
   }, []);
   return (
     <div className="px-4 md:px-10 py-8">
-    <h2 className="text-2xl font-serif font-bold mb-6">NEW ARRIVALS</h2>
-  
-    <div className="flex flex-wrap gap-6">
-      {/* Responsive Product Grid */}
-      <div className="flex-[1_1_70%] overflow-x-auto sm:overflow-visible">
-        <div
-          className="
+      <h2 className="text-2xl font-serif font-bold mb-6">NEW ARRIVALS</h2>
+
+      <div className="flex flex-wrap gap-6">
+        {/* Responsive Product Grid */}
+        <div className="flex-[1_1_70%] overflow-x-auto sm:overflow-visible">
+          <div
+            className="
             flex sm:grid 
             sm:grid-cols-2 
             gap-6 
             min-w-max sm:min-w-0
           "
-        >
-          {products.map((product: any) => (
-            <div key={product.id} className="min-w-[250px] sm:min-w-0">
-              <ProductCard  {...product} />
-            </div>
-          ))}
+          >
+            {!data
+              ? Array.from({ length: 4 }).map((_, idx) => (
+                <div key={`skeleton-${idx}`} className="min-w-[250px]  sm:min-w-0">
+                  <NewArrivalCardSkeleton />
+                </div>
+              ))
+              : data.map((product: any) => (
+                <div key={product.id} className="min-w-[50px] overflow-x-auto sm:min-w-0">
+                  <ProductCard {...product} />
+                </div>
+              ))}
+
+          </div>
         </div>
       </div>
     </div>
-  </div>  
   );
 };
 

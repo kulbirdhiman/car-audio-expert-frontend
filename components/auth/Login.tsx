@@ -104,7 +104,7 @@ export default function Register() {
           </div>
         </form>
         <p className="text-black mt-2 text-center">
-          Don&apos;t have an account? <Link className="text-blue-500" href="/signup">Sign up</Link>
+          Don&apos;t have an account? <Link className="text-blue-500" href="/sign-up">Sign up</Link>
         </p>
       </div>
     </div>
