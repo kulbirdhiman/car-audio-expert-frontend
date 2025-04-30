@@ -35,7 +35,7 @@ const UserMenu = () => {
 
   return (
     <div
-      className="w-64 h-screen bg-[#1F242B] text-white p-4 flex flex-col justify-between"
+      className="w-64 h-screen  text-black p-4 flex flex-col justify-between"
     >
       {/* Top Menu Items */}
       <div className="flex flex-col gap-3">
@@ -45,7 +45,7 @@ const UserMenu = () => {
             <Link href={item.url} key={index}>
               <div
                 className={`flex items-center gap-4 px-3 py-2 rounded-lg transition-all duration-200 cursor-pointer
-                  ${isActive ? "bg-blue-600 text-white" : "hover:bg-blue-500/10 text-gray-300 hover:text-white"}`}
+                  ${isActive ? "bg-blue-600 text-gray-100" : "hover:bg-blue-500/10 text-black hover:text-white"}`}
               >
                 <item.icon className="text-xl flex-shrink-0" />
                 <span className="text-sm font-medium tracking-wide">
