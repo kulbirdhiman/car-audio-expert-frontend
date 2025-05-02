@@ -56,7 +56,7 @@ const ProductCard = ({
       ? images[0].image
       : `${process.env.NEXT_PUBLIC_S3_IMG_URL}${images?.[0]?.image}`;
   return (
-    <Link href={`product/${slug}`} className="flex h-[200px] flex-col sm:flex-row border border-gray-400 rounded overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none">
+    <Link href={`product/${slug}`} className="flex h-[240px] flex-col sm:flex-row border border-gray-400 rounded overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none">
       {/* Image */}
       <div className="w-full sm:w-1/2 h-48 sm:h-auto">
         <Image
@@ -64,7 +64,7 @@ const ProductCard = ({
           width={300}
           src={imgSrc}
           alt={name}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-fill"
         />
       </div>
 
@@ -128,7 +128,7 @@ const NewArrivals = () => {
             min-w-max sm:min-w-0
           "
           >
-            {!data
+            {loading
               ? Array.from({ length: 4 }).map((_, idx) => (
                 <div key={`skeleton-${idx}`} className="min-w-[250px]  sm:min-w-0">
                   <NewArrivalCardSkeleton />
