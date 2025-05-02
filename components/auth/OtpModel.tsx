@@ -28,7 +28,7 @@ import { verifyOtp } from "@/store/actions/auth";
 
   const handleOtpVerification = async () => {
    try {
-   const res =   await dispatch(verifyOtp({ ...values }));
+   const res =   await dispatch(verifyOtp({ ...values })); 
    console.log("res===",res);
    if((res.payload as any).success){
     setIsOtpVerified (true);
