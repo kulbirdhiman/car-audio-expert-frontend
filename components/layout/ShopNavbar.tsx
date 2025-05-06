@@ -22,7 +22,7 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
   const { user } = useSelector((state: any) => state.auth);
   const { cartCount } = useSelector((state: any) => state.cart);
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
-
+  console.log(departments , "data ")
   return (
     <div className="w-full ">
       {/* Top Bar */}

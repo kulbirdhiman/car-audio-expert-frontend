@@ -26,17 +26,17 @@ const ProductCard = ({
   const isInStock = Number(in_stock) > 0;
 
   return (
-    <Link href={`product/${slug}`} className="border border-gray-300 p- shadow-sm hover:shadow-md transition">
+    <Link href={`product/${slug}`} className="border border-gray-300 h-[450px] shadow-sm hover:shadow-md transition">
       <Image
       height={500}
       width={500}
         src={imgSrc || "/placeholder.png"}
         alt={name}
-        className="w-full h-48 object-cover"
+        className="w-full h-[260px] object-fill"
       />
       <div className="p-3">
         <div className="text-xs text-gray-500">{smallTitle}</div>
-        <h2 className="font-semibold line-clamp-1 text-base text-gray-800 mb-1">
+        <h2 className="font-semibold line-clamp-2 text-base text-gray-800 mb-1">
           {name}
         </h2>
         <div className="text-lg font-bold text-black mb-1">$

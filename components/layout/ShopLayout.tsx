@@ -33,7 +33,7 @@ const ShopLayout: React.FC<ShopLayoutProps> = ({ children }) => {
   const listDepartments = async () => {
     try {
       const res = await dispatch(
-        getDepartment({   })
+        getDepartment({})
       ).unwrap();
       if (res.success) {
         setData(res?.data?.result ?? []);

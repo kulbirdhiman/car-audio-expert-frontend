@@ -41,22 +41,24 @@ const products = [
 const ProductCard = ({
   images,
   name,
-  subtitle,
+  title,
   regular_price,
-  slug
+  slug,
+  specification
 }: {
   images: { image: string }[];
   name: string;
-  subtitle: string;
+  title: string;
   slug: string;
   regular_price: number;
+  specification :string
 }) => {
   const imgSrc =
     images?.[0]?.image?.includes("http")
       ? images[0].image
       : `${process.env.NEXT_PUBLIC_S3_IMG_URL}${images?.[0]?.image}`;
   return (
-    <Link href={`product/${slug}`} className="flex h-[240px] flex-col sm:flex-row border border-gray-400 rounded overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none">
+    <Link href={`product/${slug}`} className="flex h-[350px] md:h-[300px] flex-col sm:flex-row border border-gray-400 rounded overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none">
       {/* Image */}
       <div className="w-full sm:w-1/2 h-48 sm:h-auto">
         <Image
@@ -71,11 +73,14 @@ const ProductCard = ({
       {/* Content */}
       <div className="w-full sm:w-1/2 p-4 flex flex-col justify-between">
         <div>
-          <h2 className="text-base font-semibold text-gray-800">{name}</h2>
-          {subtitle && <p className="text-sm text-gray-500 mt-1">{subtitle}</p>}
+          <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
+          {title && <p className="text-sm line-clamp-1 text-gray-500 mt-1">{title}</p>}
           <p className="text-lg font-bold text-black mt-3">Price: ${regular_price}</p>
         </div>
-
+        <div
+          className="text-sm overflow-clip h-[60px] text-gray-600 "
+          dangerouslySetInnerHTML={{ __html: specification}}
+        />
         <div className="flex gap-2 mt-4 flex-wrap">
           <button className="border border-purple-500 text-purple-500 px-4 py-1.5 rounded-full text-sm hover:bg-purple-50">
             Buy now

@@ -34,7 +34,7 @@ const ImageSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full  mx-auto">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={20}
@@ -47,7 +47,7 @@ const ImageSlider = () => {
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div className="relative rounded-md w-full h-[250px] sm:h-[400px] ">
+            <div className="relative rounded-md w-full h-[250px] sm:h-[490px] ">
               <Image
                 priority={index === 0}
                 quality={100}

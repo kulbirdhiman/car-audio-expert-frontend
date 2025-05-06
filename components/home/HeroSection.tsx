@@ -13,12 +13,12 @@ const HeroSection = () => {
         <Image
           src={sideImage}
           alt="this is side image"
-          className="w-full h-[100px] md:h-[190px] object-cover "
+          className="w-full h-[100px] md:h-[240px] object-cover "
         />
         <Image
           src={sideImage}
           alt="this is side image"
-          className="w-full h-[100px] md:h-[190px] object-cover "
+          className="w-full h-[100px] md:h-[240px] object-cover "
         />
       </div>
     </div>
