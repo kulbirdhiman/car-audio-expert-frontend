@@ -47,7 +47,7 @@ const ImageSlider = () => {
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div className="relative rounded-md w-full h-[250px] sm:h-[490px] ">
+            <div className="relative  w-10/12 mx-auto rounded-lg h-[250px] sm:h-[300px] ">
               <Image
                 priority={index === 0}
                 quality={100}
@@ -55,7 +55,7 @@ const ImageSlider = () => {
                 height={1080}
                 src={slide.image}
                 alt={slide.title}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 rounded-lg w-full h-full object-fill"
               />
               {index === activeSlide && (
                 <motion.div

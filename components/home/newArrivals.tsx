@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState, useMemo, useRef, Suspense } from "react";
 // import dynamic from "next/dynamic";
 import { getHotdeals } from "@/store/actions/home";
@@ -11,32 +11,30 @@ import NewArrivalCardSkeleton from "../Skeleton/NewArrivalCardSkeleton";
 import Link from "next/link";
 const products = [
   {
-    image: '/car-banner.png',
-    title: 'Car Stereo with SatNav For Mercedes Vito',
-    subtitle: '',
+    image: "/car-banner.png",
+    title: "Car Stereo with SatNav For Mercedes Vito",
+    subtitle: "",
     price: 877,
   },
   {
-    image: '/car-banner.png',
-    title: 'Car Stereo with SatNav For Mercedes Vito',
-    subtitle: '',
+    image: "/car-banner.png",
+    title: "Car Stereo with SatNav For Mercedes Vito",
+    subtitle: "",
     price: 877,
   },
   {
-    image: '/car-banner.png',
-    title: 'Car Stereo with SatNav For Mercedes Vito',
-    subtitle: '',
+    image: "/car-banner.png",
+    title: "Car Stereo with SatNav For Mercedes Vito",
+    subtitle: "",
     price: 877,
   },
   {
-    image: '/car-banner.png',
-    title: 'Car Stereo with SatNav For Mercedes Vito',
-    subtitle: '',
+    image: "/car-banner.png",
+    title: "Car Stereo with SatNav For Mercedes Vito",
+    subtitle: "",
     price: 877,
   },
-
 ];
-
 
 const ProductCard = ({
   images,
@@ -44,21 +42,23 @@ const ProductCard = ({
   title,
   regular_price,
   slug,
-  specification
+  discount_price,
 }: {
   images: { image: string }[];
   name: string;
   title: string;
   slug: string;
   regular_price: number;
-  specification :string
+  discount_price: number;
 }) => {
-  const imgSrc =
-    images?.[0]?.image?.includes("http")
-      ? images[0].image
-      : `${process.env.NEXT_PUBLIC_S3_IMG_URL}${images?.[0]?.image}`;
+  const imgSrc = images?.[0]?.image?.includes("http")
+    ? images[0].image
+    : `${process.env.NEXT_PUBLIC_S3_IMG_URL}${images?.[0]?.image}`;
   return (
-    <Link href={`product/${slug}`} className="flex h-[350px] md:h-[300px] flex-col sm:flex-row border border-gray-400 rounded overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none">
+    <Link
+      href={`product/${slug}`}
+      className="flex h-[350px] md:h-[200px] flex-col sm:flex-row border border-gray-400 rounded overflow-hidden shadow-sm bg-white w-full max-w-sm sm:max-w-none"
+    >
       {/* Image */}
       <div className="w-full sm:w-1/2 h-48 sm:h-auto">
         <Image
@@ -73,14 +73,29 @@ const ProductCard = ({
       {/* Content */}
       <div className="w-full sm:w-1/2 p-4 flex flex-col justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
-          {title && <p className="text-sm line-clamp-1 text-gray-500 mt-1">{title}</p>}
-          <p className="text-lg font-bold text-black mt-3">Price: ${regular_price}</p>
+          <h2 className="text-lg font-semibold line-clamp-2  text-gray-800">
+            {name}
+          </h2>
+          {title && (
+            <p className="text-sm line-clamp-1 text-gray-500 mt-1">{title}</p>
+          )}
+          {discount_price ? (
+            <div className="mt-3 text-lg flex gap-2">
+              <p className="text-gray-500 line-through">${regular_price}</p>
+              <p className="text-xl font-bold text-red-600">
+                ${discount_price}
+              </p>
+            </div>
+          ) : (
+            <p className="mt-3 text-xl font-bold text-black">
+              Price: ${regular_price}
+            </p>
+          )}
         </div>
-        <div
+        {/* <div
           className="text-sm overflow-clip h-[60px] text-gray-600 "
           dangerouslySetInnerHTML={{ __html: specification}}
-        />
+        /> */}
         <div className="flex gap-2 mt-4 flex-wrap">
           <button className="border border-purple-500 text-purple-500 px-4 py-1.5 rounded-full text-sm hover:bg-purple-50">
             Buy now
@@ -94,10 +109,7 @@ const ProductCard = ({
   );
 };
 
-
-
 const NewArrivals = () => {
-
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<AppDispatch>();
@@ -106,7 +118,7 @@ const NewArrivals = () => {
       const res = await dispatch(getHotdeals({})).unwrap();
       if (res.success) {
         setData(res.data.result);
-        console.log(res.data.result, "data ttttt ")
+        console.log(res.data.result, "data ttttt ");
       }
     } catch (error) {
       console.log(error);
@@ -135,23 +147,26 @@ const NewArrivals = () => {
           >
             {loading
               ? Array.from({ length: 4 }).map((_, idx) => (
-                <div key={`skeleton-${idx}`} className="min-w-[250px]  sm:min-w-0">
-                  <NewArrivalCardSkeleton />
-                </div>
-              ))
+                  <div
+                    key={`skeleton-${idx}`}
+                    className="min-w-[250px]  sm:min-w-0"
+                  >
+                    <NewArrivalCardSkeleton />
+                  </div>
+                ))
               : data.map((product: any) => (
-                <div key={product.id} className="min-w-[50px] overflow-x-auto sm:min-w-0">
-                  <ProductCard {...product} />
-                </div>
-              ))}
-
+                  <div
+                    key={product.id}
+                    className="min-w-[50px] overflow-x-auto sm:min-w-0"
+                  >
+                    <ProductCard {...product} />
+                  </div>
+                ))}
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-
 
 export default NewArrivals;

@@ -5,11 +5,11 @@ import sideImage from '@/public/mian-sideimage.png';
 
 const HeroSection = () => {
   return (
-    <div className="w-10/12 mx-auto flex flex-col md:flex-row p-3 gap-4">
-      <div className="w-full md:w-[70%]">
+    <div className="">
+      <div className="">
         <ImageSlider />
       </div>
-      <div className="w-full md:w-[30%] flex md:flex-col gap-4">
+      {/* <div className="w-full md:w-[30%] flex md:flex-col gap-4">
         <Image
           src={sideImage}
           alt="this is side image"
@@ -20,7 +20,7 @@ const HeroSection = () => {
           alt="this is side image"
           className="w-full h-[100px] md:h-[240px] object-cover "
         />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -35,8 +35,18 @@ const AudioProductCard = ({ images,
             {name}
           </h2>
           <div className="text-xs line-clamp-1 text-gray-500">{name}</div>
-          <div className="text-base font-semibold text-black mb-1 my-2">Price
-            :${regular_price}</div>
+          {discount_price ? (
+            <div className=" text-base flex gap-2">
+              <p className="text-gray-500 line-through">${regular_price}</p>
+              <p className="mt-3 text-xl font-medium   text-red-600">
+                ${discount_price}
+              </p>
+            </div>
+          ) : (
+            <p className="mt-3 text-xl font-medium  text-black">
+              Price: ${regular_price}
+            </p>
+          )}
           <div className="text-sm text-pink-600 font-semibold mb-2">in Stock</div>
           <div className="flex gap-2">
             {/* <button className="px-4 py-1 border rounded-full text-sm border-purple-600 text-purple-600 hover:bg-purple-50 transition">

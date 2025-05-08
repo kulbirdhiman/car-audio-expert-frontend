@@ -28,7 +28,6 @@ export const getDepartment = createAsyncThunk<listResponse, FormData>(
         `${process.env.NEXT_PUBLIC_ADDRESS}/v1/department/list`,
         config
       );
-
       return res.data;
     } catch (error: any) {
       console.error(error.response?.data || error.message);

@@ -35,6 +35,7 @@ const ShopLayout: React.FC<ShopLayoutProps> = ({ children }) => {
       const res = await dispatch(
         getDepartment({})
       ).unwrap();
+      console.log(res , `${process.env.NEXT_PUBLIC_ADDRESS}/v1/department/list`)
       if (res.success) {
         setData(res?.data?.result ?? []);
       }
