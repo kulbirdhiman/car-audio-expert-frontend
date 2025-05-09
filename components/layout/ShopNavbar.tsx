@@ -10,6 +10,8 @@ import { CiUser } from "react-icons/ci";
 import { BsCart2 } from "react-icons/bs";
 import SearchBar from "./ShopSearchBar";
 import ShopMenuHeader from "./ShopMenuHeader";
+import MegaMenu from "./MegaMenu";
+import CarProductsDropdown from "../globals/DropDown";
 
 interface NavBarProps {
   open?: boolean;
@@ -22,7 +24,8 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
   const { user } = useSelector((state: any) => state.auth);
   const { cartCount } = useSelector((state: any) => state.cart);
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
-  console.log(departments , "data ")
+
+  console.log(departments, "data ");
   return (
     <div className="w-full ">
       {/* Top Bar */}
@@ -32,7 +35,10 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
           <Link href="/support" className="text-sm hover:underline">
             Support
           </Link>
-          <Link href="/business" className="text-sm font-semibold hover:underline">
+          <Link
+            href="/business"
+            className="text-sm font-semibold hover:underline"
+          >
             For Business ↗
           </Link>
         </div>
@@ -76,7 +82,6 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
               )}
             </Link>
 
-
             {/* User */}
             <Link href="/user/orders">
               <CiUser className="h-6 w-6" />
@@ -92,7 +97,10 @@ const ShopNavBar: React.FC<NavBarProps> = ({ open, setOpen, departments }) => {
         {/* Mobile Search Dropdown */}
         <motion.div
           initial={{ height: 0, opacity: 0 }}
-          animate={{ height: filterOpen ? "auto" : 0, opacity: filterOpen ? 1 : 0 }}
+          animate={{
+            height: filterOpen ? "auto" : 0,
+            opacity: filterOpen ? 1 : 0,
+          }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className="overflow-hidden px-4 pb-2 md:hidden"
         >

@@ -18,10 +18,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }, [dispatch]);
 
   useEffect(() => {
-    if (!loading && (!user || user.role !== USER_ROLE.frontend_user)) {
+  if (!loading) {
+    if (!user) {
+      router.push("/sign-in");
+    } else if (user.role !== USER_ROLE.admin && user.role !== USER_ROLE.frontend_user) {
       router.push("/sign-in");
     }
-  }, [loading, user]);
+    // Optional: redirect admin to specific admin page
+    else if (user.role === USER_ROLE.admin) {
+      router.push("/admin/departments");
+    }
+  }
+}, [loading, user, router]);
+
 
   if (loading || !user) return <Loader />;
 

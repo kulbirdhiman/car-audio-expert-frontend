@@ -8,6 +8,7 @@ import { DEPARTMENT_VIEW } from "@/app/constants";
 import MegaMenu from "./MegaMenu";
 import { getCategories } from "@/store/actions/admin/category";
 import { useRouter } from "next/navigation";
+import CarProductsDropdown from "../globals/DropDown";
 
 interface HeaderProps {
   data: any[];
@@ -91,12 +92,14 @@ const ShopMenuHeader: React.FC<HeaderProps> = ({ setOpen, data }) => {
   return (
     <div ref={menuRef} className="relative z-30 mt-0">
       <div className="w-full px-3 hidden md:flex items-center bg-gray dark:bg-white ">
+              <CarProductsDropdown />
+
         {data.map((dept, index) =>
           dept.is_view === DEPARTMENT_VIEW.YES ? (
             <button
               key={`${dept.slug}-${index}`}
               onClick={() => listCategories(dept)}
-              className="px-3 py-2 text-amazon_light md:text-xs xl:text-[11px] line-clamp-1 font-medium hover:bg-gray-100 transition duration-150 ease-in-out flex items-center gap-1 rounded"
+              className="px-3 py-2 text-amazon_light md:text-xs xl:text-sm line-clamp-1 font-medium hover:bg-gray-100 transition duration-150 ease-in-out flex items-center gap-1 rounded"
             >
               {dept.name}
               {/* <MdArrowDropDown className="text-lg" /> */}

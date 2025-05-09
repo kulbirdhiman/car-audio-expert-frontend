@@ -24,6 +24,20 @@ export const department_fields = [
     ],
   },
   {
+    name: "is_car_product",
+    type: "radio",
+    label: "is_car_product",
+    placeholder: "Enter description...",
+    options: [
+      { value: DEPARTMENT_VIEW.YES, label: "yes" },
+
+      {
+        value: DEPARTMENT_VIEW.NO,
+        label: "no",
+      },
+    ],
+  },
+  {
     name: "title",
     type: "text",
     label: "Title",

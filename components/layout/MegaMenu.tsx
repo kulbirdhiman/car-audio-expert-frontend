@@ -27,7 +27,6 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
   megaMenuData,
 }) => {
   const router = useRouter();
-
   const dispatch = useDispatch<AppDispatch>();
   // const [open, setOpen] = useState<boolean>(false);
   const [values, setValues] = useState({});
