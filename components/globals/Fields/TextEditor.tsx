@@ -239,7 +239,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
       {/* Editor Content */}
       <EditorContent
         editor={editor}
-        className="editor-content min-h-[150px] p-2 border mt-2"
+        className="editor-content min-h-[150px] p-2 border-black border mt-2"
       />
     </div>
   );

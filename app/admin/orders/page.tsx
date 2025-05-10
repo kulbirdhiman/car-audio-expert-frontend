@@ -1,34 +1,9 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
-import RightDrawerForm from "@/components/globals/RightDrawerForm";
-import Table from "@/components/globals/Table";
-import { department_fields } from "@/helpers/formField";
-import { department_colomn, orders_colomn } from "@/helpers/tableColumn";
-import {
-  addDepartment,
-  deleteDepartment,
-  editDepartment,
-  getDepartment,
-} from "@/store/actions/admin/department";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store/store";
-import { addSlugField, mapServerErrors } from "@/helpers/commonFunction";
-
 import ListOrder from "@/components/admin/ListOrder";
 import Tabs from "@/components/globals/Tabs";
 import { ORDER_STATUS } from "@/app/constants";
 
-const Page = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  const [open, setOpen] = useState(false);
-  const [values, setValues] = useState<Record<string, any>>({ name: "" });
-  const [errors, setErrors] = useState({});
-  const [apiHit, setApiHit] = useState(false);
-  const [tableData, setTableData] = useState<Record<string, any>[]>([]);
-  const [openDel, setOpenDel] = useState(false);
-
+const Page = () => {  
   const tabData = [
     {
       id: "All",

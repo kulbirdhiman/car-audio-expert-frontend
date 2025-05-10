@@ -120,16 +120,16 @@ if (res.success) {
 
   return (
     <div>
-      <div className="lg:px-3 py-4 flex items-center flex-col sm:flex-row">
+      <div className="w-full  flex items-center justify-between">
         <div className="font-bold text-xl mb-2 w-full">Departments</div>
-        <div className="lg:px-3 w-full md:text-right">
+        {/* <div className=" md:text-right"> */}
           <button
             onClick={() => toggleDrawer({})}
-            className="bg-black hover:bg-black text-white py-1 px-2 rounded w-full md:w-max"
+            className="bg-black flex hover:bg-black text-white py-1 px-2 rounded w-[80px] "
           >
-            <h3 className="text-base font-medium  "> Add New</h3>
+            + Add
           </button>
-        </div>
+        {/* </div> */}
       </div>
       <DeleteModal
         open={openDel}

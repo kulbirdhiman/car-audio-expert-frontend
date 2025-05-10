@@ -31,9 +31,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     <div className="dark:bg-white">
       <AdminSidebar />
       <div className="py-8 p-2 sm:ml-64 ">
-        <div className="md:border-2 md:p-9 dark:text-black  border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        {/* <div className="md:border-2 md:p-9 dark:text-black  border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14"> */}
           {children}
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );

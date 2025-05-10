@@ -121,7 +121,7 @@ const Page = () => {
 
   return (
     <div>
-      <div className="lg:px-3 py-4 flex items-center flex-col sm:flex-row">
+      <div className="lg:px-3 py-2 flex items-center flex-col sm:flex-row">
         <div className="font-bold text-xl mb-2 w-full">Categories</div>
         <div className="lg:px-3 w-full md:text-right">
           <button

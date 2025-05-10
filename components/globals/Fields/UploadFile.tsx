@@ -18,7 +18,7 @@ const UploadImage: React.FC <any> = ({
   
 }) => {
   const updateValues = (key:any, value:any) => {
-    console.log(value);
+    console.log(value ,"this is image data");
 
     setValues((prev:any) => {
       const newImages = [...(prev.images || [])];
@@ -37,9 +37,10 @@ const UploadImage: React.FC <any> = ({
   };
 
   const handleFileChange = async (event:any) => {
-    const file = event.target.files[0];
+    const file = event.target.files;
+    console.log(file , "this is image files")
     if (!file) return;
-    const existingImage = values.images?.[index]?.image;
+    const existingImage = values.images;
     if (existingImage) {
       setDeleteFiles([...deleteFiles,existingImage ])
     }
@@ -70,6 +71,7 @@ const UploadImage: React.FC <any> = ({
       <div className="flex items-center gap-2">
         <input
           type="file"
+          multiple
           onChange={handleFileChange}
           accept=".jpg,.jpeg,.png,.webp"
           className="cursor-pointer w-full border-2 px-2 py-1 rounded focus:border-primary-300 focus:ring focus:ring-primary-200"
@@ -142,7 +144,7 @@ export const setImageErrors = (values:any, setErrors:any) => {
   let is_error = false;
   values.images.forEach((field:any, index:any) => {
  
-    console.log(field.image);
+    console.log(field.image , "this is image");
     
       if (!field.image) {
         is_error = true;

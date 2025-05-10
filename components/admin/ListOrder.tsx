@@ -23,7 +23,7 @@ const ListOrder: React.FC<any> = ({ status }) => {
       ).unwrap();
 
       if (res.success) {
-        console.log(status, res.data);
+        console.log(status, res.data ,"this is data");
         setApiHit(true);
         setTableData(res?.data?.result);
         setTotalRecords(res.data.totalRecords);

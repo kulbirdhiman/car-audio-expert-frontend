@@ -19,10 +19,10 @@ const Table: React.FC<TableProps> = ({ apiHit, columns, tableData }) => {
   return (
     <div className="relative overflow-x-auto scrollbar-minimized overflow-y-auto  border border-gray-200 ">
       <table className="w-full min-h-[150px] text-sm text-center text-gray-500">
-        <thead className="text-xs text-black uppercase bg-gray-100  text-lightthemecolor ">
+        <thead className="text-xs text-black uppercase bg-gray-400  text-lightthemecolor ">
           <tr>
             {columns.map((col, index) => (
-              <th scope="col" className="p-2 border border-gray-200" key={index}>
+              <th scope="col" className="p-2 border border-gray-400" key={index}>
                 {col.title}
               </th>
             ))}

@@ -35,7 +35,7 @@ export default function RightDrawerForm<T extends Record<string, any>>({
 }: FormDrawerProps<T>) {
   return (
     <div
-      className={`fixed inset-0 z-50 flex justify-end transition-opacity duration-300 bg-black bg-opacity-50 ${
+      className={`fixed inset-0 z-50 flex justify-end transition-opacity duration-300 bg- backdrop-blur-xs bg-opacity-50 ${
         open ? "opacity-100 visible" : "opacity-0 invisible"
       }`}
       onClick={() => toggleDrawer(toggleData)}
@@ -57,7 +57,7 @@ export default function RightDrawerForm<T extends Record<string, any>>({
             <XMarkIcon className="h-6 w-6" />
           </button>
         </div>
-        <div className="px-6 pb-[80px] overflow-y-auto scrollbar-width h-full">
+        <div className="px-6 pb-[80px] border-l overflow-y-auto scrollbar-width h-full">
           <DynamicForm
             values={values}
             setValues={setValues}

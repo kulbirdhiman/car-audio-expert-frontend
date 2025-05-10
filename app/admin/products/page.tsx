@@ -81,18 +81,16 @@ const Page = () => {
 
   return (
     <div>
-      <div className="lg:px-3 py-4 flex items-center flex-col sm:flex-row">
-        <div className="font-bold text-xl mb-2 items-center flex gap-4  w-full">
+      <div className="flex py-2 w-[100vw]">
+        <h2 className="font-bold text-xl mb-2 items-center flex gap-4  w-full">
           Product
-          <div className="w-1/2 relative ">
-            <input placeholder="search ..." value={search} onChange={(e)=>{setSearch(e.target.value)}} className="border p-2  rounded" />
-            
-          </div>
-        </div>
-        <div className="lg:px-3 flex gap-4 h-10 items-center w-full md:text-right">
+        </h2>
+        <div className=" flex gap-2 h-10 items-center w-full md:text-right">
+          
+            <input placeholder="search ..." value={search} onChange={(e)=>{setSearch(e.target.value)}} className="border py-1 px-2  rounded" />
           <Link
             href={"/admin/products/add"}
-            className="bg-black block hover:bg-black text-white py-1 px-2 rounded w-full md:w-max"
+            className="bg-black block hover:bg-black text-white py-1 px-2 rounded "
           >
             <h3 className="text-base font-medium  "> Add New</h3>
           </Link>
