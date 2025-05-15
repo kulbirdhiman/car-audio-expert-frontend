@@ -1,17 +1,40 @@
 "use client"; // Required for Next.js App Router
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import { GetStats } from "@/store/actions/admin/dashbord";
 // Dynamically import ApexCharts (Prevents SSR Issues)
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Dashboard = () => {
+  const [apiHit, setApiHit] = useState(false);
+  const [data, setData] = useState<any>(false);
+    const dispatch = useDispatch<AppDispatch>();
+     const getStats = async () => {
+        try {
+          const res = await dispatch(GetStats({})).unwrap();
+    
+          if (res.success) {
+            setData(res.data.result)
+            setApiHit(true);
+            console.log(res.data.result);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    
+      useEffect(() => {
+        getStats();
+      }, []);
+    
   const [chartType, setChartType] = useState<"bar" | "line" | "area" | "pie">("bar");
-
+const totalsale = data?.totalSales ? data?.totalSales : 0;
   const stats = {
-    totalUsers: 5000,
-    totalSales: 120000,
-    totalOrders: 3500,
+    totalUsers: data.totalUsers,
+    totalSales: totalsale ,
+    totalOrders: data?.totalOrders,
     lastYearSales: 90000,
     lastMonthSales: 8000,
   };
@@ -33,7 +56,7 @@ const Dashboard = () => {
       data: Object.values(stats),
     },
   ];
-
+  
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-center">Dashboard</h1>
@@ -45,7 +68,7 @@ const Dashboard = () => {
             <h2 className="text-lg font-semibold capitalize text-gray-600">
               {key.replace(/([A-Z])/g, " $1")}
             </h2>
-            <p className="text-3xl font-bold text-indigo-600 mt-2">${value.toLocaleString()}</p>
+            <p className="text-3xl font-bold text-indigo-600 mt-2">${value}</p>
           </div>
         ))}
       </div>

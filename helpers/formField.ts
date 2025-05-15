@@ -1,6 +1,6 @@
 //   add department
 "use client"
-import { CATEGORY_TYPE, DEPARTMENT_VIEW } from "@/app/constants";
+import { CATEGORY_TYPE, DEPARTMENT_VIEW ,is_car_product } from "@/app/constants";
 
 export const department_fields = [
   {
@@ -29,10 +29,10 @@ export const department_fields = [
     label: "is_car_product",
     placeholder: "Enter description...",
     options: [
-      { value: DEPARTMENT_VIEW.YES, label: "yes" },
+      { value: is_car_product.YES, label: "yes" },
 
       {
-        value: DEPARTMENT_VIEW.NO,
+        value: is_car_product.NO,
         label: "no",
       },
     ],

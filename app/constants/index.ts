@@ -13,7 +13,10 @@ export const DEPARTMENT_VIEW = {
   YES: 1,
   NO: 0,
 };
-
+export const is_car_product = {
+  YES: true,
+  NO: false,
+};
 export const CATEGORY_TYPE = {
   company: 1,
   other: 2,
