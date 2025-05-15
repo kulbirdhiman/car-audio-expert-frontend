@@ -41,3 +41,34 @@ export const GetStats = createAsyncThunk<listResponse, FormData>(
     }
   }
 );
+export const GetSalesChart = createAsyncThunk<listResponse, FormData>(
+  "Chart",
+  async (data, { dispatch, rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("loggedIn") || ""}`,
+        },
+        params: data,
+      };
+
+      const res = await axios.get<listResponse>(
+        `${process.env.NEXT_PUBLIC_ADDRESS}/v1/admin_dashboard/sale_data`,
+        config
+      );
+      return res.data;
+    } catch (error: any) {
+      console.error(error.response?.data || error.message);
+      dispatch(registerError(error.response?.data));
+
+      return rejectWithValue(
+        error.response?.data ?? {
+          success: false,
+          message: "An error occurred",
+          errors: [],
+        }
+      );
+    }
+  }
+);

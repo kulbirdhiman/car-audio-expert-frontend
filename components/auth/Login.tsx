@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import { AppDispatch } from "@/store/store";
 import { USER_ROLE } from "@/app/constants";
 import { useRouter } from "next/navigation";
 import { mapServerErrors } from "@/helpers/commonFunction";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // 👈 Add icons
 
 interface ServerError {
   errors: Record<string, string>;
@@ -19,6 +20,7 @@ export default function Register() {
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showPassword, setShowPassword] = useState(false); // 👈 Password toggle state
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,21 +47,20 @@ export default function Register() {
       }
     } catch (error) {
       console.log(error);
-
       const formErrors = mapServerErrors((error as ServerError).errors, setErrors);
       console.error("Login failed:", formErrors);
     }
   };
 
   return (
-    <div className="flex flex-col-reverse md:flex-row max-w-4xl border border-black gap-5 mx-auto ">
+    <div className="flex flex-col-reverse md:flex-row max-w-4xl border border-black gap-5 mx-auto">
       <div className="w-full md:w-1/2">
         <Image
           src="/main.png"
           alt="Login"
           width={500}
           height={500}
-          className="h-full w-full hidden md:block "
+          className="h-full w-full hidden md:block"
         />
       </div>
 
@@ -79,15 +80,21 @@ export default function Register() {
               {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
             </div>
 
-            <div className="p-1">
+            <div className="p-1 relative">
               <label className="block text-black mb-1">Password</label>
               <input
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"} // 👈 Toggle input type
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full mt-1 border text-black rounded p-2 border-black"
+                className="w-full mt-1 border text-black rounded p-2 border-black pr-10"
               />
+              <div
+                className="absolute right-4 top-[48px] cursor-pointer text-xl text-gray-600"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+              </div>
               {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
               <div className="text-right mt-1">
                 <Link href="/forgot-password" className="text-blue-500 text-sm hover:underline">
@@ -104,7 +111,10 @@ export default function Register() {
           </div>
         </form>
         <p className="text-black mt-2 text-center">
-          Don&apos;t have an account? <Link className="text-blue-500" href="/sign-up">Sign up</Link>
+          Don&apos;t have an account?{" "}
+          <Link className="text-blue-500" href="/sign-up">
+            Sign up
+          </Link>
         </p>
       </div>
     </div>
