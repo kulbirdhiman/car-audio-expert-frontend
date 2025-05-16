@@ -17,7 +17,8 @@ interface ImageType {
 interface ExtraProduct {
   id: number;
   name: string;
-  wholesale_price?: number;
+  discount_price?: number;
+  regular_price?: number;
   in_stock: number;
   images: ImageType[];
   department_id: number;
@@ -127,7 +128,15 @@ const AddOn: React.FC<AddOnProps> = ({ extras = [], setAddOns, addOns }) => {
                 value={product.id}
                 disabled={product.in_stock !== IN_STOCK}
               >
-                {product.name} {product.in_stock !== IN_STOCK ? "(Out of Stock)" : ""} - ${product.wholesale_price ?? "--"}
+                {product.name}
+                {product.in_stock !== IN_STOCK ? " (Out of Stock)" : ""}
+                {" - $"}
+                {product.discount_price && product.discount_price > 0
+                  ? product.discount_price
+                  : product.regular_price}
+                {(product?.discount_price ?? 0) > 0
+                  ? ` (was $${product.regular_price})`
+                  : ""}
               </option>
             ))}
           </select>

@@ -88,11 +88,11 @@ const ListCards = () => {
     list(1, searchParams);
   }, [searchParams, minPrice, maxPrice]);
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      list(1, searchParams, searchTerm);
-    }
-  };
+  // const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter") {
+  //     list(1, searchParams, searchTerm);
+  //   }
+  // };
 
   return (
     // <Suspense fallback={<div>Loading...</div>}>

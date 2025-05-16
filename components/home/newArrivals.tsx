@@ -73,7 +73,7 @@ const ProductCard = ({
       {/* Content */}
       <div className="w-full sm:w-1/2 p-4 flex flex-col justify-between">
         <div>
-          <h2 className="text-lg font-semibold line-clamp-2  text-gray-800">
+          <h2 className="text-lg font-semibold line-clamp-1  text-gray-800">
             {name}
           </h2>
           {title && (

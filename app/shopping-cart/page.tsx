@@ -77,12 +77,12 @@ const Page: React.FC = () => {
   const subtotal = calculateSubTotal(data.result);
 
   return (
-    <div className="w-11/12 font-serif mx-auto my-7">
+    <div className="w-11/12 font-serif min-h-[40vh] mx-auto my-7">
       <h1 className="text-3xl">Cart</h1>
       <div className="my-3 flex flex-col lg:flex-row gap-8 relative">
         {/* Left Section - Cart Items */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
-          {data.result.map((item: CartItem) => (
+          {  data.result.map((item: CartItem) => (
             <div
               key={item.id}
               className="border rounded-md p-3 bg-white shadow relative text-sm"

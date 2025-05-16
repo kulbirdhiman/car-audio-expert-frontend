@@ -21,7 +21,6 @@ const VehicleSelector = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
-  // Fetch Makes
   useEffect(() => {
     const fetchMakes = async () => {
       try {
@@ -38,32 +37,36 @@ const VehicleSelector = () => {
     fetchMakes();
   }, [dispatch]);
 
-  // Fetch Models when a Make is selected
-  const fetchModels = async (selectedMake: any) => {
+  const fetchModels = async (selectedMakeId: any) => {
     setLoadingModels(true);
     setModels([]);
-
-    const category = categories.find((cat) => cat.id == selectedMake);
+    const category = categories.find((cat) => cat.id == selectedMakeId);
 
     if (!category) {
       setLoadingModels(false);
       return;
     }
+
     setMake(category);
+
     try {
       const res = await dispatch(
         detailCategory({ slug: category.slug })
       ).unwrap();
+
       if (res.success) {
         const options =
-          (res.data.result as any).car_models?.map(
-            (row: any) => ({
-              value: row.id,
-              label: row.name,
-              slug:row.slug
-            })
-          ) || [];
+          (res.data.result as any).car_models?.map((row: any) => ({
+            value: row.id,
+            label: row.name,
+            slug: row.slug,
+          })) || [];
         setModels(options);
+
+        // Redirect if no models
+        if (options.length === 0) {
+          router.push(`/products/${category.slug}`);
+        }
       }
     } catch (error) {
       console.error("Error fetching models:", error);
@@ -72,132 +75,120 @@ const VehicleSelector = () => {
     }
   };
 
-  const fetchYears = async (selectedMake: any) => {
+  const fetchYears = async (selectedModelId: any) => {
+    const selectedModel = models.find((m) => m.value == selectedModelId);
+    if (!selectedModel) return;
+
+    setModel(selectedModel);
     try {
-
-     const model =  models.find((r)=>r.value == selectedMake)
-     console.log("model",model);
-     
-      setModel(model );
-      const res = await dispatch(detailCarModel({ id: selectedMake })).unwrap();
+      const res = await dispatch(detailCarModel({ id: selectedModelId })).unwrap();
       if (res.success) {
-        setYears(res.data.result);
+        const fetchedYears = res.data.result;
+        setYears(fetchedYears);
+
+        // Redirect if no years
+        if (make && selectedModel && (!fetchedYears || fetchedYears.length === 0)) {
+          router.push(`/products/${make.slug}/${selectedModel.slug}`);
+        }
       }
     } catch (error) {
-      console.error("Error fetching models:", error);
-    } finally {
-      setLoadingModels(false);
+      console.error("Error fetching years:", error);
     }
   };
 
-   
-
- 
-  // Handle Make Selection
-  const handleMakeChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedMake = e.target.value;
-
+  const handleMakeChange = async (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedMakeId = e.target.value;
     setModel("");
     setYear("");
-    fetchModels(selectedMake);
+    setYears([]);
+    await fetchModels(selectedMakeId);
   };
 
-  // Handle Model Selection
   const handleModelChange = async (e: ChangeEvent<HTMLSelectElement>) => {
-    fetchYears(e.target.value);
- 
+    const selectedModelId = e.target.value;
     setYear("");
+    setYears([]);
+    await fetchYears(selectedModelId);
   };
 
-  // Handle Year Selection & Redirect
   const handleYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedYear = e.target.value;
+    setYear(selectedYear);
 
-    // setYear(selectedYear);
     if (make && model && selectedYear) {
       router.push(`/products/${make.slug}/${model.slug}/${selectedYear}`);
     }
   };
+
   return (
     <div
-  className="min-h-screen flex flex-col mt-10 items-center justify-center bg-gray-900 text-white relative px-6"
-  style={{
-    backgroundImage:
-      "url('/images/Banner3.jpg')",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-black opacity-50"></div>
+      className="min-h-[110vh] flex flex-col items-center justify-center bg-gray-900 text-white relative px-6"
+      style={{
+        backgroundImage: "url('/find.jpeg')",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="absolute inset-0 bg-black opacity-50"></div>
 
-  {/* Content */}
-  <div className="space-y-4 flex flex-col justify-center items-center relative">
-    {/* Heading */}
-    <h2 className="text-2xl md:text-3xl font-serif font-semibold text-center">
-      Find What Fits Your Vehicle
-    </h2>
-  <p className="w-[60%] text-center text-base" >Stop guessing—start driving with confidence. Use our easy tool to find parts, accessories, and upgrades made specifically for your car. Fast, accurate, and hassle-free.
-</p>
-    {/* Make Selection */}
-<div className="flex gap-2" >
-      <select
-  className="block w-[11rem] sm:w-[14rem]  p-3 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-sm mt-4 focus:ring-2 focus:ring-blue-500"
-  value={make?.id || ""}
-  onChange={handleMakeChange}
-  disabled={loadingMakes || categories.length === 0}
->
-  <option value="" disabled>
-    Select Your Make
-  </option>
-  {categories.map((makeOption, index) => (
-    <option key={index} value={makeOption.id}>
-      {makeOption.name}
-    </option>
-  ))}
-</select>
+      <div className="space-y-4 flex flex-col justify-center items-center relative">
+        <h2 className="text-2xl md:text-3xl font-serif font-semibold text-center">
+          Find What Fits Your Vehicle
+        </h2>
 
+        <div className="flex flex-wrap gap-4 justify-center items-center">
+          {/* Make */}
+          <select
+            className="block w-[11rem] sm:w-[14rem] p-3 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-sm mt-4 focus:ring-2 focus:ring-blue-500"
+            value={make?.id || ""}
+            onChange={handleMakeChange}
+            disabled={loadingMakes || categories.length === 0}
+          >
+            <option value="" disabled>
+              Select Your Make
+            </option>
+            {categories.map((makeOption, index) => (
+              <option key={index} value={makeOption.id}>
+                {makeOption.name}
+              </option>
+            ))}
+          </select>
 
-    {/* Model Selection */}
-    {/* {make && ( */}
-  <select
-    className="block w-[11rem] sm:w-[14rem]  p-3 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-sm mt-4 focus:ring-2 focus:ring-blue-500"
-    value={model?.value || ""}
-    onChange={handleModelChange}
-    disabled={loadingModels || models.length === 0}
-  >
-    <option value="" disabled>
-      Select Your Model
-    </option>
-    {models.map((modelOption) => (
-      <option key={modelOption.value} value={modelOption.value}>
-        {modelOption.label}
-      </option>
-    ))}
-  </select>
-{/* )} */}
+          {/* Model */}
+          <select
+            className="block w-[11rem] sm:w-[14rem] p-3 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-sm mt-4 focus:ring-2 focus:ring-blue-500"
+            value={model?.value || ""}
+            onChange={handleModelChange}
+            disabled={loadingModels || models.length === 0}
+          >
+            <option value="" disabled>
+              Select Your Model
+            </option>
+            {models.map((modelOption) => (
+              <option key={modelOption.value} value={modelOption.value}>
+                {modelOption.label}
+              </option>
+            ))}
+          </select>
 
-
-    {/* Year Selection */}
-    {/* {model && ( */}
-      <select
-        className="block w-[11rem] sm:w-[14rem]  p-3 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-sm mt-4 focus:ring-2 focus:ring-blue-500"
-        value={year?.id || ""}
-        onChange={handleYearChange}
-      >
-        <option value="">Select Year</option>
-        {years.map((yearOption, index) => (
-          <option key={index} value={yearOption.id}>
-            {yearOption.name}
-          </option>
-        ))}
-      </select>
-    {/* )} */}
-</div>
-  </div>
-</div>
-
+          {/* Year */}
+          <select
+            className="block w-[11rem] sm:w-[14rem] p-3 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-sm mt-4 focus:ring-2 focus:ring-blue-500"
+            value={year || ""}
+            onChange={handleYearChange}
+            disabled={!years.length}
+          >
+            <option value="">Select Year</option>
+            {years.map((yearOption, index) => (
+              <option key={index} value={yearOption.id}>
+                {yearOption.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+    </div>
   );
 };
 

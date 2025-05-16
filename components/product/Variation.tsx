@@ -13,55 +13,53 @@ const Variations = ({ variationData, setVariation, variation, errors }:{ variati
     }));
   };
 
-  const handleOptionChange = (row:any, option:any) => {
-    if (option.in_stock !== IN_STOCK) return;
+  const handleOptionChange = (row: any, option: any) => {
+  if (option.in_stock !== IN_STOCK) return;
 
-    setVariation((prev:any) => {
-      let updatedVariations = [...prev];
+  setVariation((prev: any) => {
+    let updatedVariations = [...prev];
 
-      if (row.is_multy == IS_MULTY) {
-        const existingVariation = updatedVariations.find((v) => v.id == row.id);
+    if (row.is_multy == IS_MULTY) {
+      const existingVariation = updatedVariations.find((v) => v.id == row.id);
 
-        if (existingVariation?.id) {
-          const isOptionSelected = existingVariation.options.some(
-            (o:any) => o.id == option.id
-          );
+      if (existingVariation) {
+        const isOptionSelected = existingVariation.options.some(
+          (o: any) => o.id === option.id
+        );
 
-          if (isOptionSelected) {
-            existingVariation.options = existingVariation.options.filter(
-              (o:any) => o.id !== option.id
-            );
-          } else {
-            existingVariation.options = [...existingVariation.options, option];
-          }
+        // Create new options array (immutably)
+        const newOptions = isOptionSelected
+          ? existingVariation.options.filter((o: any) => o.id !== option.id)
+          : [...existingVariation.options, option];
 
-          updatedVariations = updatedVariations.filter((v) => v.id != row.id);
+        // Filter out the old variation
+        updatedVariations = updatedVariations.filter((v) => v.id !== row.id);
 
-          if (existingVariation.options.length > 0) {
-            updatedVariations.push(existingVariation);
-          }
-        } else {
+        if (newOptions.length > 0) {
           updatedVariations.push({
             ...row,
-
-            options: [option],
+            options: newOptions,
           });
         }
       } else {
-        const existingVar = updatedVariations.find((v) => v.id == row.id);
-        updatedVariations = updatedVariations.filter((v) => v.id != row.id);
-        if (existingVar?.options[0]?.id == option.id) {
-        } else {
-          updatedVariations.push({
-            ...row,
-            options: [option],
-          });
-        }
+        updatedVariations.push({
+          ...row,
+          options: [option],
+        });
       }
+    } else {
+      updatedVariations = updatedVariations.filter((v) => v.id !== row.id);
 
-      return updatedVariations;
-    });
-  };
+      updatedVariations.push({
+        ...row,
+        options: [option],
+      });
+    }
+
+    return updatedVariations;
+  });
+};
+
 
   const handleOptionChangeForCustom = (row:any, option:any) => {
 

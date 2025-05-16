@@ -123,7 +123,7 @@ const ImageGallery = ({
                   ? "border-blue-500"
                   : "border-gray-300"
                 }`}
-              onClick={() => setSelectedImage(index)}
+              onMouseEnter={() => setSelectedImage(index)}
             />
           ))}
         </div>
