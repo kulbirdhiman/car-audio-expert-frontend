@@ -10,7 +10,7 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import { DEPARTMENT_VIEW } from "@/app/constants";
+// import { DEPARTMENT_VIEW } from "@/app/constants";
 import { motion, AnimatePresence } from "framer-motion";
 interface Department {
   id: string;
@@ -46,7 +46,7 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar,  list }) => {
     setSelectedDepartment(categoryParam || null);
     const fetchDepartments = async () => {
       try {
-        const res = await dispatch(getDepartment({ is_view: DEPARTMENT_VIEW.YES })).unwrap();
+        const res = await dispatch(getDepartment({})).unwrap();
         if (res.success) setDepartments((res?.data as any)?.result ?? []);
       } catch (error) {
         console.error("Department fetch error:", error);

@@ -121,7 +121,7 @@ const Page: React.FC = () => {
 
                 <div className="flex justify-between font-bold items-center mt-3">
                   <p className="text-blue-950">
-                    ₹
+                    $
                     {item.discount_price > 0
                       ? item.discount_price
                       : item.regular_price}
@@ -131,7 +131,7 @@ const Page: React.FC = () => {
 
                 <div className="flex justify-between mt-2 items-center">
                   <span className="font-semibold">
-                    Total: ₹{calculatePrice(item)}
+                    Total: ${calculatePrice(item)}
                   </span>
                   <button
                     onClick={() => {
@@ -153,7 +153,7 @@ const Page: React.FC = () => {
             <h2 className="font-extrabold text-xl mb-4">Cart Summary</h2>
             <div className="flex justify-between text-base font-semibold mb-5">
               <span>Total</span>
-              <span>₹{subtotal}</span>
+              <span>${subtotal}</span>
             </div>
             <Link
               href="/checkout"
@@ -168,7 +168,7 @@ const Page: React.FC = () => {
         {data.result.length > 0 && (
           <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50 shadow-md">
             <div className="flex justify-between items-center text-sm font-semibold">
-              <span>Total: ₹{subtotal}</span>
+              <span>Total: $ {subtotal}</span>
               <Link
                 href="/checkout"
                 className="bg-blue-800 text-white px-4 py-2 rounded text-sm"
