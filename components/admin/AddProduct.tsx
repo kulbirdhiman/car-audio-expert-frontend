@@ -219,6 +219,30 @@ const AddProduct: React.FC<any> = ({ values, setValues }) => {
 
   const formFields: FormField[] = [
     {
+      name: "images",
+      label: "Upload Images",
+      type: "custom",
+      customClass: "col-span-2",
+      customRender: () => {
+        return (
+          <div className="col-span-2">
+            {/* {values.images.map((image:any, i:number) => ( */}
+              <UploadImage
+                setDeleteFiles={setDeleteFiles}
+                deleteFiles={deleteFiles}
+                customClass="col-span-2"
+                values={values}
+                // index={i}
+                setValues={setValues}
+                errors={errors}
+                // key={i}
+              />
+            {/* ))} */}
+          </div>
+        );
+      },
+    },
+    {
       name: "name",
       label: "Name",
       type: "text",
@@ -255,12 +279,12 @@ const AddProduct: React.FC<any> = ({ values, setValues }) => {
       type: "number",
       placeholder: "Enter Discount price",
     },
-    {
-      name: "wholesale_price",
-      label: "Wholesale Price",
-      type: "number",
-      placeholder: "Enter Wholesale price",
-    },
+    // {
+    //   name: "wholesale_price",
+    //   label: "Wholesale Price",
+    //   type: "number",
+    //   placeholder: "Enter Wholesale price",
+    // },
     {
       name: "length",
       label: "Length",
@@ -334,30 +358,7 @@ const AddProduct: React.FC<any> = ({ values, setValues }) => {
       placeholder: "Enter Width",
     },
    
-    {
-      name: "images",
-      label: "Upload Images",
-      type: "custom",
-      customClass: "col-span-2",
-      customRender: () => {
-        return (
-          <div className="col-span-2">
-            {values.images.map((image:any, i:number) => (
-              <UploadImage
-                setDeleteFiles={setDeleteFiles}
-                deleteFiles={deleteFiles}
-                customClass="col-span-2"
-                values={values}
-                index={i}
-                setValues={setValues}
-                errors={errors}
-                key={i}
-              />
-            ))}
-          </div>
-        );
-      },
-    },
+    
     {
       name: "multi_models",
       label: "Year",
