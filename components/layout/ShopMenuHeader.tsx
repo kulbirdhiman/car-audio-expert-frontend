@@ -99,7 +99,7 @@ const ShopMenuHeader: React.FC<HeaderProps> = ({ setOpen, data }) => {
             <button
               key={`${dept.slug}-${index}`}
               onClick={() => listCategories(dept)}
-              className="px-3 py-2 text-amazon_light md:text-xs xl:text-sm line-clamp-1 font-medium hover:bg-gray-100 transition duration-150 ease-in-out flex items-center gap-1 rounded"
+              className="px-3 py-2 text-amazon_light md:text-xs xl:text-sm line-clamp-1 font-medium hover:bg-gray-100 transition duration-150 cursor-pointer ease-in-out flex items-center gap-1 rounded"
             >
               {dept.name}
               {/* <MdArrowDropDown className="text-lg" /> */}

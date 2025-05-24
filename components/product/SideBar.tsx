@@ -173,7 +173,7 @@ const SideBar: React.FC<SideBarProps> = ({ showSideBar,  list }) => {
       </button>
 
       {/* Desktop Sidebar */}
-      <aside className={`${showSideBar ? "md:block" : "hidden"} absolute z-20 lg:relative lg:block bg-white p-5 space-y-4 h-screen overflow-y-auto`}>
+      <aside className={`${showSideBar ? "md:block" : "hidden"} absolute z-20 lg:relative lg:block bg-white p-5 space-y-4 h-full overflow-y-auto`}>
         {renderSidebarContent()}
       </aside>
 

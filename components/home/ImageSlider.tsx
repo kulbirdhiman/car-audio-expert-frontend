@@ -8,22 +8,25 @@ import Link from "next/link";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import headunit from "@/public/v6Banner.png"
+import amp from "@/public/images/Amp-banner.png"
+import speaker from "@/public/images/Speaker-Banner.png"
 
 const slides = [
   {
-    image: "/v6Banner.png",
+    image: headunit,
     title: "Kayhan Version 6 Head Unit",
     description: "Power, Performance & Perfection!",
     slug: "product/list?category=satnav-stereo",
   },
   {
-    image: "/images/Amp-banner.png",
+    image: amp,
     title: "Boost Your Sound with Our Amplifiers!",
     description: "Experience powerful, clear, and immersive audio!",
     slug: "product/list?company=amplifier",
   },
   {
-    image: "/images/Speaker-Banner.png",
+    image: speaker,
     title: "Crystal-Clear Sound, Every Beat!",
     description: "Upgrade your audio with our premium speakers.",
     slug: "product/list?company=subwoofer",

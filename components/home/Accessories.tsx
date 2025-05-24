@@ -2,39 +2,45 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import headunit from "@/public/headunits.webp"
+import audioequipments from "@/public/speakers.webp"
+import sterringwheel from "@/public/sterring-wheel.webp"
+import CarBatteries from "@/public/battery.webp"
+import fa from "@/public/fa.webp"
+import abc from "@/public/abc.png"
 
 const Accessories = () => {
   const datas = [
     {
     name: "Headunit",
-    image: "/headunits.webp",
+    image: headunit,
     slug:"products?category=satnav-stereo"
   },
   {
     name: "audio-equipments",
-    image: "/speakers.webp",
+    image: audioequipments,
     slug:"products?category=audio-equipments"
   },
   {
     name: "sterring wheel",
-    image: "/sterring-wheel.webp",
+    image: sterringwheel,
     slug:"products?category=steering-wheel"
   },
   {
     name: "Car Batteries",
-    image: "/battery.webp",
+    image: CarBatteries ,
     slug:"products?category=car-batteries"
 
   },
   {
     name: "Frames fascias",
-    image: "/fa.webp",
+    image: fa,
     slug:"products?category=frames-fascias"
 
   },
   {
     name: "accessories",
-    image: "/abc.png",
+    image: abc,
     slug:"products?category=accessories"
   },
 
